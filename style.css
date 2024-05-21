@@ -1,0 +1,85 @@
+.myHero {
+  min-height: 60vh;
+  background-image:
+    url("https://lh3.googleusercontent.com/pw/AP1GczMXFyzqX9WMKnnyGm5SnRqaKPEx9RjbqI3_nUrtVtIDMvkiafxpCvE23s_8ZUC7JOYom3VxhlysDs5oWip77ftWpTKVFfVdswwsknrUtUnMzs2F4dlEAZ2AREaaOl2tjTpU4du0PCuD_Fibs_YmkUOD=w1694-h953-s-no-gm?authuser=0");
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 1rem !important;
+    margin: 0 !important;
+    background: linear-gradient(to bottom, #1f2020, #bc69f2) !important;
+    height: auto !important;
+    overflow: auto !important;
+}
+
+h1, h2, h3 {
+    font-family: "Honk", system-ui !important;
+    text-wrap: balance !important;
+    line-height: .8 !important;
+}
+
+p {
+    text-wrap: pretty !important;
+    line-height: 1.5 !important;
+}
+
+nav {
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    min-height: 3rem !important;
+    background-color: #1f2020d0 !important;
+    backdrop-filter: blur(.2em) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+/* Estilos para os cards */
+.card {
+    background-color: #f5f5f5 !important;
+    border-radius: 15px !important;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.4) !important;
+    transition: box-shadow 0.3s ease !important;
+    height: 100% !important;
+    margin-bottom: 20px !important;
+}
+
+.card:hover {
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.7) !important;
+}
+
+.card-body {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+}
+
+.card-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 20px !important;
+    flex-shrink: 0 !important;
+}
+
+.info {
+    flex-grow: 1 !important;
+}
+
+.logoRodape img {
+    width: 150px;
+}
+
+footer {
+    margin-top: 20px !important;
+    padding: 20px !important;
+    text-align: center !important;
+    color: #fff !important;
+    position: relative !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;  
+}
