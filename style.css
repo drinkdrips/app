@@ -1,36 +1,43 @@
-nav {
-    font-family: "Nanum Gothic Coding", monospace;
-    font-size: 20px;
+header {
+    background-color: none;
+    color: #fff;
+    padding: 20px 0;
 }
-nav ul {
+
+.container {
+    max-width: 1200px !important;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.header-content {
     display: flex;
-    justify-content: center; /* Centraliza os itens do menu */
-    padding: 0; /* Remova o preenchimento padrão */
+    justify-content: space-between;
+    align-items: center;
 }
 
-nav li {
-    margin-right: 10px;
-    margin-left: 10px
+.connect-button {
+    background-color: #222;
+    color: #fff;
+    border: 1px solid;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: auto ; /* Posiciona o botão no canto direito */
 }
 
-    li {
-      list-style: none;
-      display: inline-block;
-      cursor: pointer;
-      transition: .5s linear;
-      &:hover {
-        text-decoration: underline #5EB0E5;
-      }
-    }
 
-.myHero {
-  min-height: 60vh;
-  background-image:
-    url("https://lh3.googleusercontent.com/pw/AP1GczMXFyzqX9WMKnnyGm5SnRqaKPEx9RjbqI3_nUrtVtIDMvkiafxpCvE23s_8ZUC7JOYom3VxhlysDs5oWip77ftWpTKVFfVdswwsknrUtUnMzs2F4dlEAZ2AREaaOl2tjTpU4du0PCuD_Fibs_YmkUOD=w1694-h953-s-no-gm?authuser=0");
-  background-size: 40%;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+.connect-button:hover {
+    background-color: #f35b04;
 }
+
+.fa-wallet {
+    margin-right: 5px;
+}
+
+
 
 body {
     background: linear-gradient(to bottom, #1f2020, #bc69f2) !important;
@@ -38,73 +45,138 @@ body {
     overflow: auto !important;
 }
 
-h1, h2, h3 {
-    font-family: 'Honk', system-ui !important;
-    text-wrap: balance !important;
-    line-height: .8 !important;
+.list-inline-item {
+    font-family: "Nanum Gothic Coding", monospace;
+    font-size: 12px;
+    }
+
+.list-inline-item a {
+    font-family: "Nanum Gothic Coding", monospace;
+    font-size: 12px;
+    color: #5EB0E5;
+    }
+.nav {
+    font-family: "Nanum Gothic Coding", monospace;
+    font-size: 20px;
 }
 
-.nanum-gothic-coding-regular {
+nav ul {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+nav li {
+    margin: 0 10px;
+    list-style: none;
+    display: inline-block;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff; /* Cor do texto */
+    padding: 5px 20px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    border-color: #bc69f2; /* Cor da borda */
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+    text-decoration: none;
+    background-color: rgba(94, 176, 229, 0.3); /* Cor de fundo com transparência ao passar o mouse */
+    border-color: #5EB0E5; /* Cor da borda ao passar o mouse */
+    color: #5EB0E5; /* Cor do texto ao passar o mouse */
+}
+
+.myHero {
+  min-height: 60vh;
+  background-image: url("https://lh3.googleusercontent.com/pw/AP1GczMXFyzqX9WMKnnyGm5SnRqaKPEx9RjbqI3_nUrtVtIDMvkiafxpCvE23s_8ZUC7JOYom3VxhlysDs5oWip77ftWpTKVFfVdswwsknrUtUnMzs2F4dlEAZ2AREaaOl2tjTpU4du0PCuD_Fibs_YmkUOD=w1694-h953-s-no-gm?authuser=0");
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+h1, h2, h3 {
+    font-family: 'Honk', system-ui;
+    text-wrap: balance;
+    line-height: 0.8;
+}
+.nanum-gothic-coding-regular, .form-group, p {
   font-family: "Nanum Gothic Coding", monospace;
   font-weight: 400;
   font-style: normal;
   color: white;
+  text-wrap: pretty;
+  line-height: 1.5;
 }
-
-.form-group {
-  font-family: "Nanum Gothic Coding", monospace;
-  font-weight: 400;
-  font-style: normal;
-}
-
-
-p {
-    font-family: "Nanum Gothic Coding", monospace;
-    text-wrap: pretty !important;
-    line-height: 1.5 !important;
-}
-
-/* Estilos para os cards */
 .card {
-    background-color: #f5f5f5 !important;
+    background: linear-gradient(to bottom, #1f2020, #bc69f2) !important;
+    background-color: #1f2020;
     border-radius: 15px !important;
-    box-shadow: 0 0 5px rgba(255, 193, 7, 1) !important;
-    transition: box-shadow 0.3s ease !important;
-    height: 100% !important;
-    margin-bottom: 20px !important;
+    box-shadow: 0 0 5px rgba(255, 193, 7, 1);
+    transition: box-shadow 0.3s ease;
+    height: 100%;
+    margin-bottom: 20px;
 }
-
 .card:hover {
-    box-shadow: 0 0 15px rgba(181, 217, 32, 10) !important;
+    box-shadow: 0 0 15px rgba(181, 217, 32, 10);
 }
-
 .card-body {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
-
 .card-title {
-    font-size: 1.5rem !important;
-    margin-bottom: 20px !important;
-    flex-shrink: 0 !important;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    flex-shrink: 0;
 }
-
 .info {
-    flex-grow: 1 !important;
+    flex-grow: 1;
 }
-
 .logoRodape img {
     width: 150px;
 }
-
 footer {
-    margin-top: 20px !important;
-    padding: 20px !important;
-    text-align: center !important;
-    color: #fff !important;
-    position: relative !important;
-    left: 0 !important;
-    bottom: 0 !important;
-    width: 100% !important;  
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#tokenChart {
+    max-width: 100%; /* Garante que o gráfico não ultrapasse o limite do card */
+}
+
+.info-and-chart-container {
+    display: flex;
+    align-items: center;
+}
+
+.info {
+    flex-grow: 1;
+    padding-right: 20px; /* Adiciona espaçamento entre as informações e o gráfico */
+}
+
+.token-chart-container {
+    max-width: 250px; /* Limita a largura do gráfico */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.legend {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.legend-item {
+    margin: 0 5px; /* Espaçamento entre os itens da legenda */
 }
