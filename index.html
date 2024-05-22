@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Honk&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="custom-styles.css">
@@ -16,8 +16,20 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+  <header>
+    <div class="container">
+        <div class="header-content">
+            <h1>App</h1>
+
+            <button class="connect-button">
+                <i class="fas fa-wallet"></i> Conectar a MetaMask
+            </button>
+        </div>
+    </div>
+</header>
+
 <body>
 <div class="container">
   <div class="myHero"></div>  
@@ -30,301 +42,320 @@
       <li><a href="#roadmap">Roadmap</a></li>
     </ul>
   </nav>
-        <h1>Bem-vindos ao App DrinkDrips</h1>
+    <h1>Bem-vindos ao App DrinkDrips</h1>
     <p class="nanum-gothic-coding-regular">Drink é o principal utility token da DrinkDrips, aqui você poderá comprar seus tokens, colocar em stake para coletar Drips, fazer unstake e consultar informações.</p>
+  </div>
+  
+  <!-- Adicionando títulos e textos antes dos conjuntos de cards -->
+  <div class="text-center my-4">
+    <h2>Gestão de Tokens</h2>
+    <p class="nanum-gothic-coding-regular">Aqui você pode comprar tokens Drink usando ETH ou USDT.</p>
+  </div>
+  <div class="row">
+    <!-- Card 2: Comprar Tokens Drink com abas -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="card-title">Comprar Tokens Drink</h2>
+                <ul class="nav nav-tabs" id="buyTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="eth-tab" data-toggle="tab" href="#eth" role="tab" aria-controls="eth" aria-selected="true">Utilizando ETH</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="usdt-tab" data-toggle="tab" href="#usdt" role="tab" aria-controls="usdt" aria-selected="false">Utilizando USDT</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="buyTabsContent">
+                    <div class="tab-pane fade show active" id="eth" role="tabpanel" aria-labelledby="eth-tab">
+                        <form id="buyDrinksEthForm">
+                            <div class="form-group">
+                                <label for="ethAmount">Quantidade de ETH:</label>
+                                <input id="ethAmount" type="number" class="form-control" placeholder="Digite a quantidade de ETH" required>
+                            </div>
+                            <p id="drinkAmount"></p>
+                            <button type="submit" class="btn btn-primary btn-block" id="buyDrinksEthBtn">Enviar</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="usdt" role="tabpanel" aria-labelledby="usdt-tab">
+                        <form id="buyDrinksUsdtForm">
+                            <div class="form-group">
+                                <label for="usdtAmount">Quantidade de USDT:</label>
+                                <input id="usdtAmount" type="number" class="form-control" placeholder="Digite a quantidade de USDT" required>
+                            </div>
+                            <p id="drinkAmountUsdt"></p>
+                            <button type="submit" class="btn btn-primary btn-block" id="buyDrinksUsdtBtn">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        <!-- Card 1: Informações sobre DRINK -->
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">DRINK</h2>
-                    <div class="info">
-                        <p>Cotação de pré-venda: $0.10</p>
-                        <p>Wallet: <span id="walletBalance">Loading...</span> DRINK</p>
-                        <p>Staked: <span id="stakedBalance">Loading...</span> DRINK</p>
-                        <p>APR: a definir%</p>
-                        <p>Total Supply: 51,000,000 DRINK</p>
-                        <p>Cotação em ETH: <span id="priceInEth">Loading...</span></p>
-                        <p>Cotação em USDT: $0.10</p>
+    <!-- Card 1: Informações sobre DRINK -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="card-title">DRINK</h2>
+                <div class="info">
+                    <p>Cotação de pré-venda: $0.10</p>
+                    <p>Wallet: <span id="walletBalance">Loading...</span> DRINK</p>
+                    <p>Staked: <span id="stakedBalance">Loading...</span> DRINK</p>
+                    <p>APR: a definir%</p>
+                    <p>Total Supply: 51,000,000 DRINK</p>
+                    <p>Cotação em ETH: <span id="priceInEth">Loading...</span></p>
+                    <p>Cotação em USDT: $0.10</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="text-center my-4">
+    <h2>Stake e Unstake de Tokens</h2>
+    <p class="nanum-gothic-coding-regular">Faça stake de seus tokens DRINK para ganhar DRIPS, ou faça unstake a qualquer momento.</p>
+  </div>
+  <div class="row">
+    <!-- Card 3: Fazer Stake de DRINK com abas -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="card-title">Stake de DRINK</h2>
+                <ul class="nav nav-tabs" id="stakeTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="stake-tab" data-toggle="tab" href="#stake" role="tab" aria-controls="stake" aria-selected="true">Stake</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="unstake-tab" data-toggle="tab" href="#unstake" role="tab" aria-controls="unstake" aria-selected="false">Unstake</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="stakeTabsContent">
+                    <div class="tab-pane fade show active" id="stake" role="tabpanel" aria-labelledby="stake-tab">
+                        <form id="stakeDrinksForm">
+                            <div class="form-group">
+                                <label for="stakeAmount">Quantidade de DRINK para Stake:</label>
+                                <input id="stakeAmount" type="number" class="form-control" placeholder="Digite a quantidade de DRINK" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" id="stakeDrinksBtn">Stake</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="unstake" role="tabpanel" aria-labelledby="unstake-tab">
+                        <form id="unstakeDrinksForm">
+                            <div class="form-group">
+                                <label for="unstakeAmount">Quantidade de DRINK para Unstake:</label>
+                                <input id="unstakeAmount" type="number" class="form-control" placeholder="Digite a quantidade de DRINK" required>
+                            </div>
+                            <button type="submit" class="btn btn-secondary btn-block" id="unstakeDrinksBtn">Unstake</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Card 2: Comprar Tokens Drink com abas -->
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">Comprar Tokens Drink</h2>
-                    <ul class="nav nav-tabs" id="buyTabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="eth-tab" data-toggle="tab" href="#eth" role="tab" aria-controls="eth" aria-selected="true">Utilizando ETH</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="usdt-tab" data-toggle="tab" href="#usdt" role="tab" aria-controls="usdt" aria-selected="false">Utilizando USDT</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="buyTabsContent">
-                        <div class="tab-pane fade show active" id="eth" role="tabpanel" aria-labelledby="eth-tab">
-                            <form id="buyDrinksEthForm">
-                                <div class="form-group">
-                                    <label for="ethAmount">Quantidade de ETH:</label>
-                                    <input id="ethAmount" type="number" class="form-control" placeholder="Digite a quantidade de ETH" required>
-                                </div>
-                                <p id="drinkAmount"></p>
-                                <button type="submit" class="btn btn-primary btn-block" id="buyDrinksEthBtn">Enviar</button>
-                            </form>
-                        </div>
-                        <div class="tab-pane fade" id="usdt" role="tabpanel" aria-labelledby="usdt-tab">
-                            <form id="buyDrinksUsdtForm">
-                                <div class="form-group">
-                                    <label for="usdtAmount">Quantidade de USDT:</label>
-                                    <input id="usdtAmount" type="number" class="form-control" placeholder="Digite a quantidade de USDT" required>
-                                </div>
-                                <p id="drinkAmountUsdt"></p>
-                                <button type="submit" class="btn btn-primary btn-block" id="buyDrinksUsdtBtn">Enviar</button>
-                            </form>
-                        </div>
-                    </div>
+    </div>
+    <!-- Card 4: Consultar Saldo de DRINK e DRIPS -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="card-title">Consultar Saldo</h2>
+                <div class="info">
+                    <p>Saldo de DRINK: <span id="drinkBalance">Loading...</span> DRINK</p>
+                    <p>Saldo de DRIPS: <span id="dripsBalance">Loading...</span> DRIPS</p>
                 </div>
+                <button id="refreshBalancesBtn" class="btn btn-info btn-block">Atualizar Saldos</button>
             </div>
         </div>
-        <!-- Card 3: Fazer Stake de DRINK com abas -->
-        <div class="col-md-6 mb-4">
+    </div>
+  </div>
+
+  <div class="text-center my-4">
+    <h2>Tokens</h2>
+    <p class="nanum-gothic-coding-regular">Explore mais funcionalidades do nosso aplicativo para maximizar seus ganhos.</p>
+  </div>
+  <div class="row">
+<!-- Card 5: Informações sobre DRINK -->
+<div class="col-md-6 mb-4">
     <div class="card h-100">
         <div class="card-body">
-            <h2 class="card-title">Stake de DRINK</h2>
-            <ul class="nav nav-tabs" id="stakeTabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="stake-tab" data-toggle="tab" href="#stake" role="tab" aria-controls="stake" aria-selected="true">Stake</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="unstake-tab" data-toggle="tab" href="#unstake" role="tab" aria-controls="unstake" aria-selected="false">Unstake</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="stakeTabsContent">
-                <div class="tab-pane fade show active" id="stake" role="tabpanel" aria-labelledby="stake-tab">
-                    <form id="stakeDrinksForm">
-                        <div class="form-group">
-                            <label for="stakeAmount">Quantidade de DRINK para Stake:</label>
-                            <input id="stakeAmount" type="number" class="form-control" placeholder="Digite a quantidade de DRINK" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block" id="stakeDrinksBtn">Stake</button>
-                    </form>
+            <h2 class="card-title">DRINK</h2>
+            <div class="info-and-chart-container">
+                <div class="info">
+                    <p>Fornecimento total: 51.000.000</p>
+                    <p>Fornecimento circulante :</p>
+                    <p>Holders:</p>
+                    <p>Capitalização de mercado:</p>
+                    <p>Tokens em Stake</p>
                 </div>
-                <!-- Adicione o formulário para a aba "Unstake" abaixo -->
-                <div class="tab-pane fade" id="unstake" role="tabpanel" aria-labelledby="unstake-tab">
-                    <form id="unstakeDrinksForm">
-                        <div class="form-group">
-                            <label for="unstakeAmount">Quantidade de DRINK para Unstake:</label>
-                            <input id="unstakeAmount" type="number" class="form-control" placeholder="Digite a quantidade de DRINK" required>
-                        </div>
-                        <button type="submit" class="btn btn-secondary btn-block" id="unstakeDrinksBtn">Unstake</button>
-                    </form>
+                <div class="token-chart-container">
+                    <canvas id="drinkChart" width="250" height="250"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
-        <!-- Card 4: Consultar Saldo de DRINK e DRIPS -->
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">Consultar Saldo</h2>
-                    <div class="info">
-                        <p>Saldo de DRINK: <span id="drinkBalance">Loading...</span> DRINK</p>
-                        <p>Saldo de DRIPS: <span id="dripsBalance">Loading...</span> DRIPS</p>
-                    </div>
+
+<!-- Card 6: Informações Drips -->
+<div class="col-md-6 mb-4">
+    <div class="card h-100">
+        <div class="card-body">
+            <h2 class="card-title">DRIPS</h2>
+            <div class="info-and-chart-container">
+                <div class="info">
+                    <p>Tokens Mintados:</p>
+                    <p>Recompensas distribuídas:</p>
+                    <p>Tokens Queimados:</p>
+                    <p>Holders:</p>
                 </div>
-            </div>
-        </div>
-      
-      <!-- Card 5: Informações DRINK -->
-      <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">DRINK</h2>
-                    <div class="info">
-                        <p>Distribuição DRINK: <span id="drinkBalance">Loading...</span> DRINK</p>
-                        <p>Holders: <span id="dripsBalance">Loading...</span> DRIPS</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-      <!-- Card 6: Informações Drips -->
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">DRIPS</h2>
-                    <div class="info">
-                        <p>Saldo de DRIPS: <span id="drinkBalance">Loading...</span> DRIPS</p>
-                        <p>Saldo de DRIPS: <span id="dripsBalance">Loading...</span> DRIPS</p>
-                      <!-- Card 6: Gráfico Drips --> 
-                      <h2 class="card-title">Distribuição</h2>
-                          <canvas id="tokenChart" width="250" height="250"></canvas>
-                    </div>
+                <div class="token-chart-container">
+                    <canvas id="dripsChart" width="250" height="250"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<footer>
-    <div class="logoRodape">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczPYBu_sgsFmmj8AIRKOG6ZL06yEPdLaZ5c4iuo_XmFmuaf1Ya5VkyS0_gnvisgQUSfSBOh24UEsHm30UMLQgQoDo83OkeDl3Y2FpdHRgmzOJWjvDIhRLvHIkxTiStfKCaTFyKoetP7PLCtw_8GeBA=w1648-h927-s-no-gm?authuser=1" alt="DrinkDrips">
+
+</div>
+
+<footer class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 logoRodape">
+                <img src="https://lh3.googleusercontent.com/pw/AP1GczPYBu_sgsFmmj8AIRKOG6ZL06yEPdLaZ5c4iuo_XmFmuaf1Ya5VkyS0_gnvisgQUSfSBOh24UEsHm30UMLQgQoDo83OkeDl3Y2FpdHRgmzOJWjvDIhRLvHIkxTiStfKCaTFyKoetP7PLCtw_8GeBA=w1648-h927-s-no-gm?authuser=1" alt="DrinkDrips" alt="Logo">
+            </div>
+            <div class="col-md-4">
+                <p>&copy; <span id="year"></span> DrinkDrips. Todos os direitos reservados.</p>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#">Termos de Serviço</a></li>
+                    <li class="list-inline-item"><a href="#">Política de Privacidade</a></li>
+                    <li class="list-inline-item"><a href="#">Contato</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <h6>&copy; <span id="year"></span> DrinkDrips. Todos os direitos reservados.</h6>
 </footer>
+
+  <script>
+    // Atualiza o ano automaticamente
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentYear = new Date().getFullYear();
+        document.getElementById('year').textContent = currentYear;
+    });</script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var ctx = document.getElementById('tokenChart').getContext('2d');
-        var tokenChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Staked', 'Not Staked', 'In Liquidity'],
-                datasets: [{
-                    data: [50, 30, 20], // Valores de exemplo, altere conforme necessário
-                    backgroundColor: ['#70e000', '#bc69f2', '#0598fa'],
-                    borderColor: ['#70e000', '#bc69f2', '#0598fa'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: false,
-                cutout: '80%', // Ajuste conforme necessário para obter o efeito desejado
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.label || '';
-                                let value = context.raw || 0;
-                                return `${label}: ${value}%`;
-                            }
+document.addEventListener("DOMContentLoaded", () => {
+    async function getBalances() {
+        // Lógica para obter saldos de DRINK e DRIPS
+        document.getElementById('walletBalance').textContent = "1000"; // Exemplo de saldo
+        document.getElementById('stakedBalance').textContent = "500"; // Exemplo de saldo
+        document.getElementById('drinkBalance').textContent = "1500"; // Exemplo de saldo
+        document.getElementById('dripsBalance').textContent = "200"; // Exemplo de saldo
+    }
+
+    async function buyDrinksWithEth() {
+        // Lógica para comprar DRINK com ETH
+    }
+
+    async function buyDrinksWithUsdt() {
+        // Lógica para comprar DRINK com USDT
+    }
+
+    async function stakeDrinks() {
+        // Lógica para fazer stake de DRINK
+    }
+
+    async function unstakeDrinks() {
+        // Lógica para fazer unstake de DRINK
+    }
+
+    document.getElementById('buyDrinksEthForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await buyDrinksWithEth();
+    });
+
+    document.getElementById('buyDrinksUsdtForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await buyDrinksWithUsdt();
+    });
+
+    document.getElementById('stakeDrinksForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await stakeDrinks();
+    });
+
+    document.getElementById('unstakeDrinksForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await unstakeDrinks();
+    });
+
+    document.getElementById('refreshBalancesBtn').addEventListener('click', getBalances);
+
+    // Chamada inicial para obter saldos
+    getBalances();
+
+    // Gráfico do Card 5: Drink
+    var ctxDrink = document.getElementById('drinkChart').getContext('2d');
+    var drinkChart = new Chart(ctxDrink, {
+        type: 'doughnut',
+        data: {
+            labels: ['Staked', 'Not Staked', 'In Liquidity'],
+            datasets: [{
+                data: [50, 30, 20], // Valores de exemplo, altere conforme necessário
+                backgroundColor: ['#70e000', '#bc69f2', '#0598fa'],
+                borderColor: ['#70e000', '#bc69f2', '#0598fa'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: false,
+            cutout: '80%',
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            let value = context.raw || 0;
+                            return `${label}: ${value}%`;
                         }
                     }
                 }
             }
-        });
-    });
-</script>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const currentYear = new Date().getFullYear();
-        document.getElementById('year').textContent = currentYear;
-    });
-
-    // Simulação das funções para obter os saldos
-    async function getWalletBalance(account) {
-        // Simulação de saldo
-        return 100;
-    }
-
-    async function getStakedBalance(account) {
-        // Simulação de saldo staked
-        return 50;
-    }
-
-    async function getDripsBalance(account) {
-        // Simulação de saldo drips
-        return 30;
-    }
-
-    // Lógica para consultar saldo
-    async function updateBalances() {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const account = accounts[0];
-
-        const walletBalance = await getWalletBalance(account);
-        document.getElementById('walletBalance').textContent = walletBalance + ' DRINK';
-
-        const stakedBalance = await getStakedBalance(account);
-        document.getElementById('stakedBalance').textContent = stakedBalance + ' DRINK';
-
-        const dripsBalance = await getDripsBalance(account);
-        document.getElementById('dripsBalance').textContent = dripsBalance + ' DRIPS';
-    }
-
-    // Atualizar saldos na inicialização
-    updateBalances();
-
-    // Lógica para Stake de DRINK
-    document.getElementById('stakeDrinksForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const amount = document.getElementById('stakeAmount').value;
-        if (window.ethereum && amount) {
-            try {
-                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                const account = accounts[0];
-
-                // Simulação de stake
-                console.log(`Staking ${amount} DRINK`);
-                // Após fazer a operação, atualize os saldos
-                updateBalances();
-            } catch (error) {
-                console.error('Error staking DRINK:', error);
-            }
         }
     });
 
-    // Lógica para Unstake de DRINK
-    document.getElementById('unstakeDrinksForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const amount = document.getElementById('unstakeAmount').value;
-        if (window.ethereum && amount) {
-            try {
-                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                const account = accounts[0];
-
-                // Simulação de unstake
-                console.log(`Unstaking ${amount} DRINK`);
-                // Após fazer a operação, atualize os saldos
-                updateBalances();
-            } catch (error) {
-                console.error('Error unstaking DRINK:', error);
+    // Gráfico do Card 6: Drips
+    var ctxDrips = document.getElementById('dripsChart').getContext('2d');
+    var dripsChart = new Chart(ctxDrips, {
+        type: 'doughnut',
+        data: {
+            labels: ['Distributed', 'Minted', 'Burned'],
+            datasets: [{
+                data: [40, 35, 25], // Valores de exemplo, altere conforme necessário
+                backgroundColor: ['#70e000', '#bc69f2', '#0598fa'],
+                borderColor: ['#70e000', '#bc69f2', '#0598fa'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: false,
+            cutout: '80%',
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            let value = context.raw || 0;
+                            return `${label}: ${value}%`;
+                        }
+                    }
+                }
             }
         }
     });
-
-    // Lógica para Comprar DRINK com ETH
-    document.getElementById('buyDrinksEthForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const amount = document.getElementById('ethAmount').value;
-        if (window.ethereum && amount) {
-            try {
-                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                const account = accounts[0];
-
-                // Simulação de compra com ETH
-                console.log(`Buying ${amount} DRINK with ETH`);
-                // Após fazer a operação, atualize os saldos
-                updateBalances();
-            } catch (error) {
-                                console.error('Error buying DRINK with ETH:', error);
-            }
-        }
-    });
-
-    // Lógica para Comprar DRINK com USDT
-    document.getElementById('buyDrinksUsdtForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const amount = document.getElementById('usdtAmount').value;
-        if (window.ethereum && amount) {
-            try {
-                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                const account = accounts[0];
-
-                // Simulação de compra com USDT
-                console.log(`Buying ${amount} DRINK with USDT`);
-                // Após fazer a operação, atualize os saldos
-                updateBalances();
-            } catch (error) {
-                console.error('Error buying DRINK with USDT:', error);
-            }
-        }
-    });
+});
 </script>
 </body>
 </html>
