@@ -1,6 +1,13 @@
+     /* Responsividade */
+        @media (max-width: 768px) {
+            .myHero {
+                background-size: 80%;
+            }
+        }
+
 header {
-    background-color: none;
-    color: #fff;
+    background-color: #007bff;
+    color: white;
     padding: 20px 0;
 }
 
@@ -17,9 +24,10 @@ header {
 }
 
 .connect-button {
-    background-color: #222;
-    color: #fff;
-    border: 1px solid;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border: none;
     border-radius: 20px;
     padding: 10px 20px;
     font-size: 16px;
@@ -30,20 +38,27 @@ header {
 
 
 .connect-button:hover {
-    background-color: #f35b04;
+    background-color: #218838;
 }
 
 .fa-wallet {
     margin-right: 5px;
 }
 
-
-
 body {
+    font-family: 'Honk', sans-serif !important;
+    font-size: 18px !important;
     background: linear-gradient(to bottom, #1f2020, #bc69f2) !important;
     height: auto !important;
     overflow: auto !important;
 }
+      /* Feedback Visual */
+        .alert {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 9999;
+        }
 
 .list-inline-item {
     font-family: "Nanum Gothic Coding", monospace;
@@ -113,10 +128,11 @@ h1, h2, h3 {
     background: linear-gradient(to bottom, #1f2020, #bc69f2) !important;
     background-color: #1f2020;
     border-radius: 15px !important;
-    box-shadow: 0 0 5px rgba(255, 193, 7, 1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
     height: 100%;
     margin-bottom: 20px;
+    padding: 50px;
 }
 .card:hover {
     box-shadow: 0 0 15px rgba(181, 217, 32, 10);
@@ -127,10 +143,45 @@ h1, h2, h3 {
     height: 100%;
 }
 .card-title {
+    font-family: 'Nanum Gothic Coding', monospace;
+    color: white;
     font-size: 1.5rem;
     margin-bottom: 20px;
     flex-shrink: 0;
 }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        font-size: 1.3rem !important;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+        font-size: 1.3rem !important;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
 .info {
     flex-grow: 1;
 }
