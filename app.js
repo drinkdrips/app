@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('stakeTokensButton').disabled = false;
                 document.getElementById('unstakeTokensButton').disabled = false;
                 document.getElementById('claimRewardsButton').disabled = false;
+
+                alert('Conexão realizada com sucesso!'); // Adiciona uma mensagem de sucesso
             } catch (error) {
                 console.error(error);
                 alert('Conexão recusada.');
