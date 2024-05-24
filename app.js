@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let web3;
     let userAccount;
 
+    if (!connectButton) {
+        console.error("Botão de conexão não encontrado.");
+        return;
+    }
+
     // Endereços e ABIs dos contratos
     const drinkTokenAddress = "0xYourDrinkTokenAddress"; // Substitua pelo endereço do contrato DrinkToken
     const dripsTokenAddress = "0xYourDripsTokenAddress"; // Substitua pelo endereço do contrato DripsToken
