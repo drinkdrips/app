@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('refreshBalancesBtn').disabled = true;
 
     // Endereços e ABIs dos contratos
-    const drinkTokenAddress = "0xA3c2b3A1Da21add631C6a968Cd1D692539Db12eb"; // Substitua pelo endereço do contrato DrinkToken
+    const drinkTokenAddress = "0x3cfd45d9479c8249e6589431f439c96a62449f5f"; // Substitua pelo endereço do contrato DrinkToken
     const dripsTokenAddress = "0x4F93641C88E0BE37F3a76471714D1bd221d6AAB9"; // Substitua pelo endereço do contrato DripsToken
     const stakingContractAddress = "0x6C5aeda4B21dD8BDE8703Dfbff13702d10d28A6e"; // Substitua pelo endereço do contrato StakingContract
 
