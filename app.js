@@ -8,6 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Inicialmente desativa os botões de funcionalidade
+    document.getElementById('buyDrinksEthForm').querySelector('button').disabled = true;
+    document.getElementById('buyDrinksUsdtForm').querySelector('button').disabled = true;
+    document.getElementById('approveDrinksForm').querySelector('button').disabled = true;
+    document.getElementById('stakeDrinksForm').querySelector('button').disabled = true;
+    document.getElementById('unstakeDrinksForm').querySelector('button').disabled = true;
+    document.getElementById('refreshBalancesBtn').disabled = true;
+
     // Endereços e ABIs dos contratos
     const drinkTokenAddress = "0xYourDrinkTokenAddress"; // Substitua pelo endereço do contrato DrinkToken
     const dripsTokenAddress = "0xYourDripsTokenAddress"; // Substitua pelo endereço do contrato DripsToken
@@ -28,10 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 connectButton.disabled = true; // Desativa o botão após a conexão
 
                 // Habilitar os outros botões após a conexão
-                document.getElementById('buyTokensButton').disabled = false;
-                document.getElementById('stakeTokensButton').disabled = false;
-                document.getElementById('unstakeTokensButton').disabled = false;
-                document.getElementById('claimRewardsButton').disabled = false;
+                document.getElementById('buyDrinksEthForm').querySelector('button').disabled = false;
+                document.getElementById('buyDrinksUsdtForm').querySelector('button').disabled = false;
+                document.getElementById('approveDrinksForm').querySelector('button').disabled = false;
+                document.getElementById('stakeDrinksForm').querySelector('button').disabled = false;
+                document.getElementById('unstakeDrinksForm').querySelector('button').disabled = false;
+                document.getElementById('refreshBalancesBtn').disabled = false;
 
                 alert('Conexão realizada com sucesso!'); // Adiciona uma mensagem de sucesso
             } catch (error) {
