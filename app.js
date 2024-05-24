@@ -17,60 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('refreshBalancesBtn').disabled = true;
 
     // Endereços e ABIs dos contratos
-    const drinkTokenAddress = "0x3cfd45d9479c8249e6589431f439c96a62449f5f"; // Substitua pelo endereço do contrato DrinkToken
-    const dripsTokenAddress = "0x4F93641C88E0BE37F3a76471714D1bd221d6AAB9"; // Substitua pelo endereço do contrato DripsToken
-    const stakingContractAddress = "0x6C5aeda4B21dD8BDE8703Dfbff13702d10d28A6e"; // Substitua pelo endereço do contrato StakingContract
+    const drinkTokenAddress = "0x5de34b5F015423AA4316Ff8797cd4Df6bA14b602"; // Substitua pelo endereço do contrato DrinkToken
+    const dripsTokenAddress = "0x376B0C8E3544c10DE0b7E84Bbc989cfeFbDe15cA"; // Substitua pelo endereço do contrato DripsToken
+    const stakingContractAddress = "0xc6B72F5bC84D7FEE68312a8d32A83f9540e0E867"; // Substitua pelo endereço do contrato StakingContract
 
     const drinkTokenAbi = [
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "approve",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "buyTokensWithEther",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "token",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "buyTokensWithToken",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
 	{
 		"inputs": [
 			{
@@ -214,6 +165,55 @@ document.addEventListener('DOMContentLoaded', () => {
 		],
 		"name": "Approval",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "buyTokensWithEther",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "token",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "buyTokensWithToken",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -509,6 +509,19 @@ document.addEventListener('DOMContentLoaded', () => {
 	{
 		"inputs": [],
 		"name": "MAX_DRINKS_STAKE",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "MAX_SUPPLY",
 		"outputs": [
 			{
 				"internalType": "uint256",
