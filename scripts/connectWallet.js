@@ -11,8 +11,8 @@ export async function connectWallet() {
             await window.ethereum.request({ method: 'eth_requestAccounts' });
             const accounts = await web3.eth.getAccounts();
             userAccount = accounts[0];
-            updateUIAfterConnect(userAccount);
             await initContracts(web3, userAccount);
+            updateUIAfterConnect(userAccount);
             alert('Conexão realizada com sucesso!');
         } catch (error) {
             console.error(error);
