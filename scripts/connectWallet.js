@@ -7,7 +7,7 @@ let userAccount;
 export async function connectWallet() {
     if (window.ethereum) {
         try {
-            web3 = new Web3(window.ethereum); // Web3 estará disponível globalmente
+            web3 = new Web3(window.ethereum);
             await window.ethereum.request({ method: 'eth_requestAccounts' });
             const accounts = await web3.eth.getAccounts();
             userAccount = accounts[0];
