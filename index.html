@@ -66,7 +66,7 @@
                                     <label for="tokenAmount">Quantidade:</label>
                                     <input type="number" class="form-control" id="tokenAmount" placeholder="Insira a quantidade" step="any" min="0">
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block">Comprar DRINK</button>
+                                <button type="submit" class="btn btn-primary btn-block" disabled>Comprar DRINK</button>
                             </form>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                                     <label for="approveAmount">Quantidade de DRINK:</label>
                                     <input type="number" class="form-control" id="approveAmount" placeholder="10" step="1" min="0">
                                 </div>
-                                <button type="submit" class="btn btn-secondary btn-block">Aprovar</button>
+                                <button type="submit" class="btn btn-secondary btn-block" disabled>Aprovar</button>
                             </form>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                                     <label for="stakeAmount">Quantidade de DRINK:</label>
                                     <input type="number" class="form-control" id="stakeAmount" placeholder="10" step="1" min="0">
                                 </div>
-                                <button type="submit" class="btn btn-success btn-block">Stake</button>
+                                <button type="submit" class="btn btn-success btn-block" disabled>Stake</button>
                             </form>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                                     <label for="unstakeAmount">Quantidade de DRINK:</label>
                                     <input type="number" class="form-control" id="unstakeAmount" placeholder="10" step="1" min="0">
                                 </div>
-                                <button type="submit" class="btn btn-danger btn-block">Unstake</button>
+                                <button type="submit" class="btn btn-danger btn-block" disabled>Unstake</button>
                             </form>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                                     <label for="approveDripsAmount">Quantidade de DRIPS:</label>
                                     <input type="number" class="form-control" id="approveDripsAmount" placeholder="10" step="1" min="0">
                                 </div>
-                                <button type="submit" class="btn btn-secondary btn-block">Aprovar</button>
+                                <button type="submit" class="btn btn-secondary btn-block" disabled>Aprovar</button>
                             </form>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                                     <label for="restakeAmount">Quantidade de DRIPS:</label>
                                     <input type="number" class="form-control" id="restakeAmount" placeholder="10" step="1" min="0">
                                 </div>
-                                <button type="submit" class="btn btn-info btn-block">Reestake</button>
+                                <button type="submit" class="btn btn-info btn-block" disabled>Reestake</button>
                             </form>
                         </div>
                     </div>
@@ -165,7 +165,7 @@
                 <div class="col-md-8 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
-                            <button class="btn btn-success btn-block mb-4" id="refreshBalancesBtn">Atualizar Saldos</button>
+                            <button class="btn btn-success btn-block mb-4" id="refreshBalancesBtn" disabled>Atualizar Saldos</button>
                             <p>Saldo de DRINK: <span id="drinkBalance">Loading...</span> DRINK</p>
                             <p>Saldo de DRIPS: <span id="dripsBalance">Loading...</span> DRIPS</p>
                             <p>DRINK em Stake: <span id="stakedDrinkBalance">Loading...</span> DRINK</p>
