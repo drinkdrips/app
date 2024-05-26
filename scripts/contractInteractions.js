@@ -12,7 +12,7 @@ async function loadABI(contractName) {
 export async function initContracts(web3, account) {
     userAccount = account;
 
-    const drinkTokenAddress = '0xB8636E1026dEAB5038Fb5BfB1b5214495525c8ab'; // Substitua pelo endereço do contrato DrinkToken
+    const drinkTokenAddress = '0xB8636E1026dEAB5038Fb5BfB1b5214495525c8ab; // Substitua pelo endereço do contrato DrinkToken
     const dripsTokenAddress = '0x25e2d4663BC853E8E2a81379D35a4895ccef66d6'; // Substitua pelo endereço do contrato DripsToken
     const stakingContractAddress = '0xE4e1A5c25D5B5a418Cdc24BCebE8F640e1109eC3'; // Substitua pelo endereço do contrato StakingContract
 
