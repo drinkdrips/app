@@ -4,6 +4,19 @@ import { updateUIAfterConnect } from './uiUpdate.js';
 let web3;
 let userAccount;
 
+// Função para conectar a MetaMask
+async function connectMetaMask() {
+    try {
+        // Solicita ao usuário permissão para acessar sua conta MetaMask
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        // Atualiza a interface do usuário após a conexão bem-sucedida
+        await connectWallet();
+    } catch (error) {
+        console.error('Erro ao conectar à MetaMask:', error);
+    }
+}
+
+// Função para conectar a carteira
 export async function connectWallet() {
     if (window.ethereum) {
         try {
@@ -23,6 +36,7 @@ export async function connectWallet() {
     }
 }
 
+// Adiciona um ouvinte de evento ao botão de conexão à MetaMask
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.connect-button').addEventListener('click', connectWallet);
+    document.querySelector('.connect-button').addEventListener('click', connectMetaMask);
 });
