@@ -1,19 +1,28 @@
-import { abi as DrinkTokenAbi } from '../contracts/DrinkToken.json';
-import { abi as DripsTokenAbi } from '../contracts/DripsToken.json';
-import { abi as StakingContractAbi } from '../contracts/StakingContract.json';
-
 let drinkTokenContract;
 let dripsTokenContract;
 let stakingContract;
+let userAccount;
 
-export async function initContracts(web3, userAccount) {
+async function loadABI(contractName) {
+    const response = await fetch(`../contracts/${contractName}.json`);
+    const contractJson = await response.json();
+    return contractJson.abi;
+}
+
+export async function initContracts(web3, account) {
+    userAccount = account;
+
     const drinkTokenAddress = '0xB8636E1026dEAB5038Fb5BfB1b5214495525c8ab'; // Substitua pelo endereço do contrato DrinkToken
     const dripsTokenAddress = '0x25e2d4663BC853E8E2a81379D35a4895ccef66d6'; // Substitua pelo endereço do contrato DripsToken
     const stakingContractAddress = '0xE4e1A5c25D5B5a418Cdc24BCebE8F640e1109eC3'; // Substitua pelo endereço do contrato StakingContract
 
-    drinkTokenContract = new web3.eth.Contract(DrinkTokenAbi, drinkTokenAddress);
-    dripsTokenContract = new web3.eth.Contract(DripsTokenAbi, dripsTokenAddress);
-    stakingContract = new web3.eth.Contract(StakingContractAbi, stakingContractAddress);
+    const drinkTokenAbi = await loadABI('DrinkToken');
+    const dripsTokenAbi = await loadABI('DripsToken');
+    const stakingContractAbi = await loadABI('StakingContract');
+
+    drinkTokenContract = new web3.eth.Contract(drinkTokenAbi, drinkTokenAddress);
+    dripsTokenContract = new web3.eth.Contract(dripsTokenAbi, dripsTokenAddress);
+    stakingContract = new web3.eth.Contract(stakingContractAbi, stakingContractAddress);
 }
 
 // Funções para interações com contratos
