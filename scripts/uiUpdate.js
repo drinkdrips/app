@@ -1,3 +1,5 @@
+import { buyDrinks, approveTokens, stakeTokens, unstakeTokens, refreshBalances } from './contractInteractions.js';
+
 export function updateUIAfterConnect(userAccount) {
     const connectButton = document.querySelector('.connect-button');
     connectButton.innerText = `Conectado: ${userAccount.slice(0, 6)}...${userAccount.slice(-4)}`;
