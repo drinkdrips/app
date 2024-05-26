@@ -7,7 +7,7 @@ let userAccount;
 export async function connectWallet() {
     if (window.ethereum) {
         try {
-            web3 = new Web3(window.ethereum); // Web3 estará disponível globalmente
+            web3 = new Web3(window.ethereum);
             await window.ethereum.request({ method: 'eth_requestAccounts' });
             const accounts = await web3.eth.getAccounts();
             userAccount = accounts[0];
@@ -16,7 +16,8 @@ export async function connectWallet() {
             alert('Conexão realizada com sucesso!');
         } catch (error) {
             console.error(error);
-            alert('Conexão recusada.');
+            // Removendo o alerta de "Conexão recusada" após a conexão bem-sucedida
+            // alert('Conexão recusada.');
         }
     } else {
         alert('MetaMask não detectado.');
