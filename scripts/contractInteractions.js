@@ -1,22 +1,80 @@
-import Web3 from 'web3';
-import { abi as DrinkTokenAbi } from './contracts/DrinkToken.json';
-import { abi as DripsTokenAbi } from './contracts/DripsToken.json';
-import { abi as StakingContractAbi } from './contracts/StakingContract.json';
+import { abi as DrinkTokenAbi } from '../contracts/DrinkToken.json';
+import { abi as DripsTokenAbi } from '../contracts/DripsToken.json';
+import { abi as StakingContractAbi } from '../contracts/StakingContract.json';
 
-let web3;
 let drinkTokenContract;
 let dripsTokenContract;
 let stakingContract;
 
-async function initContracts() {
-    web3 = new Web3(window.ethereum);
-    const DRINK_TOKEN_ADDRESS = "0xB8636E1026dEAB5038Fb5BfB1b5214495525c8ab"; // Endereço do contrato DrinkToken
-    const DRIPS_TOKEN_ADDRESS = "0x25e2d4663BC853E8E2a81379D35a4895ccef66d6"; // Endereço do contrato DripsToken
-    const STAKING_CONTRACT_ADDRESS = "0xE4e1A5c25D5B5a418Cdc24BCebE8F640e1109eC3"; // Endereço do contrato StakingContract
+export async function initContracts(web3, userAccount) {
+    const drinkTokenAddress = '0xB8636E1026dEAB5038Fb5BfB1b5214495525c8ab'; // Substitua pelo endereço do contrato DrinkToken
+    const dripsTokenAddress = '0x25e2d4663BC853E8E2a81379D35a4895ccef66d6'; // Substitua pelo endereço do contrato DripsToken
+    const stakingContractAddress = '0xE4e1A5c25D5B5a418Cdc24BCebE8F640e1109eC3'; // Substitua pelo endereço do contrato StakingContract
 
-    drinkTokenContract = new web3.eth.Contract(DrinkTokenAbi, DRINK_TOKEN_ADDRESS);
-    dripsTokenContract = new web3.eth.Contract(DripsTokenAbi, DRIPS_TOKEN_ADDRESS);
-    stakingContract = new web3.eth.Contract(StakingContractAbi, STAKING_CONTRACT_ADDRESS);
+    drinkTokenContract = new web3.eth.Contract(DrinkTokenAbi, drinkTokenAddress);
+    dripsTokenContract = new web3.eth.Contract(DripsTokenAbi, dripsTokenAddress);
+    stakingContract = new web3.eth.Contract(StakingContractAbi, stakingContractAddress);
 }
 
-export { initContracts };
+// Funções para interações com contratos
+export async function buyDrinks(paymentToken, tokenAmount) {
+    try {
+        const method = paymentToken === 'eth' ? 'buyTokensWithEth' : 'buyTokensWithToken';
+        await drinkTokenContract.methods[method](web3.utils.toWei(tokenAmount, 'ether')).send({
+            from: userAccount,
+            value: paymentToken === 'eth' ? web3.utils.toWei(tokenAmount, 'ether') : undefined
+        });
+        alert('Compra realizada com sucesso!');
+    } catch (error) {
+        console.error(error);
+        alert('Erro na compra.');
+    }
+}
+
+export async function approveTokens(approveAmount) {
+    try {
+        await drinkTokenContract.methods.approve(stakingContract.options.address, web3.utils.toWei(approveAmount, 'ether')).send({
+            from: userAccount
+        });
+        alert('Aprovação realizada com sucesso!');
+    } catch (error) {
+        console.error(error);
+        alert('Erro na aprovação.');
+    }
+}
+
+export async function stakeTokens(stakeAmount) {
+    try {
+        await stakingContract.methods.stakeTokens(web3.utils.toWei(stakeAmount, 'ether')).send({
+            from: userAccount
+        });
+        alert('Stake realizado com sucesso!');
+    } catch (error) {
+        console.error(error);
+        alert('Erro no stake.');
+    }
+}
+
+export async function unstakeTokens(unstakeAmount) {
+    try {
+        await stakingContract.methods.unstakeTokens(web3.utils.toWei(unstakeAmount, 'ether')).send({
+            from: userAccount
+        });
+        alert('Unstake realizado com sucesso!');
+    } catch (error) {
+        console.error(error);
+        alert('Erro no unstake.');
+    }
+}
+
+export async function refreshBalances() {
+    try {
+        const drinkBalance = await drinkTokenContract.methods.balanceOf(userAccount).call();
+        const dripsBalance = await dripsTokenContract.methods.balanceOf(userAccount).call();
+        document.getElementById('drinkBalance').innerText = web3.utils.fromWei(drinkBalance, 'ether');
+        document.getElementById('dripsBalance').innerText = web3.utils.fromWei(dripsBalance, 'ether');
+    } catch (error) {
+        console.error(error);
+        alert('Erro ao atualizar saldos.');
+    }
+}
