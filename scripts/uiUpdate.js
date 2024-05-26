@@ -5,6 +5,7 @@ export function updateUIAfterConnect(userAccount) {
     connectButton.innerText = `Conectado: ${userAccount.slice(0, 6)}...${userAccount.slice(-4)}`;
     connectButton.disabled = true;
 
+    // Ativando os botões após a conexão bem-sucedida
     document.getElementById('buyDrinksForm').querySelector('button').disabled = false;
     document.getElementById('approveDrinksForm').querySelector('button').disabled = false;
     document.getElementById('stakeDrinksForm').querySelector('button').disabled = false;
