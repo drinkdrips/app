@@ -1,0 +1,33 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_drinkToken",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_dripsToken",
+				"type": "address"
+			}
+		],
+		"name": "deployStakingContract",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "contractAddress",
+				"type": "address"
+			}
+		],
+		"name": "StakingContractDeployed",
+		"type": "event"
+	}
+]
