@@ -1,9 +1,49 @@
-     /* Responsividade */
-        @media (max-width: 768px) {
-            .myHero {
-                background-size: 80%;
-            }
-        }
+/* Responsividade */
+@media (max-width: 768px) {
+    .myHero {
+        background-size: 80%;
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .connect-button {
+        margin: 10px 0 0 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav li {
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        padding: 20px;
+    }
+
+    .token-chart-container {
+        max-width: 100%;
+    }
+
+    .info-and-chart-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .info {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+}
 
 header {
     background-color: #007bff;
@@ -12,7 +52,7 @@ header {
 }
 
 .container {
-    max-width: 1200px !important;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 10px;
 }
@@ -26,16 +66,14 @@ header {
 .connect-button {
     background-color: #28a745;
     color: white;
-    cursor: pointer;
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: auto ; /* Posiciona o botão no canto direito */
+    margin-left: auto;
 }
-
 
 .connect-button:hover {
     background-color: #218838;
@@ -46,30 +84,31 @@ header {
 }
 
 body {
-    font-family: 'Honk', sans-serif !important;
-    font-size: 18px !important;
-    background: linear-gradient(to bottom, #1f2020, #bc69f2) !important;
-    height: auto !important;
-    overflow: auto !important;
+    font-family: 'Honk', sans-serif;
+    font-size: 18px;
+    background: linear-gradient(to bottom, #1f2020, #bc69f2);
+    height: auto;
+    overflow: auto;
 }
-      /* Feedback Visual */
-        .alert {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 9999;
-        }
+
+.alert {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+}
 
 .list-inline-item {
     font-family: "Nanum Gothic Coding", monospace;
     font-size: 12px;
-    }
+}
 
 .list-inline-item a {
     font-family: "Nanum Gothic Coding", monospace;
     font-size: 12px;
     color: #5EB0E5;
-    }
+}
+
 .nav {
     font-family: "Nanum Gothic Coding", monospace;
     font-size: 20px;
@@ -84,64 +123,68 @@ nav ul {
 nav li {
     margin: 0 10px;
     list-style: none;
-    display: inline-block;
 }
 
 nav a {
     text-decoration: none;
-    color: #fff; /* Cor do texto */
+    color: #fff;
     padding: 5px 20px;
     border: 1px solid transparent;
     border-radius: 20px;
-    border-color: #bc69f2; /* Cor da borda */
+    border-color: #bc69f2;
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 nav a:hover {
-    text-decoration: none;
-    background-color: rgba(94, 176, 229, 0.3); /* Cor de fundo com transparência ao passar o mouse */
-    border-color: #5EB0E5; /* Cor da borda ao passar o mouse */
-    color: #5EB0E5; /* Cor do texto ao passar o mouse */
+    background-color: rgba(94, 176, 229, 0.3);
+    border-color: #5EB0E5;
+    color: #5EB0E5;
 }
 
 .myHero {
-  min-height: 60vh;
-  background-image: url("https://lh3.googleusercontent.com/pw/AP1GczMXFyzqX9WMKnnyGm5SnRqaKPEx9RjbqI3_nUrtVtIDMvkiafxpCvE23s_8ZUC7JOYom3VxhlysDs5oWip77ftWpTKVFfVdswwsknrUtUnMzs2F4dlEAZ2AREaaOl2tjTpU4du0PCuD_Fibs_YmkUOD=w1694-h953-s-no-gm?authuser=0");
-  background-size: 40%;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+    min-height: 60vh;
+    background-image: url("https://lh3.googleusercontent.com/pw/AP1GczMXFyzqX9WMKnnyGm5SnRqaKPEx9RjbqI3_nUrtVtIDMvkiafxpCvE23s_8ZUC7JOYom3VxhlysDs5oWip77ftWpTKVFfVdswwsknrUtUnMzs2F4dlEAZ2AREaaOl2tjTpU4du0PCuD_Fibs_YmkUOD=w1694-h953-s-no-gm?authuser=0");
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
 }
+
 h1, h2, h3 {
     font-family: 'Honk', system-ui;
     text-wrap: balance;
     line-height: 0.8;
 }
+
 .nanum-gothic-coding-regular, .form-group, p {
-  font-family: "Nanum Gothic Coding", monospace;
-  font-weight: 400;
-  font-style: normal;
-  color: white;
-  text-wrap: pretty;
-  line-height: 1.5;
+    font-family: "Nanum Gothic Coding", monospace;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    text-wrap: pretty;
+    line-height: 1.5;
 }
+
 .card {
-    background: linear-gradient(to bottom, #1f2020, #bc69f2) !important;
+    background: linear-gradient(to bottom, #1f2020, #bc69f2);
     background-color: #1f2020;
-    border-radius: 15px !important;
+    border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
     height: 100%;
     margin-bottom: 20px;
     padding: 50px;
 }
+
 .card:hover {
     box-shadow: 0 0 15px rgba(181, 217, 32, 10);
 }
+
 .card-body {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
+
 .card-title {
     font-family: 'Nanum Gothic Coding', monospace;
     color: white;
@@ -150,44 +193,46 @@ h1, h2, h3 {
     flex-shrink: 0;
 }
 
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-        font-size: 1.3rem !important;
-    }
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 1.3rem;
+}
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #004085;
-    }
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
 
-    .btn-secondary {
-        background-color: #6c757d;
-        border-color: #6c757d;
-    }
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
 
-    .btn-secondary:hover {
-        background-color: #5a6268;
-        border-color: #545b62;
-        font-size: 1.3rem !important;
-    }
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+    font-size: 1.3rem;
+}
 
-    .btn-success {
-        background-color: #28a745;
-        border-color: #28a745;
-    }
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
 
-    .btn-success:hover {
-        background-color: #218838;
-        border-color: #1e7e34;
-    }
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
 
 .info {
     flex-grow: 1;
 }
+
 .logoRodape img {
     width: 150px;
 }
+
 footer {
     margin-top: 20px;
     padding: 10px;
@@ -200,7 +245,7 @@ footer {
 }
 
 #tokenChart {
-    max-width: 100%; /* Garante que o gráfico não ultrapasse o limite do card */
+    max-width: 100%;
 }
 
 .info-and-chart-container {
@@ -210,11 +255,11 @@ footer {
 
 .info {
     flex-grow: 1;
-    padding-right: 20px; /* Adiciona espaçamento entre as informações e o gráfico */
+    padding-right: 20px;
 }
 
 .token-chart-container {
-    max-width: 250px; /* Limita a largura do gráfico */
+    max-width: 250px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -229,5 +274,5 @@ footer {
 }
 
 .legend-item {
-    margin: 0 5px; /* Espaçamento entre os itens da legenda */
+    margin: 0 5px;
 }
