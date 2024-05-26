@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +11,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom-styles.css">
+    <script defer src="script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -30,7 +33,6 @@
     </header>
 
     <div class="container">
-        <div class="myHero"></div>
         <div class="header text-center my-4">
             <nav>
                 <ul>
@@ -44,43 +46,38 @@
             <p class="nanum-gothic-coding-regular">Drink é o principal utility token da DrinkDrips, aqui você poderá comprar seus tokens, colocar em stake para coletar Drips, fazer unstake e consultar informações.</p>
         </div>
 
-        <div class="text-center my-4">
-            <h2>Gestão de Tokens</h2>
-            <p class="nanum-gothic-coding-regular">Aqui você pode comprar tokens Drink usando ETH ou USDT.</p>
-        </div>
-
-        <div class="container my-4">
-            <div class="row">
+        <section id="buy-tokens" class="text-center my-4">
+            <h2>Comprar Tokens</h2>
+            <div class="row justify-content-center">
                 <div class="col-md-6 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h2 class="card-title">Comprar DRINK com ETH</h2>
-                            <form id="buyDrinksEthForm">
+                            <h2 class="card-title">Comprar DRINK</h2>
+                            <form id="buyDrinksForm">
                                 <div class="form-group">
-                                    <label for="ethAmount">Quantidade de ETH:</label>
-                                    <input type="number" class="form-control" id="ethAmount" placeholder="Insira a quantidade de ETH" step="any" min="0">
+                                    <label for="paymentToken">Escolha a moeda:</label>
+                                    <select class="form-control" id="paymentToken">
+                                        <option value="eth">ETH</option>
+                                        <option value="matic">MATIC</option>
+                                        <option value="btc">BTC</option>
+                                        <option value="usd">USD</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tokenAmount">Quantidade:</label>
+                                    <input type="number" class="form-control" id="tokenAmount" placeholder="Insira a quantidade" step="any" min="0">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Comprar DRINK</button>
                             </form>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h2 class="card-title">Comprar DRINK com USDT</h2>
-                            <form id="buyDrinksUsdtForm">
-                                <div class="form-group">
-                                    <label for="usdtAmount">Quantidade de USDT:</label>
-                                    <input type="number" class="form-control" id="usdtAmount" placeholder="Insira a quantidade de USDT" step="1" min="0">
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-block">Comprar DRINK</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
+        <section id="drink-staking" class="text-center my-4">
+            <h2>Stake de DRINK</h2>
+            <div class="row justify-content-center">
                 <div class="col-md-6 mb-4">
                     <div class="card">
                         <div class="card-body">
@@ -125,34 +122,92 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section id="drips-staking" class="text-center my-4">
+            <h2>Operações com DRIPS</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">Aprovar DRIPS para Reestake</h2>
+                            <form id="approveDripsForm">
+                                <div class="form-group">
+                                    <label for="approveDripsAmount">Quantidade de DRIPS:</label>
+                                    <input type="number" class="form-control" id="approveDripsAmount" placeholder="10" step="1" min="0">
+                                </div>
+                                <button type="submit" class="btn btn-secondary btn-block">Aprovar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-md-6 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h2 class="card-title">Saldos</h2>
+                            <h2 class="card-title">Reestake de DRIPS (Configuração futura)</h2>
+                            <form id="restakeDripsForm">
+                                <div class="form-group">
+                                    <label for="restakeAmount">Quantidade de DRIPS:</label>
+                                    <input type="number" class="form-control" id="restakeAmount" placeholder="10" step="1" min="0">
+                                </div>
+                                <button type="submit" class="btn btn-info btn-block">Reestake</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="balances" class="text-center my-4">
+            <h2>Saldos</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
                             <button class="btn btn-success btn-block mb-4" id="refreshBalancesBtn">Atualizar Saldos</button>
                             <p>Saldo de DRINK: <span id="drinkBalance">Loading...</span> DRINK</p>
                             <p>Saldo de DRIPS: <span id="dripsBalance">Loading...</span> DRIPS</p>
+                            <p>DRINK em Stake: <span id="stakedDrinkBalance">Loading...</span> DRINK</p>
+                            <p>DRIPS a Reivindicar: <span id="claimableDrips">Loading...</span> DRIPS</p>
+                            <p>Tempo de Stake: <span id="stakeDuration">Loading...</span></p>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="text-center my-4">
-                <h2>Informações Adicionais</h2>
-                <p class="nanum-gothic-coding-regular">Veja abaixo informações adicionais sobre o token DRINK.</p>
-            </div>
-            <div class="row">
-                <div class="col-md-12 mb-4">
+        <section id="additional-info" class="text-center my-4">
+            <h2>Informações Adicionais</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h2 class="card-title">Gráfico de Preço</h2>
-                            <canvas id="priceChart"></canvas>
+                            <h2 class="card-title">Informações do DRINK</h2>
+                            <p>Máximo de DRINK: <span id="maxDrinkSupply">51,000,000</span> DRINK</p>
+                            <p>DRINK Emitidos: <span id="totalMintedDrinks">Loading...</span> DRINK</p>
+                            <p>Carteiras Detentoras: <span id="drinkHoldersCount">Loading...</span></p>
+                            <p>Valor Arrecadado: <span id="totalCollected">Loading...</span></p>
+                            <canvas id="drinkPriceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h2 class="card-title">Informações do DRIPS</h2>
+                            <p>Máximo de DRIPS: <span id="maxDripsSupply">Loading...</span> DRIPS</p>
+                            <p>DRIPS Emitidos: <span id="totalMintedDrips">Loading...</span> DRIPS</p>
+                            <p>Holders: <span id="dripsHoldersCount">Loading...</span></p>
+                            <p>Valor Arrecadado: <span id="totalDripsCollected">Loading...</span></p>
+                            <canvas id="dripsPriceChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 
     <footer class="mt-5">
@@ -173,6 +228,9 @@
             </div>
         </div>
     </footer>
-<script src="app.js"></script>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
