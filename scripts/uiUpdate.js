@@ -32,7 +32,7 @@ function enableButtons() {
 // Função para atualizar o endereço da carteira exibido na MetaMask
 async function updateMetaMaskAddress() {
     // Obtém o endereço da carteira conectada
-    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
     if (accounts.length > 0) {
         const address = accounts[0];
         // Atualiza o endereço da carteira exibido na MetaMask
@@ -50,6 +50,7 @@ async function updateMetaMaskAddress() {
         });
     }
 }
+
 
 // Atualiza a interface do usuário quando a página é carregada
 document.addEventListener('DOMContentLoaded', async () => {
