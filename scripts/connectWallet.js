@@ -9,17 +9,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Inicialmente desativa os botões de funcionalidade
-    document.getElementById('refreshBalancesBtn').disabled = true;
-    document.getElementById('buyDrinksForm').querySelector('button').disabled = true;
-    document.getElementById('approveDrinksForm').querySelector('button').disabled = true;
-    document.getElementById('stakeDrinksForm').querySelector('button').disabled = true;
-    document.getElementById('unstakeDrinksForm').querySelector('button').disabled = true;
-    document.getElementById('addLiquidityForm').querySelector('button').disabled = true;
-    document.getElementById('removeLiquidityForm').querySelector('button').disabled = true;
-    document.getElementById('swapForm').querySelector('button').disabled = true;
-    document.getElementById('claimDripsForm').querySelector('button').disabled = true;
-    document.getElementById('createProposalForm').querySelector('button').disabled = true;
-    document.getElementById('governanceProposals').querySelector('button').disabled = true;
+    const disableButtons = () => {
+        document.getElementById('refreshBalancesBtn').disabled = true;
+        document.getElementById('buyDrinksForm').querySelector('button').disabled = true;
+        document.getElementById('approveDrinksForm').querySelector('button').disabled = true;
+        document.getElementById('stakeDrinksForm').querySelector('button').disabled = true;
+        document.getElementById('unstakeDrinksForm').querySelector('button').disabled = true;
+        document.getElementById('addLiquidityForm').querySelector('button').disabled = true;
+        document.getElementById('removeLiquidityForm').querySelector('button').disabled = true;
+        document.getElementById('swapForm').querySelector('button').disabled = true;
+        document.getElementById('claimDripsForm').querySelector('button').disabled = true;
+        document.getElementById('createProposalForm').querySelector('button').disabled = true;
+        document.getElementById('governanceProposals').querySelector('button').disabled = true;
+    };
+
+    const enableButtons = () => {
+        document.getElementById('refreshBalancesBtn').disabled = false;
+        document.getElementById('buyDrinksForm').querySelector('button').disabled = false;
+        document.getElementById('approveDrinksForm').querySelector('button').disabled = false;
+        document.getElementById('stakeDrinksForm').querySelector('button').disabled = false;
+        document.getElementById('unstakeDrinksForm').querySelector('button').disabled = false;
+        document.getElementById('addLiquidityForm').querySelector('button').disabled = false;
+        document.getElementById('removeLiquidityForm').querySelector('button').disabled = false;
+        document.getElementById('swapForm').querySelector('button').disabled = false;
+        document.getElementById('claimDripsForm').querySelector('button').disabled = false;
+        document.getElementById('createProposalForm').querySelector('button').disabled = false;
+        document.getElementById('governanceProposals').querySelector('button').disabled = false;
+    };
+
+    disableButtons();
 
     connectButton.addEventListener('click', async () => {
         await connectWallet();
@@ -28,27 +46,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function connectWallet() {
     if (window.ethereum) {
-        let web3 = new Web3(window.ethereum);
         try {
-            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const provider = window.ethereum;
+            web3 = new Web3(provider);
+            await provider.request({ method: 'eth_requestAccounts' });
             const accounts = await web3.eth.getAccounts();
-            let userAccount = accounts[0];
+            userAccount = accounts[0];
             const connectButton = document.querySelector('.connect-button');
             connectButton.innerText = `Conectado: ${userAccount.slice(0, 6)}...${userAccount.slice(-4)}`;
             connectButton.disabled = true; // Desativa o botão após a conexão
 
             // Habilitar os outros botões após a conexão
-            document.getElementById('refreshBalancesBtn').disabled = false;
-            document.getElementById('buyDrinksForm').querySelector('button').disabled = false;
-            document.getElementById('approveDrinksForm').querySelector('button').disabled = false;
-            document.getElementById('stakeDrinksForm').querySelector('button').disabled = false;
-            document.getElementById('unstakeDrinksForm').querySelector('button').disabled = false;
-            document.getElementById('addLiquidityForm').querySelector('button').disabled = false;
-            document.getElementById('removeLiquidityForm').querySelector('button').disabled = false;
-            document.getElementById('swapForm').querySelector('button').disabled = false;
-            document.getElementById('claimDripsForm').querySelector('button').disabled = false;
-            document.getElementById('createProposalForm').querySelector('button').disabled = false;
-            document.getElementById('governanceProposals').querySelector('button').disabled = false;
+            enableButtons();
 
             alert('Conexão realizada com sucesso!'); // Adiciona uma mensagem de sucesso
         } catch (error) {
