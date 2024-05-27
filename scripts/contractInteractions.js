@@ -1,4 +1,4 @@
-import { connectWallet } from 'scripts/connectWallet.js'; // Caminho relativo correto
+import { connectWallet } from './connectWallet.js'; // Caminho do script
 
 // Endereços dos contratos
 const DRINK_TOKEN_ADDRESS = '0xEffC97C289bb4Ed91Ba78f747c872C253E1F854D'; // Substitua pelo endereço real do DrinkToken
