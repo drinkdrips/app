@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             alert('MetaMask não detectado.');
         }
-        export { connectWallet };
+    
     });
 });
+export { connectWallet };
