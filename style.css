@@ -45,6 +45,7 @@
     }
 }
 
+/* Estilização do Header */
 header {
     background-color: #007bff;
     color: white;
@@ -83,6 +84,7 @@ header {
     margin-right: 5px;
 }
 
+/* Estilização Global */
 body {
     font-family: 'Honk', sans-serif;
     font-size: 18px;
@@ -98,6 +100,7 @@ body {
     z-index: 9999;
 }
 
+/* Estilização de Links */
 .list-inline-item {
     font-family: "Nanum Gothic Coding", monospace;
     font-size: 12px;
@@ -109,6 +112,7 @@ body {
     color: #5EB0E5;
 }
 
+/* Estilização de Navegação */
 .nav {
     font-family: "Nanum Gothic Coding", monospace;
     font-size: 20px;
@@ -141,6 +145,7 @@ nav a:hover {
     color: #5EB0E5;
 }
 
+/* Estilização da Hero Section */
 .myHero {
     min-height: 60vh;
     background-image: url("https://lh3.googleusercontent.com/pw/AP1GczMXFyzqX9WMKnnyGm5SnRqaKPEx9RjbqI3_nUrtVtIDMvkiafxpCvE23s_8ZUC7JOYom3VxhlysDs5oWip77ftWpTKVFfVdswwsknrUtUnMzs2F4dlEAZ2AREaaOl2tjTpU4du0PCuD_Fibs_YmkUOD=w1694-h953-s-no-gm?authuser=0");
@@ -164,6 +169,7 @@ h1, h2, h3 {
     line-height: 1.5;
 }
 
+/* Estilização dos Cards */
 .card {
     background: linear-gradient(to bottom, #1f2020, #bc69f2);
     background-color: #1f2020;
@@ -192,10 +198,16 @@ h1, h2, h3 {
     flex-shrink: 0;
 }
 
+/* Estilização de Botões */
+.btn {
+    font-size: 1.3rem;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
 .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
-    font-size: 1.3rem;
 }
 
 .btn-primary:hover {
@@ -206,7 +218,6 @@ h1, h2, h3 {
 .btn-secondary {
     background-color: #6c757d;
     border-color: #6c757d;
-    font-size: 1.3rem;
 }
 
 .btn-secondary:hover {
@@ -254,10 +265,12 @@ h1, h2, h3 {
     border-color: #bd2130;
 }
 
+/* Estilização de Informações */
 .info {
     flex-grow: 1;
 }
 
+/* Estilização do Rodapé */
 .logoRodape img {
     width: 150px;
 }
@@ -277,6 +290,7 @@ footer {
     max-width: 100%;
 }
 
+/* Estilização de Containers */
 .info-and-chart-container {
     display: flex;
     align-items: center;
