@@ -1,3 +1,22 @@
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        await connectWallet(); // Agora acessa a função global
+
+        // Inicializa o Web3 com o provedor Ethereum do MetaMask
+        if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+            try {
+                // Solicita ao usuário permissão para se conectar ao MetaMask
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+            } catch (error) {
+                // O usuário não deu permissão para acessar o MetaMask
+                console.error('Permissão negada para acessar o MetaMask:', error);
+            }
+        } else {
+            // MetaMask não detectado
+            console.error('MetaMask não detectado.');
+        }
+
 // Endereços dos contratos
 const DRINK_TOKEN_ADDRESS = '0xEffC97C289bb4Ed91Ba78f747c872C253E1F854D'; // Substitua pelo endereço real do DrinkToken
 const DRIPS_TOKEN_ADDRESS = '0x874519f34ce7a62DAAFFdB48Fc0B0a1A6178C1E3'; // Substitua pelo endereço real do DripsToken
@@ -1948,16 +1967,6 @@ const stakingContractABI = [
 	}
 ];
 
-// Exemplo de uso da função connectWallet
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        await connectWallet(); // Agora acessa a função global
-        // Continue com o resto do seu código
-    } catch (error) {
-        console.error('Erro ao conectar com a MetaMask:', error);
-    }
-});
-
 // Instâncias dos contratos
 const drinkTokenContract = new web3.eth.Contract(drinkTokenABI, DRINK_TOKEN_ADDRESS);
 const dripsTokenContract = new web3.eth.Contract(dripsTokenABI, DRIPS_TOKEN_ADDRESS);
@@ -2115,3 +2124,8 @@ document.getElementById('createProposalForm').addEventListener('submit', async (
 
 // Inicializar saldos na carga da página
 window.onload = updateBalances;
+
+    } catch (error) {
+        console.error('Erro ao conectar com a MetaMask:', error);
+    }
+});
