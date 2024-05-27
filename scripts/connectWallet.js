@@ -74,5 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return new web3.eth.Contract(abi, contractAddress);
     }
 
-    export { connectWallet, createContractInstance };
+    // Tornar as funções disponíveis globalmente para uso em outros scripts
+    window.connectWallet = connectWallet;
+    window.createContractInstance = createContractInstance;
 });
