@@ -54,3 +54,4 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('MetaMask não detectado.');
         }
     });
+}
