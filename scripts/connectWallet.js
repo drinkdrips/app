@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const connectButton = document.querySelector('.connect-button');
     let web3;
-    let userAccount;
 
     if (!connectButton) {
         console.error("Botão de conexão não encontrado.");
@@ -47,10 +46,10 @@ async function connectWallet() {
     if (window.ethereum) {
         try {
             const provider = window.ethereum;
-            web3 = new Web3(provider);
+            const web3 = new Web3(provider);
             await provider.request({ method: 'eth_requestAccounts' });
             const accounts = await web3.eth.getAccounts();
-            userAccount = accounts[0];
+            const userAccount = accounts[0]; // Definindo userAccount no escopo da função
             const connectButton = document.querySelector('.connect-button');
             connectButton.innerText = `Conectado: ${userAccount.slice(0, 6)}...${userAccount.slice(-4)}`;
             connectButton.disabled = true; // Desativa o botão após a conexão
