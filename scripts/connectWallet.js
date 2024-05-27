@@ -47,8 +47,8 @@ async function connectWallet() {
     if (window.ethereum) {
         try {
             const provider = window.ethereum;
-            await provider.request({ method: 'eth_requestAccounts' });
             web3 = new Web3(provider);
+            await provider.request({ method: 'eth_requestAccounts' });
             const accounts = await web3.eth.getAccounts();
             userAccount = accounts[0];
             const connectButton = document.querySelector('.connect-button');
@@ -60,7 +60,7 @@ async function connectWallet() {
 
             alert('Conexão realizada com sucesso!'); // Adiciona uma mensagem de sucesso
         } catch (error) {
-            console.error(error);
+            console.error('Erro ao conectar com MetaMask:', error);
             alert('Conexão recusada.');
         }
     } else {
@@ -68,11 +68,10 @@ async function connectWallet() {
     }
 }
 
-// Agora web3.eth.Contract pode ser acessado corretamente após a conexão
 function createContractInstance(abi, contractAddress) {
     if (!web3) {
         console.error('web3 não está inicializado.');
-        return;
+        return null;
     }
     return new web3.eth.Contract(abi, contractAddress);
 }
