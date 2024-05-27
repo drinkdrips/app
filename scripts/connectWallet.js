@@ -61,3 +61,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.connectWallet = connectWallet;
 });
+
+export { connectWallet }; // Exporta a função connectWallet
