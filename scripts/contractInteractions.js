@@ -1,89 +1,169 @@
-let drinkTokenContract;
-let dripsTokenContract;
-let stakingContract;
-let userAccount;
+import { web3, connectWallet } from './connectWallet.js'; // Caminho relativo correto
 
-async function loadABI(contractName) {
-    const response = await fetch(`../contracts/${contractName}.json`);
-    const contractJson = await response.json();
-    return contractJson.abi;
+// Endereços dos contratos
+const DRINK_TOKEN_ADDRESS = '0x...'; // Substitua pelo endereço real do DrinkToken
+const DRIPS_TOKEN_ADDRESS = '0x...'; // Substitua pelo endereço real do DripsToken
+const STAKING_CONTRACT_ADDRESS = '0x...'; // Substitua pelo endereço real do StakingContract
+
+// ABIs dos contratos
+const drinkTokenABI = [/* ABI do DrinkToken */];
+const dripsTokenABI = [/* ABI do DripsToken */];
+const stakingContractABI = [/* ABI do StakingContract */];
+
+// Instâncias dos contratos
+const drinkTokenContract = new web3.eth.Contract(drinkTokenABI, DRINK_TOKEN_ADDRESS);
+const dripsTokenContract = new web3.eth.Contract(dripsTokenABI, DRIPS_TOKEN_ADDRESS);
+const stakingContract = new web3.eth.Contract(stakingContractABI, STAKING_CONTRACT_ADDRESS);
+
+// Função para conectar a conta do usuário
+async function getAccount() {
+    const accounts = await connectWallet();
+    return accounts[0];
 }
 
-export async function initContracts(web3, account) {
-    userAccount = account;
+// Funções de interação com os contratos
 
-    const drinkTokenAddress = '0xB8636E1026dEAB5038Fb5BfB1b5214495525c8ab'; // Substitua pelo endereço do contrato DrinkToken
-    const dripsTokenAddress = '0x25e2d4663BC853E8E2a81379D35a4895ccef66d6'; // Substitua pelo endereço do contrato DripsToken
-    const stakingContractAddress = '0xE4e1A5c25D5B5a418Cdc24BCebE8F640e1109eC3'; // Substitua pelo endereço do contrato StakingContract
-
-    const drinkTokenAbi = await loadABI('DrinkToken');
-    const dripsTokenAbi = await loadABI('DripsToken');
-    const stakingContractAbi = await loadABI('StakingContract');
-
-    drinkTokenContract = new web3.eth.Contract(drinkTokenAbi, drinkTokenAddress);
-    dripsTokenContract = new web3.eth.Contract(dripsTokenAbi, dripsTokenAddress);
-    stakingContract = new web3.eth.Contract(stakingContractAbi, stakingContractAddress);
+// Obter saldo de DrinkToken
+async function getDrinkTokenBalance() {
+    const account = await getAccount();
+    const balance = await drinkTokenContract.methods.balanceOf(account).call();
+    document.getElementById('drinkBalance').innerText = balance;
 }
 
-// Funções para interações com contratos
-export async function buyDrinks(paymentToken, tokenAmount) {
-    try {
-        const method = paymentToken === 'eth' ? 'buyTokensWithEth' : 'buyTokensWithToken';
-        await drinkTokenContract.methods[method](web3.utils.toWei(tokenAmount, 'ether')).send({
-            from: userAccount,
-            value: paymentToken === 'eth' ? web3.utils.toWei(tokenAmount, 'ether') : undefined
-        });
-        alert('Compra realizada com sucesso!');
-    } catch (error) {
-        console.error(error);
-        alert('Erro na compra.');
-    }
+// Obter saldo de DripsToken
+async function getDripsTokenBalance() {
+    const account = await getAccount();
+    const balance = await dripsTokenContract.methods.balanceOf(account).call();
+    document.getElementById('dripsBalance').innerText = balance;
 }
 
-export async function approveTokens(approveAmount) {
-    try {
-        await drinkTokenContract.methods.approve(stakingContract.options.address, web3.utils.toWei(approveAmount, 'ether')).send({
-            from: userAccount
-        });
-        alert('Aprovação realizada com sucesso!');
-    } catch (error) {
-        console.error(error);
-        alert('Erro na aprovação.');
-    }
+// Obter saldo em staking
+async function getStakedDrinkBalance() {
+    const account = await getAccount();
+    const balance = await stakingContract.methods.stakedBalanceOf(account).call(); // Supondo que o contrato tem essa função
+    document.getElementById('stakedDrinkBalance').innerText = balance;
 }
 
-export async function stakeTokens(stakeAmount) {
-    try {
-        await stakingContract.methods.stakeTokens(web3.utils.toWei(stakeAmount, 'ether')).send({
-            from: userAccount
-        });
-        alert('Stake realizado com sucesso!');
-    } catch (error) {
-        console.error(error);
-        alert('Erro no stake.');
-    }
+// Obter DRIPS a reivindicar
+async function getClaimableDrips() {
+    const account = await getAccount();
+    const claimable = await stakingContract.methods.claimableDrips(account).call(); // Supondo que o contrato tem essa função
+    document.getElementById('claimableDrips').innerText = claimable;
 }
 
-export async function unstakeTokens(unstakeAmount) {
-    try {
-        await stakingContract.methods.unstakeTokens(web3.utils.toWei(unstakeAmount, 'ether')).send({
-            from: userAccount
-        });
-        alert('Unstake realizado com sucesso!');
-    } catch (error) {
-        console.error(error);
-        alert('Erro no unstake.');
-    }
+// Aprovar tokens para staking
+async function approveDrinks() {
+    const account = await getAccount();
+    const amount = document.getElementById('approveAmount').value;
+    await drinkTokenContract.methods.approve(STAKING_CONTRACT_ADDRESS, amount).send({ from: account });
+    alert('Tokens aprovados para staking');
 }
 
-export async function refreshBalances() {
-    try {
-        const drinkBalance = await drinkTokenContract.methods.balanceOf(userAccount).call();
-        const dripsBalance = await dripsTokenContract.methods.balanceOf(userAccount).call();
-        document.getElementById('drinkBalance').innerText = web3.utils.fromWei(drinkBalance, 'ether');
-        document.getElementById('dripsBalance').innerText = web3.utils.fromWei(dripsBalance, 'ether');
-    } catch (error) {
-        console.error(error);
-        alert('Erro ao atualizar saldos.');
-    }
+// Fazer staking de tokens
+async function stakeDrinks() {
+    const account = await getAccount();
+    const amount = document.getElementById('stakeAmount').value;
+    await stakingContract.methods.stake(amount).send({ from: account });
+    alert('Tokens staked');
+    getStakedDrinkBalance();
 }
+
+// Retirar tokens do staking
+async function unstakeDrinks() {
+    const account = await getAccount();
+    const amount = document.getElementById('unstakeAmount').value;
+    await stakingContract.methods.unstake(amount).send({ from: account });
+    alert('Tokens unstaked');
+    getStakedDrinkBalance();
+}
+
+// Reivindicar DRIPS
+async function claimDrips() {
+    const account = await getAccount();
+    await stakingContract.methods.claim().send({ from: account });
+    alert('DRIPS reivindicados');
+    getClaimableDrips();
+}
+
+// Adicionar liquidez
+async function addLiquidity() {
+    const account = await getAccount();
+    const amount = document.getElementById('addLiquidityAmount').value;
+    await stakingContract.methods.addLiquidity(web3.utils.toWei(amount, 'ether')).send({ from: account });
+    alert('Liquidez adicionada');
+}
+
+// Remover liquidez
+async function removeLiquidity() {
+    const account = await getAccount();
+    const amount = document.getElementById('removeLiquidityAmount').value;
+    await stakingContract.methods.removeLiquidity(web3.utils.toWei(amount, 'ether')).send({ from: account });
+    alert('Liquidez removida');
+}
+
+// Trocar tokens
+async function swapTokens() {
+    const account = await getAccount();
+    const amount = document.getElementById('swapAmount').value;
+    await stakingContract.methods.swap(web3.utils.toWei(amount, 'ether')).send({ from: account });
+    alert('Tokens trocados');
+}
+
+// Criar proposta de governança
+async function createProposal() {
+    const account = await getAccount();
+    const description = document.getElementById('proposalDescription').value;
+    await stakingContract.methods.createProposal(description).send({ from: account });
+    alert('Proposta criada');
+}
+
+// Atualizar saldos
+async function updateBalances() {
+    await getDrinkTokenBalance();
+    await getDripsTokenBalance();
+    await getStakedDrinkBalance();
+    await getClaimableDrips();
+}
+
+// Configurar eventos no front-end
+document.querySelector('.connect-button').addEventListener('click', connectWallet);
+document.getElementById('refreshBalancesBtn').addEventListener('click', updateBalances);
+document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    // Lógica para compra de DRINK (a implementar)
+});
+document.getElementById('approveDrinksForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await approveDrinks();
+});
+document.getElementById('stakeDrinksForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await stakeDrinks();
+});
+document.getElementById('unstakeDrinksForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await unstakeDrinks();
+});
+document.getElementById('claimDripsForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await claimDrips();
+});
+document.getElementById('addLiquidityForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await addLiquidity();
+});
+document.getElementById('removeLiquidityForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await removeLiquidity();
+});
+document.getElementById('swapForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await swapTokens();
+});
+document.getElementById('createProposalForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await createProposal();
+});
+
+// Inicializar saldos na carga da página
+window.onload = updateBalances;
