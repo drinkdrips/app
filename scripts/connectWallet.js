@@ -31,21 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 connectButton.innerText = `Conectado: ${userAccount.slice(0, 6)}...${userAccount.slice(-4)}`;
                 connectButton.disabled = true; // Desativa o botão após a conexão
 
-    // Habilitar os outros botões após a conexão
-    document.getElementById('refreshBalancesBtn').disabled = false;
-    document.getElementById('buyDrinksForm').querySelector('button').disabled = false;
-    document.getElementById('approveDrinksForm').querySelector('button').disabled = false;
-    document.getElementById('stakeDrinksForm').querySelector('button').disabled = false;
-    document.getElementById('unstakeDrinksForm').querySelector('button').disabled = false;
-    document.getElementById('addLiquidityForm').querySelector('button').disabled = false;
-    document.getElementById('removeLiquidityForm').querySelector('button').disabled = false;
-    document.getElementById('swapForm').querySelector('button').disabled = false;
-    document.getElementById('claimDripsForm').querySelector('button').disabled = false;
-    document.getElementById('createProposalForm').querySelector('button').disabled = false;
-    document.getElementById('governanceProposals').querySelector('button').disabled = false;
+                // Habilitar os outros botões após a conexão
+                document.getElementById('refreshBalancesBtn').disabled = false;
+                document.getElementById('buyDrinksForm').querySelector('button').disabled = false;
+                document.getElementById('approveDrinksForm').querySelector('button').disabled = false;
+                document.getElementById('stakeDrinksForm').querySelector('button').disabled = false;
+                document.getElementById('unstakeDrinksForm').querySelector('button').disabled = false;
+                document.getElementById('addLiquidityForm').querySelector('button').disabled = false;
+                document.getElementById('removeLiquidityForm').querySelector('button').disabled = false;
+                document.getElementById('swapForm').querySelector('button').disabled = false;
+                document.getElementById('claimDripsForm').querySelector('button').disabled = false;
+                document.getElementById('createProposalForm').querySelector('button').disabled = false;
+                document.getElementById('governanceProposals').querySelector('button').disabled = false;
 
-
-    alert('Conexão realizada com sucesso!'); // Adiciona uma mensagem de sucesso
+                alert('Conexão realizada com sucesso!'); // Adiciona uma mensagem de sucesso
             } catch (error) {
                 console.error(error);
                 alert('Conexão recusada.');
@@ -53,4 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             alert('MetaMask não detectado.');
         }
+    
     });
+});
