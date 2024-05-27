@@ -28,7 +28,6 @@
 @media (max-width: 576px) {
     .card {
         padding: 20px;
-        height: 100%;
     }
 
     .token-chart-container {
@@ -173,7 +172,6 @@ h1, h2, h3 {
     transition: box-shadow 0.3s ease;
     margin-bottom: 20px;
     padding: 20px;
-    height: 100%;
 }
 
 .card:hover {
