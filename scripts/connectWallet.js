@@ -54,9 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
     });
-
-    // Exporta a função connectWallet
-    window.connectWallet = function() {
-        return userAccount;
-    };
 });
+
+// Exporta a função connectWallet
+export function connectWallet() {
+    return userAccount;
+}
