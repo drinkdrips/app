@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Inicialmente desativa os botões de funcionalidade
     const disableButtons = () => {
         document.getElementById('refreshBalancesBtn').disabled = true;
         document.getElementById('buyDrinksForm').querySelector('button').disabled = true;
@@ -48,8 +47,8 @@ async function connectWallet() {
     if (window.ethereum) {
         try {
             const provider = window.ethereum;
-            web3 = new Web3(provider);
             await provider.request({ method: 'eth_requestAccounts' });
+            web3 = new Web3(provider);
             const accounts = await web3.eth.getAccounts();
             userAccount = accounts[0];
             const connectButton = document.querySelector('.connect-button');
@@ -69,4 +68,13 @@ async function connectWallet() {
     }
 }
 
-export { connectWallet };
+// Agora web3.eth.Contract pode ser acessado corretamente após a conexão
+function createContractInstance(abi, contractAddress) {
+    if (!web3) {
+        console.error('web3 não está inicializado.');
+        return;
+    }
+    return new web3.eth.Contract(abi, contractAddress);
+}
+
+export { connectWallet, createContractInstance };
