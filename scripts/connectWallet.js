@@ -55,9 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     });
 
-    // Atribui a função connectWallet diretamente ao objeto window
-    function connectWallet() {
+    // Exporta a função connectWallet
+    window.connectWallet = function() {
         return userAccount;
-    }
-    window.connectWallet = connectWallet;
+    };
 });
