@@ -1,6 +1,5 @@
-import Web3 from 'web3';
-
-const web3 = new Web3(Web3.givenProvider);
+// Assumindo que Web3 está disponível globalmente
+const web3 = new Web3(window.ethereum);
 
 const liquidityPoolABI = [ /* ABI do LiquidityPool */ ];
 const liquidityPoolAddress = '0x...'; // Endereço do contrato LiquidityPool
