@@ -2,7 +2,7 @@
 const web3 = new Web3(window.ethereum);
 
 // ABI e endereço do contrato DrinkToken
-const drinkTokenABI =;
+const drinkTokenABI =[];
 const drinkTokenAddress = '0xa9ae46e2F714A1c9B831fe3c56C517dF4BdB1125'; // Endereço do contrato DrinkToken
 
 // Criando instância do contrato
