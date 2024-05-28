@@ -46,7 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.ethereum) {
             try {
                 const provider = window.ethereum;
-                web3 = new Web3(provider);
+                if (!web3) {
+                    web3 = new Web3(provider);
+                }
                 await provider.request({ method: 'eth_requestAccounts' });
                 const accounts = await web3.eth.getAccounts();
                 userAccount = accounts[0];
