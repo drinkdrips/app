@@ -12,6 +12,8 @@
     <link rel="icon" href="Drink-favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script type="module" src="scripts/connectWallet.js"></script>
+    <script type="module" src="scripts/interactions.js"></script>
 </head>
 <body>
     <header>
@@ -181,9 +183,6 @@
             </div>
         </div>
     </footer>
-    <script type="module" src="scripts/connectWallet.js"></script>
-    <script type="module" src="scripts/contractInteractions.js"></script>
-    <script type="module" src="scripts/uiUpdate.js"></script>
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
