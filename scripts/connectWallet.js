@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const connectButton = document.querySelector('.connect-button');
     let userAccount;
+    let web3;  // Certifique-se de declarar web3 aqui
 
     if (!connectButton) {
         console.error("Botão de conexão não encontrado.");
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 console.log("MetaMask detectado.");
                 const provider = window.ethereum;
+                console.log("Provedor MetaMask definido:", provider);
                 web3 = new Web3(provider);
                 console.log("Web3 inicializado com o provedor MetaMask.");
                 await provider.request({ method: 'eth_requestAccounts' });
