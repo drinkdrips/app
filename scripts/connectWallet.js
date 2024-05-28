@@ -77,4 +77,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tornar as funções disponíveis globalmente para uso em outros scripts
     window.connectWallet = connectWallet;
     window.createContractInstance = createContractInstance;
+    window.getUserAccount = () => userAccount;  // Adicionar esta linha
 });
