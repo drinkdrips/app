@@ -57,5 +57,4 @@ document.addEventListener('DOMContentLoaded', () => {
     window.connectWallet = connectWallet;
     window.createContractInstance = createContractInstance;
     window.getUserAccount = () => userAccount;
-    window.getWeb3 = () => web3;
 });
