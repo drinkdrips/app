@@ -3,19 +3,6 @@ import { addLiquidity, removeLiquidity, swap } from './liquidityPool.js';
 import { stakeTokens, unstakeTokens, claimDrips } from './staking.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const checkGetUserAccount = () => {
-        if (typeof window.getUserAccount !== 'function') {
-            console.error('Função getUserAccount não encontrada.');
-            return false;
-        }
-        return true;
-    };
-
-    if (!checkGetUserAccount()) {
-        console.error('Certifique-se de que connectWallet.js foi carregado corretamente.');
-        return;
-    }
-
     // Adiciona event listeners aos formulários
     document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -90,9 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
     async function refreshBalances() {
         const userAccount = window.getUserAccount();
         if (userAccount) {
-            const drinkBalance = await getDrinkBalance(userAccount);
-            document.getElementById('drinkBalance').innerText = drinkBalance;
-            // Continue para outros saldos...
+            try {
+                const drinkBalance = await getDrinkBalance(userAccount);
+                console.log('Saldo de DRINK:', drinkBalance); // Log para depuração
+                document.getElementById('drinkBalance').innerText = drinkBalance;
+                // Continue para outros saldos...
+            } catch (error) {
+                console.error('Erro ao obter o saldo de DRINK:', error);
+            }
         }
     }
 
@@ -100,4 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', async () => {
         await refreshBalances();
     });
+
+    // Adiciona a função ao objeto window para uso global
+    window.refreshBalances = refreshBalances;
 });
