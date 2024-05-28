@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const connectButton = document.querySelector('.connect-button');
-    let web3;
     let userAccount;
 
     if (!connectButton) {
