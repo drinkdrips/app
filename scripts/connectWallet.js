@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     disableButtons();
 
     connectButton.addEventListener('click', async () => {
+        console.log("Botão de conexão clicado."); // Log ao clicar no botão
         await connectWallet();
     });
 
