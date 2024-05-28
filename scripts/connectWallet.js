@@ -36,6 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 enableButtons();
 
                 alert('Conexão realizada com sucesso!'); // Adiciona uma mensagem de sucesso
+
+                // Atualiza os saldos após a conexão bem-sucedida
+                await refreshBalances();
             } catch (error) {
                 console.error('Erro ao conectar com MetaMask:', error);
                 alert('Conexão recusada.');
