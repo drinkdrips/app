@@ -3,6 +3,19 @@ import { addLiquidity, removeLiquidity, swap } from './liquidityPool.js';
 import { stakeTokens, unstakeTokens, claimDrips } from './staking.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const checkGetUserAccount = () => {
+        if (typeof window.getUserAccount !== 'function') {
+            console.error('Função getUserAccount não encontrada.');
+            return false;
+        }
+        return true;
+    };
+
+    if (!checkGetUserAccount()) {
+        console.error('Certifique-se de que connectWallet.js foi carregado corretamente.');
+        return;
+    }
+
     // Adiciona event listeners aos formulários
     document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
         event.preventDefault();
