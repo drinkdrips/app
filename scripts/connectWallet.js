@@ -9,31 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const disableButtons = () => {
-        document.getElementById('refreshBalancesBtn').disabled = true;
-        document.getElementById('buyDrinksForm').querySelector('button').disabled = true;
-        document.getElementById('approveDrinksForm').querySelector('button').disabled = true;
-        document.getElementById('stakeDrinksForm').querySelector('button').disabled = true;
-        document.getElementById('unstakeDrinksForm').querySelector('button').disabled = true;
-        document.getElementById('addLiquidityForm').querySelector('button').disabled = true;
-        document.getElementById('removeLiquidityForm').querySelector('button').disabled = true;
-        document.getElementById('swapForm').querySelector('button').disabled = true;
-        document.getElementById('claimDripsForm').querySelector('button').disabled = true;
-        document.getElementById('createProposalForm').querySelector('button').disabled = true;
-        document.getElementById('governanceProposals').querySelector('button').disabled = true;
+        document.querySelectorAll('button').forEach(button => button.disabled = true);
     };
 
     const enableButtons = () => {
-        document.getElementById('refreshBalancesBtn').disabled = false;
-        document.getElementById('buyDrinksForm').querySelector('button').disabled = false;
-        document.getElementById('approveDrinksForm').querySelector('button').disabled = false;
-        document.getElementById('stakeDrinksForm').querySelector('button').disabled = false;
-        document.getElementById('unstakeDrinksForm').querySelector('button').disabled = false;
-        document.getElementById('addLiquidityForm').querySelector('button').disabled = false;
-        document.getElementById('removeLiquidityForm').querySelector('button').disabled = false;
-        document.getElementById('swapForm').querySelector('button').disabled = false;
-        document.getElementById('claimDripsForm').querySelector('button').disabled = false;
-        document.getElementById('createProposalForm').querySelector('button').disabled = false;
-        document.getElementById('governanceProposals').querySelector('button').disabled = false;
+        document.querySelectorAll('button').forEach(button => button.disabled = false);
     };
 
     disableButtons();
@@ -77,4 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tornar as funções disponíveis globalmente para uso em outros scripts
     window.connectWallet = connectWallet;
     window.createContractInstance = createContractInstance;
+    window.getUserAccount = () => userAccount;
+    window.getWeb3 = () => web3;
 });
