@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "./DripsToken.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/token/ERC20/IERC20.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/access/Ownable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/security/ReentrancyGuard.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/security/Pausable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/token/ERC20/utils/SafeERC20.sol";
 
-contract StakingContract is Ownable(msg.sender), ReentrancyGuard, Pausable {
+contract StakingContract is Ownable, ReentrancyGuard, Pausable {
     using SafeERC20 for IERC20;
 
     DripsToken public dripsToken;
@@ -26,6 +26,9 @@ contract StakingContract is Ownable(msg.sender), ReentrancyGuard, Pausable {
     event RewardsDistributed(uint256 totalAmount);
 
     constructor(address _drinkToken, address _dripsToken) {
+        require(_drinkToken != address(0), "Invalid DRINK token address");
+        require(_dripsToken != address(0), "Invalid DRIPS token address");
+
         drinkToken = IERC20(_drinkToken);
         dripsToken = DripsToken(_dripsToken);
     }
@@ -40,7 +43,6 @@ contract StakingContract is Ownable(msg.sender), ReentrancyGuard, Pausable {
         }
 
         stakingBalance[msg.sender] += amount;
-
         drinkToken.safeTransferFrom(msg.sender, address(this), amount);
 
         emit TokensStaked(msg.sender, amount);
@@ -53,7 +55,6 @@ contract StakingContract is Ownable(msg.sender), ReentrancyGuard, Pausable {
         _payRewards(msg.sender);
 
         stakingBalance[msg.sender] -= amount;
-
         drinkToken.safeTransfer(msg.sender, amount);
 
         if (stakingBalance[msg.sender] == 0) {
