@@ -1,4 +1,5 @@
 // Assumindo que Web3 está disponível globalmente a partir do script incluído no HTML
+const web3 = new Web3(window.ethereum);
 const dripsTokenAddress = '0x3F4bD5DfB17001F259967465822d1cEf8a892696'; // Substitua pelo endereço real do contrato
 const dripsTokenAbi = [
 	{
