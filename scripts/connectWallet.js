@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const connectButton = document.querySelector('.connect-button');
+    let web3;
     let userAccount;
-    let web3;  // Certifique-se de declarar web3 aqui
 
     if (!connectButton) {
         console.error("Botão de conexão não encontrado.");
@@ -9,33 +9,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const disableButtons = () => {
-        document.querySelectorAll('button').forEach(button => button.disabled = true);
+        document.getElementById('refreshBalancesBtn').disabled = true;
+        document.getElementById('buyDrinksForm').querySelector('button').disabled = true;
+        document.getElementById('approveDrinksForm').querySelector('button').disabled = true;
+        document.getElementById('stakeDrinksForm').querySelector('button').disabled = true;
+        document.getElementById('unstakeDrinksForm').querySelector('button').disabled = true;
+        document.getElementById('addLiquidityForm').querySelector('button').disabled = true;
+        document.getElementById('removeLiquidityForm').querySelector('button').disabled = true;
+        document.getElementById('swapForm').querySelector('button').disabled = true;
+        document.getElementById('claimDripsForm').querySelector('button').disabled = true;
+        document.getElementById('createProposalForm').querySelector('button').disabled = true;
+        document.getElementById('governanceProposals').querySelector('button').disabled = true;
     };
 
     const enableButtons = () => {
-        document.querySelectorAll('button').forEach(button => button.disabled = false);
+        document.getElementById('refreshBalancesBtn').disabled = false;
+        document.getElementById('buyDrinksForm').querySelector('button').disabled = false;
+        document.getElementById('approveDrinksForm').querySelector('button').disabled = false;
+        document.getElementById('stakeDrinksForm').querySelector('button').disabled = false;
+        document.getElementById('unstakeDrinksForm').querySelector('button').disabled = false;
+        document.getElementById('addLiquidityForm').querySelector('button').disabled = false;
+        document.getElementById('removeLiquidityForm').querySelector('button').disabled = false;
+        document.getElementById('swapForm').querySelector('button').disabled = false;
+        document.getElementById('claimDripsForm').querySelector('button').disabled = false;
+        document.getElementById('createProposalForm').querySelector('button').disabled = false;
+        document.getElementById('governanceProposals').querySelector('button').disabled = false;
     };
 
     disableButtons();
 
     connectButton.addEventListener('click', async () => {
-        console.log("Botão de conexão clicado.");
         await connectWallet();
     });
 
     async function connectWallet() {
         if (window.ethereum) {
             try {
-                console.log("MetaMask detectado.");
                 const provider = window.ethereum;
-                console.log("Provedor MetaMask definido:", provider);
                 web3 = new Web3(provider);
-                console.log("Web3 inicializado com o provedor MetaMask.");
                 await provider.request({ method: 'eth_requestAccounts' });
-                console.log("Contas solicitadas.");
                 const accounts = await web3.eth.getAccounts();
                 userAccount = accounts[0];
-                console.log(`Conta conectada: ${userAccount}`);
                 connectButton.innerText = `Conectado: ${userAccount.slice(0, 6)}...${userAccount.slice(-4)}`;
                 connectButton.disabled = true; // Desativa o botão após a conexão
 
@@ -43,9 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 enableButtons();
 
                 alert('Conexão realizada com sucesso!'); // Adiciona uma mensagem de sucesso
-
-                // Atualiza os saldos após a conexão bem-sucedida
-                await refreshBalances();
             } catch (error) {
                 console.error('Erro ao conectar com MetaMask:', error);
                 alert('Conexão recusada.');
@@ -66,5 +77,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tornar as funções disponíveis globalmente para uso em outros scripts
     window.connectWallet = connectWallet;
     window.createContractInstance = createContractInstance;
-    window.getUserAccount = () => userAccount;
 });
