@@ -551,7 +551,12 @@ const drinkTokenABI =  [
 const drinkTokenAddress = '0xa9ae46e2F714A1c9B831fe3c56C517dF4BdB1125'; // Endereço do contrato DrinkToken
 
 // Criando instância do contrato
-const drinkTokenContract = new web3.eth.Contract(drinkTokenABI, drinkTokenAddress);
+// Certifique-se de que o Web3 está inicializado antes de criar a instância do contrato
+if (window.web3) {
+    var drinkTokenContract = new window.web3.eth.Contract(drinkTokenABI, drinkTokenAddress);
+} else {
+    console.error('web3 não está inicializado.');
+}
 
 // Função para obter saldo de DRINK
 export async function getDrinkBalance(address) {
@@ -566,11 +571,11 @@ export async function getDrinkBalance(address) {
 
 // Função para comprar DRINK
 export async function buyDrink(fromAddress, amount, paymentToken) {
-    // Solicitar permissão para acessar a conta do usuário
+    try {
+	// Solicitar permissão para acessar a conta do usuário
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     
     // Aqui você implementa a lógica para comprar DRINK usando paymentToken
-    try {
     	await drinkTokenContract.methods.buyDrink(amount, paymentToken).send({ from: fromAddress, value: amount });
 	    console.log('Compra de DRINK realizada com sucesso');
     } catch (error) {
