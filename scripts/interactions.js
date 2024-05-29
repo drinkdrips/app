@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const paymentToken = document.getElementById('paymentToken').value;
         const userAccount = window.getUserAccount();
         if (userAccount) {
-            await buyDrink(userAccount, amount, paymentToken);
+            await window.buyDrink(userAccount, amount, paymentToken);
             await refreshBalances();
         }
     });
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = document.getElementById('stakeAmount').value;
         const userAccount = window.getUserAccount();
         if (userAccount) {
-            await stakeTokens(userAccount, amount);
+            await window.stakeTokens(userAccount, amount);
             await refreshBalances();
         }
     });
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = document.getElementById('unstakeAmount').value;
         const userAccount = window.getUserAccount();
         if (userAccount) {
-            await unstakeTokens(userAccount, amount);
+            await window.unstakeTokens(userAccount, amount);
             await refreshBalances();
         }
     });
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = document.getElementById('addLiquidityAmount').value;
         const userAccount = window.getUserAccount();
         if (userAccount) {
-            await addLiquidity(userAccount, amount);
+            await window.addLiquidity(userAccount, amount);
             await refreshBalances();
         }
     });
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = document.getElementById('removeLiquidityAmount').value;
         const userAccount = window.getUserAccount();
         if (userAccount) {
-            await removeLiquidity(userAccount, amount);
+            await window.removeLiquidity(userAccount, amount);
             await refreshBalances();
         }
     });
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = document.getElementById('swapAmount').value;
         const userAccount = window.getUserAccount();
         if (userAccount) {
-            await swap(userAccount, amount);
+            await window.swap(userAccount, amount);
             await refreshBalances();
         }
     });
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const userAccount = window.getUserAccount();
         if (userAccount) {
-            await claimDrips(userAccount);
+            await window.claimDrips(userAccount);
             await refreshBalances();
         }
     });
@@ -74,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const userAccount = window.getUserAccount();
         if (userAccount) {
             try {
-                const drinkBalance = await getDrinkBalance(userAccount);
-                console.log('Saldo de DRINK:', drinkBalance); // Log para depuração
+                const drinkBalance = await window.getDrinkBalance(userAccount);
+                console.log('Saldo de DRINK:', drinkBalance); // Adicione este log para depuração
                 document.getElementById('drinkBalance').innerText = drinkBalance;
                 // Continue para outros saldos...
             } catch (error) {
@@ -88,7 +88,4 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', async () => {
         await refreshBalances();
     });
-
-    // Adiciona a função ao objeto window para uso global
-    window.refreshBalances = refreshBalances;
 });
