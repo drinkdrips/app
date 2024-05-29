@@ -554,7 +554,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Certifique-se de que o Web3 está inicializado antes de criar a instância do contrato
     if (window.web3 && window.web3.eth) {
-        var drinkTokenContract = new window.web3.eth.Contract(drinkTokenABI, drinkTokenAddress);
+        window.drinkTokenContract = new window.web3.eth.Contract(drinkTokenABI, drinkTokenAddress);
         console.log('Instância do contrato DrinkToken criada com sucesso');
     } else {
         console.error('web3 não está inicializado.');
@@ -564,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para obter saldo de DRINK
     async function getDrinkBalance(address) {
         try {
-            const balance = await drinkTokenContract.methods.balanceOf(address).call();
+            const balance = await window.drinkTokenContract.methods.balanceOf(address).call();
             return balance;
         } catch (error) {
             console.error('Erro ao obter saldo de DRINK:', error);
@@ -575,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para comprar DRINK
     async function buyDrink(fromAddress, amount, paymentToken) {
         try {
-            await drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: fromAddress });
+            await window.drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: fromAddress });
             console.log('Compra de DRINK realizada com sucesso');
         } catch (error) {
             console.error('Erro ao comprar DRINK:', error);
@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Função para aprovar o contrato de staking a gastar tokens em nome do usuário
 	async function approve(fromAddress, spenderAddress, amount) {
 	    try {
-	        await drinkTokenContract.methods.approve(spenderAddress, amount).send({ from: fromAddress });
+	        await window.drinkTokenContract.methods.approve(spenderAddress, amount).send({ from: fromAddress });
 	        console.log('Aprovação bem-sucedida para gastar tokens em nome do usuário');
 	    } catch (error) {
 	        console.error('Erro ao aprovar gasto de tokens:', error);
@@ -594,15 +594,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	    }
 	}
 
-
+    // Tornar as funções disponíveis globalmente
     window.getDrinkBalance = getDrinkBalance;
     window.buyDrink = buyDrink;
     window.approve = approve;
     
-    // Adicionando as funções ao objeto exportado
-    window.drinkToken = {
-        getDrinkBalance,
-        buyDrink,
-        approve,
-    };
 });
