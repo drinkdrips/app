@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', () => {
 if (typeof window.ethereum !== 'undefined') {
     const web3 = new Web3(window.ethereum);
     console.log('Web3 foi inicializado com o provedor do MetaMask');
@@ -582,4 +583,5 @@ export async function buyDrink(fromAddress, amount, paymentToken) {
         console.error('Erro ao comprar DRINK:', error);
         throw error;
     }
+}
 }
