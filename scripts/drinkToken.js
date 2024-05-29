@@ -560,18 +560,18 @@ if (window.web3) {
 }
 
 // Função para obter saldo de DRINK
-export async function getDrinkBalance(address) {
+async function getDrinkBalance(address) {
     try {
-        const balance = await dripsTokenContract.methods.balanceOf(address).call();
+        const balance = await drinkTokenContract.methods.balanceOf(address).call();
         return balance;
     } catch (error) {
-        console.error('Erro ao obter saldo de DRIPS:', error);
+        console.error('Erro ao obter saldo de DRINK:', error);
         throw error;
     }
 }
 
 // Função para comprar DRINK
-export async function buyDrink(fromAddress, amount, paymentToken) {
+async function buyDrink(fromAddress, amount, paymentToken) {
     try {
 	// Solicitar permissão para acessar a conta do usuário
     await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -584,4 +584,7 @@ export async function buyDrink(fromAddress, amount, paymentToken) {
         throw error;
     }
 }
+// Tornar as funções disponíveis globalmente
+    window.getDrinkBalance = getDrinkBalance;
+    window.buyDrink = buyDrink;
 });
