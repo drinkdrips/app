@@ -1,5 +1,4 @@
 import { stakeTokens, unstakeTokens, claimRewards } from './staking.js';
-import { drinkToken } from './drinkToken.js';
 document.addEventListener('DOMContentLoaded', () => {
     // Adiciona event listeners aos formulários
     document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (userAccount) {
            try {
             // Primeiro, aprova o contrato de staking a gastar tokens em nome do usuário
-            await approve(userAccount, stakingContractAddress, amount);
+            await window.approve(userAccount, stakingContractAddress, amount);
             // Após a aprovação, faça o staking
             await stakeTokens(userAccount, amount);
             // Atualiza os saldos
