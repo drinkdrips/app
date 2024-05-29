@@ -595,8 +595,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 
-    // Tornar as funções disponíveis globalmente
     window.getDrinkBalance = getDrinkBalance;
     window.buyDrink = buyDrink;
     window.approve = approve;
+    
+    // Adicionando as funções ao objeto exportado
+    window.drinkToken = {
+        getDrinkBalance,
+        buyDrink,
+        approve,
+    };
 });
