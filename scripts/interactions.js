@@ -1,7 +1,3 @@
-import { getDrinkBalance, buyDrink } from './drinkToken.js';
-import { addLiquidity, removeLiquidity, swap } from './liquidityPool.js';
-import { stakeTokens, unstakeTokens, claimDrips } from './staking.js';
-
 document.addEventListener('DOMContentLoaded', () => {
     // Adiciona event listeners aos formulários
     document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
