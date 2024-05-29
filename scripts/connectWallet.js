@@ -1,3 +1,18 @@
+// Função para atualizar os saldos
+async function refreshBalances() {
+    const userAccount = window.getUserAccount();
+    if (userAccount) {
+        try {
+            const drinkBalance = await window.getDrinkBalance(userAccount);
+            console.log('Saldo de DRINK:', drinkBalance);
+            document.getElementById('drinkBalance').innerText = drinkBalance;
+            // Continue para outros saldos...
+        } catch (error) {
+            console.error('Erro ao obter o saldo de DRINK:', error);
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const connectButton = document.querySelector('.connect-button');
     let web3;
@@ -9,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const disableButtons = () => {
+        // Código para desabilitar os botões...
         document.getElementById('refreshBalancesBtn').disabled = true;
         document.getElementById('buyDrinksForm').querySelector('button').disabled = true;
         document.getElementById('approveDrinksForm').querySelector('button').disabled = true;
@@ -23,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const enableButtons = () => {
+        // Código para habilitar os botões...
         document.getElementById('refreshBalancesBtn').disabled = false;
         document.getElementById('buyDrinksForm').querySelector('button').disabled = false;
         document.getElementById('approveDrinksForm').querySelector('button').disabled = false;
@@ -43,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function connectWallet() {
+        // Código para conectar a carteira...
         if (window.ethereum) {
             try {
                 const provider = window.ethereum;
@@ -81,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createContractInstance(abi, contractAddress) {
+        // Código para criar uma instância do contrato...
         if (!web3) {
             console.error('web3 não está inicializado.');
             return null;
@@ -92,4 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.connectWallet = connectWallet;
     window.createContractInstance = createContractInstance;
     window.getUserAccount = () => userAccount;
+
+    // Atualiza os saldos ao carregar a página
+    window.addEventListener('load', async () => {
+        await refreshBalances();
+    });
 });
