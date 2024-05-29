@@ -583,7 +583,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+	// Função para aprovar o contrato de staking a gastar tokens em nome do usuário
+	async function approve(fromAddress, spenderAddress, amount) {
+	    try {
+	        await drinkTokenContract.methods.approve(spenderAddress, amount).send({ from: fromAddress });
+	        console.log('Aprovação bem-sucedida para gastar tokens em nome do usuário');
+	    } catch (error) {
+	        console.error('Erro ao aprovar gasto de tokens:', error);
+	        throw error;
+	    }
+	}
+
+
     // Tornar as funções disponíveis globalmente
     window.getDrinkBalance = getDrinkBalance;
     window.buyDrink = buyDrink;
+    window.approve = approve;
 });
