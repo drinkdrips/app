@@ -59,6 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 enableButtons();
 
                 alert('Conexão realizada com sucesso!'); // Adiciona uma mensagem de sucesso
+
+                // Atualiza os saldos após a conexão bem-sucedida
+                await refreshBalances();
+
+                // Adiciona o evento 'disconnect'
+                window.ethereum.on('disconnect', (error) => {
+                    console.log('MetaMask desconectado:', error);
+                    disableButtons();
+                    connectButton.innerText = 'Conectar MetaMask';
+                    connectButton.disabled = false;
+                });
+
             } catch (error) {
                 console.error('Erro ao conectar com MetaMask:', error);
                 alert('Conexão recusada.');
@@ -79,5 +91,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tornar as funções disponíveis globalmente para uso em outros scripts
     window.connectWallet = connectWallet;
     window.createContractInstance = createContractInstance;
-    window.getUserAccount = () => userAccount;  // Adicionar esta linha
+    window.getUserAccount = () => userAccount;
 });
