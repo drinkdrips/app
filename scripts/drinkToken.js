@@ -575,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para comprar DRINK
     async function buyDrink(fromAddress, amount, paymentToken) {
         try {
-            await drinkTokenContract.methods.buyDrink(amount, paymentToken).send({ from: fromAddress });
+            await drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: fromAddress });
             console.log('Compra de DRINK realizada com sucesso');
         } catch (error) {
             console.error('Erro ao comprar DRINK:', error);
