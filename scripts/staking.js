@@ -361,6 +361,6 @@ export async function unstakeTokens(fromAddress, amount) {
     return await stakingContract.methods.unstakeTokens(amount).send({ from: fromAddress });
 }
 
-export async function claimDrips(fromAddress) {
-    return await stakingContract.methods.claimDrips().send({ from: fromAddress });
+export async function claimRewards(fromAddress) {
+    return await stakingContract.methods.claimRewards().send({ from: fromAddress });
 }
