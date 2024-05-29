@@ -354,11 +354,11 @@ const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // 
 const stakingContract = new web3.eth.Contract(stakingContractABI, stakingContractAddress);
 
 export async function stakeTokens(fromAddress, amount) {
-    return await stakingContract.methods.stake(amount).send({ from: fromAddress });
+    return await stakingContract.methods.stakeTokens(amount).send({ from: fromAddress });
 }
 
 export async function unstakeTokens(fromAddress, amount) {
-    return await stakingContract.methods.unstake(amount).send({ from: fromAddress });
+    return await stakingContract.methods.unstakeTokens(amount).send({ from: fromAddress });
 }
 
 export async function claimDrips(fromAddress) {
