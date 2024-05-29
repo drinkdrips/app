@@ -1,3 +1,4 @@
+import { stakeTokens, unstakeTokens, claimDrips } from './staking.js';
 document.addEventListener('DOMContentLoaded', () => {
     // Adiciona event listeners aos formulários
     document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = document.getElementById('stakeAmount').value;
         const userAccount = window.getUserAccount();
         if (userAccount) {
-            await window.stakeTokens(userAccount, amount);
+            await stakeTokens(userAccount, amount);
             await refreshBalances();
         }
     });
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = document.getElementById('unstakeAmount').value;
         const userAccount = window.getUserAccount();
         if (userAccount) {
-            await window.unstakeTokens(userAccount, amount);
+            await unstakeTokens(userAccount, amount);
             await refreshBalances();
         }
     });
