@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const amount = document.getElementById('stakeAmount').value;
         const userAccount = window.getUserAccount();
-        const stakingContractAddress = 'endereço_do_contrato_de_staking'; // Endereço do contrato de staking
+        const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
         if (userAccount) {
            try {
             // Primeiro, aprova o contrato de staking a gastar tokens em nome do usuário
