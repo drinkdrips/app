@@ -1,13 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
-if (typeof window.ethereum !== 'undefined') {
-    const web3 = new Web3(window.ethereum);
-    console.log('Web3 foi inicializado com o provedor do MetaMask');
-} else {
-    console.error('MetaMask não está disponível. Por favor, instale MetaMask.');
-}
+    if (typeof window.ethereum !== 'undefined') {
+        window.web3 = new Web3(window.ethereum);
+        console.log('Web3 foi inicializado com o provedor do MetaMask');
+    } else {
+        console.error('MetaMask não está disponível. Por favor, instale MetaMask.');
+        return; // Pare a execução se MetaMask não estiver disponível
+    }
 
-// ABI e endereço do contrato DrinkToken
-const drinkTokenABI =  [
+    const drinkTokenAddress = '0xa9ae46e2F714A1c9B831fe3c56C517dF4BdB1125'; // Endereço do contrato DrinkToken
+     // ABI do contrato DrinkToken
+	const drinkTokenABI = [
 	{
 		"inputs": [
 			{
@@ -549,42 +551,39 @@ const drinkTokenABI =  [
 		"type": "function"
 	}
 ];
-const drinkTokenAddress = '0xa9ae46e2F714A1c9B831fe3c56C517dF4BdB1125'; // Endereço do contrato DrinkToken
 
-// Criando instância do contrato
-// Certifique-se de que o Web3 está inicializado antes de criar a instância do contrato
-if (window.web3) {
-    var drinkTokenContract = new window.web3.eth.Contract(drinkTokenABI, drinkTokenAddress);
-} else {
-    console.error('web3 não está inicializado.');
-}
-
-// Função para obter saldo de DRINK
-async function getDrinkBalance(address) {
-    try {
-        const balance = await drinkTokenContract.methods.balanceOf(address).call();
-        return balance;
-    } catch (error) {
-        console.error('Erro ao obter saldo de DRINK:', error);
-        throw error;
+    // Certifique-se de que o Web3 está inicializado antes de criar a instância do contrato
+    if (window.web3 && window.web3.eth) {
+        var drinkTokenContract = new window.web3.eth.Contract(drinkTokenABI, drinkTokenAddress);
+        console.log('Instância do contrato DrinkToken criada com sucesso');
+    } else {
+        console.error('web3 não está inicializado.');
+        return; // Pare a execução se web3 não estiver inicializado corretamente
     }
-}
 
-// Função para comprar DRINK
-async function buyDrink(fromAddress, amount, paymentToken) {
-    try {
-	// Solicitar permissão para acessar a conta do usuário
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-    
-    // Aqui você implementa a lógica para comprar DRINK usando paymentToken
-    	await drinkTokenContract.methods.buyDrink(amount, paymentToken).send({ from: fromAddress, value: amount });
-	    console.log('Compra de DRINK realizada com sucesso');
-    } catch (error) {
-        console.error('Erro ao comprar DRINK:', error);
-        throw error;
+    // Função para obter saldo de DRINK
+    async function getDrinkBalance(address) {
+        try {
+            const balance = await drinkTokenContract.methods.balanceOf(address).call();
+            return balance;
+        } catch (error) {
+            console.error('Erro ao obter saldo de DRINK:', error);
+            throw error;
+        }
     }
-}
-// Tornar as funções disponíveis globalmente
+
+    // Função para comprar DRINK
+    async function buyDrink(fromAddress, amount, paymentToken) {
+        try {
+            await drinkTokenContract.methods.buyDrink(amount, paymentToken).send({ from: fromAddress });
+            console.log('Compra de DRINK realizada com sucesso');
+        } catch (error) {
+            console.error('Erro ao comprar DRINK:', error);
+            throw error;
+        }
+    }
+
+    // Tornar as funções disponíveis globalmente
     window.getDrinkBalance = getDrinkBalance;
     window.buyDrink = buyDrink;
 });
