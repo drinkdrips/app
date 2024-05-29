@@ -584,4 +584,4 @@ export async function buyDrink(fromAddress, amount, paymentToken) {
         throw error;
     }
 }
-}
+});
