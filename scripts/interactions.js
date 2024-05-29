@@ -12,6 +12,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    document.getElementById('approveDrinksForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const amount = document.getElementById('approveAmount').value;
+        const userAccount = window.getUserAccount();
+        const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
+        if (userAccount) {
+           try {
+            // Primeiro, aprova o contrato de staking a gastar tokens em nome do usuário
+            await window.approve(userAccount, stakingContractAddress, amount);
+
+        } catch (error) {
+                console.error('Erro ao aprovar stake de tokens:', error);
+            }
+        }
+    });
+    
     document.getElementById('stakeDrinksForm').addEventListener('submit', async (event) => {
         event.preventDefault();
         const amount = document.getElementById('stakeAmount').value;
@@ -19,9 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
         if (userAccount) {
            try {
-            // Primeiro, aprova o contrato de staking a gastar tokens em nome do usuário
-            await window.approve(userAccount, stakingContractAddress, amount);
-            // Após a aprovação, faça o staking
             await stakeTokens(userAccount, amount);
             // Atualiza os saldos
             await refreshBalances();
@@ -35,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const amount = document.getElementById('unstakeAmount').value;
         const userAccount = window.getUserAccount();
+        const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
         if (userAccount) {
             await unstakeTokens(userAccount, amount);
             await refreshBalances();
