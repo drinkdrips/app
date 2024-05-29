@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
                 console.error('Erro ao fazer staking de tokens:', error);
             }
+        }
     });
 
     document.getElementById('unstakeDrinksForm').addEventListener('submit', async (event) => {
