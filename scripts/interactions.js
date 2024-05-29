@@ -1,5 +1,5 @@
 import { stakeTokens, unstakeTokens, claimRewards } from './staking.js';
-import { drinkTokenContract, approve } from './drinkToken.js';
+import { drinkToken } from './drinkToken.js';
 document.addEventListener('DOMContentLoaded', () => {
     // Adiciona event listeners aos formulários
     document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
