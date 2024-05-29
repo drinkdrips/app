@@ -1,4 +1,5 @@
 import { stakeTokens, unstakeTokens, claimRewards } from './staking.js';
+import { drinkTokenContract, approve } from './drinkToken.js';
 document.addEventListener('DOMContentLoaded', () => {
     // Adiciona event listeners aos formulários
     document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
@@ -16,10 +17,18 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const amount = document.getElementById('stakeAmount').value;
         const userAccount = window.getUserAccount();
+        const stakingContractAddress = 'endereço_do_contrato_de_staking'; // Endereço do contrato de staking
         if (userAccount) {
+           try {
+            // Primeiro, aprova o contrato de staking a gastar tokens em nome do usuário
+            await approve(userAccount, stakingContractAddress, amount);
+            // Após a aprovação, faça o staking
             await stakeTokens(userAccount, amount);
+            // Atualiza os saldos
             await refreshBalances();
-        }
+        } catch (error) {
+                console.error('Erro ao fazer staking de tokens:', error);
+            }
     });
 
     document.getElementById('unstakeDrinksForm').addEventListener('submit', async (event) => {
