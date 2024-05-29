@@ -46,9 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.ethereum) {
             try {
                 const provider = window.ethereum;
-                if (!web3) {
-                    web3 = new Web3(provider);
-                }
+                web3 = new Web3(provider);
                 await provider.request({ method: 'eth_requestAccounts' });
                 const accounts = await web3.eth.getAccounts();
                 userAccount = accounts[0];
@@ -59,6 +57,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 enableButtons();
 
                 alert('Conexão realizada com sucesso!'); // Adiciona uma mensagem de sucesso
+
+                // Atualiza os saldos após a conexão bem-sucedida
+                await refreshBalances();
+
+                // Adiciona o evento 'disconnect'
+                window.ethereum.on('disconnect', (error) => {
+                    console.log('MetaMask desconectado:', error);
+                    disableButtons();
+                    connectButton.innerText = 'Conectar MetaMask';
+                    connectButton.disabled = false;
+                });
+
             } catch (error) {
                 console.error('Erro ao conectar com MetaMask:', error);
                 alert('Conexão recusada.');
@@ -79,5 +89,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tornar as funções disponíveis globalmente para uso em outros scripts
     window.connectWallet = connectWallet;
     window.createContractInstance = createContractInstance;
-    window.getUserAccount = () => userAccount;  // Adicionar esta linha
+    window.getUserAccount = () => userAccount;
 });
