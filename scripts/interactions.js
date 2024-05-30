@@ -114,8 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const userAccount = window.getUserAccount();
         if (userAccount) {
-            await window.claimDrips(userAccount);
+            try {
+            await claimRewards(userAccount);
             await refreshBalances();
+           }
         }
     });
 
