@@ -45,15 +45,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('unstakeDrinksForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const amount = document.getElementById('unstakeAmount').value;
-        const userAccount = window.getUserAccount();
-        const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
-        if (userAccount) {
-            await unstakeTokens(userAccount, amount);
-            await refreshBalances();
-        }
-    });
+    event.preventDefault();
+    
+    const amount = document.getElementById('unstakeAmount').value;
+    const userAccount = window.getUserAccount();
+    const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
+
+    // Verifica se o usuário e o valor são válidos
+    if (!userAccount) {
+        console.error('Usuário não autenticado.');
+        return;
+    }
+
+    if (!amount || isNaN(amount) || amount <= 0) {
+        console.error('Valor de retirada inválido.');
+        return;
+    }
+
+    try {
+        await unstakeTokens(userAccount, amount);
+        await refreshBalances();
+    } catch (error) {
+        console.error('Erro ao realizar o unstake:', error);
+    }
+});
+
 
     document.getElementById('addLiquidityForm').addEventListener('submit', async (event) => {
         event.preventDefault();
