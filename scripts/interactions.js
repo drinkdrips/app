@@ -110,19 +110,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    async function refreshBalances() {
-        const userAccount = window.getUserAccount();
-        if (userAccount) {
-            try {
-                const drinkBalance = await window.getDrinkBalance(userAccount);
-                console.log('Saldo de DRINK:', drinkBalance); // Adicione este log para depuração
-                document.getElementById('drinkBalance').innerText = drinkBalance;
-                // Continue para outros saldos...
-            } catch (error) {
-                console.error('Erro ao obter o saldo de DRINK:', error);
-            }
-        }
+ async function refreshBalances() {
+    const userAccount = window.getUserAccount();
+    if (!userAccount) {
+        console.error('Usuário não autenticado.');
+        return;
     }
+
+    try {
+        const drinkBalance = await window.getDrinkBalance(userAccount);
+        console.log('Saldo de DRINKS:', drinkBalance);
+        document.getElementById('drinkBalance').innerText = drinkBalance;
+
+        const dripsBalance = await window.getDripsBalance(userAccount);
+        console.log('Saldo de DRIPS:', dripsBalance);
+        document.getElementById('dripsBalance').innerText = dripsBalance;
+
+        // Continue para outros saldos, se necessário...
+
+    } catch (error) {
+        console.error('Erro ao obter saldos:', error);
+    }
+}
+
 
     // Atualiza os saldos ao carregar a página
     window.addEventListener('load', async () => {
