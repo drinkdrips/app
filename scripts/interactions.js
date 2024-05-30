@@ -1,4 +1,5 @@
 import { stakeTokens, unstakeTokens, claimRewards, getStakingBalance, calculateRewards } from './staking.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Adiciona event listeners aos formulários
 
@@ -27,57 +28,55 @@ document.addEventListener('DOMContentLoaded', () => {
         const userAccount = window.getUserAccount();
         const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
         if (userAccount) {
-           try {
-            // Primeiro, aprova o contrato de staking a gastar tokens em nome do usuário
-            await window.approve(userAccount, stakingContractAddress, amount);
-
-        } catch (error) {
+            try {
+                // Primeiro, aprova o contrato de staking a gastar tokens em nome do usuário
+                await window.approve(userAccount, stakingContractAddress, amount);
+            } catch (error) {
                 console.error('Erro ao aprovar stake de tokens:', error);
             }
         }
     });
-    
+
     document.getElementById('stakeDrinksForm').addEventListener('submit', async (event) => {
         event.preventDefault();
         const amount = document.getElementById('stakeAmount').value;
         const userAccount = window.getUserAccount();
         const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
         if (userAccount) {
-           try {
-            await stakeTokens(userAccount, amount);
-            // Atualiza os saldos
-            await refreshBalances();
-        } catch (error) {
+            try {
+                await stakeTokens(userAccount, amount);
+                // Atualiza os saldos
+                await refreshBalances();
+            } catch (error) {
                 console.error('Erro ao fazer staking de tokens:', error);
             }
         }
     });
 
     document.getElementById('unstakeDrinksForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const amount = document.getElementById('unstakeAmount').value;
-    const userAccount = window.getUserAccount();
-    const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
+        event.preventDefault();
+        const amount = document.getElementById('unstakeAmount').value;
+        const userAccount = window.getUserAccount();
+        const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
 
-    // Verifica se o usuário e o valor são válidos
-    if (!userAccount) {
-        console.error('Usuário não autenticado.');
-        return;
-    }
+        // Verifica se o usuário e o valor são válidos
+        if (!userAccount) {
+            console.error('Usuário não autenticado.');
+            return;
+        }
 
-    if (!amount || isNaN(amount) || amount <= 0) {
-        console.error('Valor de retirada inválido.');
-        return;
-    }
+        if (!amount || isNaN(amount) || amount <= 0) {
+            console.error('Valor de retirada inválido.');
+            return;
+        }
 
-    try {
-        await unstakeTokens(userAccount, amount);
-        await refreshBalances();
-    } catch (error) {
-        console.error('Erro ao realizar o unstake:', error);
-    }
-});
-
+        try {
+            await unstakeTokens(userAccount, amount);
+            await refreshBalances();
+        } catch (error) {
+            console.error('Erro ao realizar o unstake:', error);
+        }
+    });
 
     document.getElementById('addLiquidityForm').addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -113,48 +112,54 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const userAccount = window.getUserAccount();
         if (userAccount) {
-
             await claimRewards(userAccount);
             await refreshBalances();
-          
         }
     });
-    
- async function refreshBalances() {
-    const userAccount = window.getUserAccount();
-    if (!userAccount) {
-        console.error('Usuário não autenticado.');
-        return;
+
+    // Função para converter Wei para Tokens
+    function convertWeiToTokens(valueInWei) {
+        return web3.utils.fromWei(valueInWei, 'ether');
     }
 
-    try {
-        // Obtém o saldo de DRINKS
-        const drinkBalance = await window.getDrinkBalance(userAccount);
-        console.log('Saldo de DRINKS:', drinkBalance);
-        document.getElementById('drinkBalance').innerText = drinkBalance;
+    async function refreshBalances() {
+        const userAccount = window.getUserAccount();
+        if (!userAccount) {
+            console.error('Usuário não autenticado.');
+            return;
+        }
 
-        // Obtém o saldo de DRIPS
-        const dripsBalance = await window.getDripsBalance(userAccount);
-        console.log('Saldo de DRIPS:', dripsBalance);
-        document.getElementById('dripsBalance').innerText = dripsBalance;
+        try {
+            // Obtém o saldo de DRINKS
+            const drinkBalanceWei = await window.getDrinkBalance(userAccount);
+            const drinkBalance = convertWeiToTokens(drinkBalanceWei);
+            console.log('Saldo de DRINKS:', drinkBalance);
+            document.getElementById('drinkBalance').innerText = drinkBalance;
 
-        // Obtém o saldo de tokens em stake
-        const stakingBalance = await getStakingBalance(userAccount);
-        console.log('Saldo de tokens em stake:', stakingBalance);
-        document.getElementById('stakingBalance').innerText = stakingBalance;
+            // Obtém o saldo de DRIPS
+            const dripsBalanceWei = await window.getDripsBalance(userAccount);
+            const dripsBalance = convertWeiToTokens(dripsBalanceWei);
+            console.log('Saldo de DRIPS:', dripsBalance);
+            document.getElementById('dripsBalance').innerText = dripsBalance;
 
-        // Calcula recompensas em DRIPS de um staker específico
-        const claimableDrips = await calculateRewards(userAccount);
-        console.log('DRIPS a Reivindicar::', claimableDrips);
-        document.getElementById('claimableDrips').innerText = claimableDrips;
-        // Continue para outros saldos, se necessário...
+            // Obtém o saldo de tokens em stake
+            const stakingBalanceWei = await getStakingBalance(userAccount);
+            const stakingBalance = convertWeiToTokens(stakingBalanceWei);
+            console.log('Saldo de tokens em stake:', stakingBalance);
+            document.getElementById('stakingBalance').innerText = stakingBalance;
 
-    } catch (error) {
-        console.error('Erro ao obter saldos:', error);
+            // Calcula recompensas em DRIPS de um staker específico
+            const claimableDripsWei = await calculateRewards(userAccount);
+            const claimableDrips = convertWeiToTokens(claimableDripsWei);
+            console.log('DRIPS a Reivindicar:', claimableDrips);
+            document.getElementById('claimableDrips').innerText = claimableDrips;
+
+            // Continue para outros saldos, se necessário...
+
+        } catch (error) {
+            console.error('Erro ao obter saldos:', error);
+        }
     }
-}
-
-
 
     // Atualiza os saldos ao carregar a página
     window.addEventListener('load', async () => {
