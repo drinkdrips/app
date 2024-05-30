@@ -1,4 +1,4 @@
-import { stakeTokens, unstakeTokens, claimRewards, stakingBalance, getStakingBalance } from './staking.js';
+import { stakeTokens, unstakeTokens, claimRewards, getStakingBalance } from './staking.js';
 document.addEventListener('DOMContentLoaded', () => {
     // Adiciona event listeners aos formulários
     document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
