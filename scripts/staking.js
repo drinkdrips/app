@@ -353,14 +353,92 @@ const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // 
 
 const stakingContract = new web3.eth.Contract(stakingContractABI, stakingContractAddress);
 
+// Função para stake de tokens
 export async function stakeTokens(fromAddress, amount) {
     return await stakingContract.methods.stakeTokens(amount).send({ from: fromAddress });
 }
 
+// Função para unstake de tokens
 export async function unstakeTokens(fromAddress, amount) {
     return await stakingContract.methods.unstakeTokens(amount).send({ from: fromAddress });
 }
 
+// Função para reivindicar recompensas
 export async function claimRewards(fromAddress) {
     return await stakingContract.methods.claimRewards().send({ from: fromAddress });
+}
+
+// Função para distribuir recompensas
+export async function distributeRewards(fromAddress) {
+    return await stakingContract.methods.distributeRewards().send({ from: fromAddress });
+}
+// Função para pausar o contrato
+export async function pause(fromAddress) {
+    return await stakingContract.methods.pause().send({ from: fromAddress });
+}
+
+// Função para retomar o contrato
+export async function unpause(fromAddress) {
+    return await stakingContract.methods.unpause().send({ from: fromAddress });
+}
+
+// Função para transferir a propriedade do contrato
+export async function transferOwnership(fromAddress, newOwner) {
+    return await stakingContract.methods.transferOwnership(newOwner).send({ from: fromAddress });
+}
+
+// Função para renunciar à propriedade do contrato
+export async function renounceOwnership(fromAddress) {
+    return await stakingContract.methods.renounceOwnership().send({ from: fromAddress });
+}
+
+// Função para calcular as recompensas de um staker específico
+export async function calculateRewards(stakerAddress) {
+    return await stakingContract.methods.calculateRewards(stakerAddress).call();
+}
+
+// Função para obter o endereço do token drink
+export async function getDrinkTokenAddress() {
+    return await stakingContract.methods.drinkToken().call();
+}
+
+// Função para obter o endereço do token drips
+export async function getDripsTokenAddress() {
+    return await stakingContract.methods.dripsToken().call();
+}
+
+// Função para obter o último horário de reivindicação de recompensas de um staker específico
+export async function getLastClaimTime(stakerAddress) {
+    return await stakingContract.methods.lastClaimTime(stakerAddress).call();
+}
+
+// Função para obter o endereço do proprietário do contrato
+export async function getOwner() {
+    return await stakingContract.methods.owner().call();
+}
+
+// Função para verificar se o contrato está pausado
+export async function isPaused() {
+    return await stakingContract.methods.paused().call();
+}
+
+// Função para obter o saldo de recompensas de um staker específico
+export async function getRewardBalance(stakerAddress) {
+    return await stakingContract.methods.rewardBalance(stakerAddress).call();
+}
+
+// Função para obter a taxa de recompensas
+export async function getRewardRate() {
+    return await stakingContract.methods.rewardRate().call();
+}
+
+// Função para obter o saldo de tokens em stake de um endereço específico
+export async function getStakingBalance(address) {
+    try {
+        const balance = await stakingContract.methods.stakingBalance(address).call();
+        return balance;
+    } catch (error) {
+        console.error('Erro ao obter saldo de staking:', error);
+        throw error;
+    }
 }
