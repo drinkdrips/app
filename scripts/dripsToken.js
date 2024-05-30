@@ -443,11 +443,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
-    const dripsTokenContract = new web3.eth.Contract(dripsTokenAbi, dripsTokenAddress);
+    window.dripsTokenContract = new web3.eth.Contract(dripsTokenAbi, dripsTokenAddress);
 
     async function getDripsBalance(account) {
         try {
-            const balance = await dripsTokenContract.methods.balanceOf(account).call();
+            const balance = await window.dripsTokenContract.methods.balanceOf(account).call();
             return web3.utils.fromWei(balance, 'ether'); // Assumindo que o token é de 18 decimais
         } catch (error) {
             console.error('Erro ao consultar saldo de DRIPS:', error);
@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function transferDrips(fromAccount, toAccount, amount) {
         try {
             const amountInWei = web3.utils.toWei(amount, 'ether'); // Assumindo que o token é de 18 decimais
-            const receipt = await dripsTokenContract.methods.transfer(toAccount, amountInWei).send({ from: fromAccount });
+            const receipt = await window.dripsTokenContract.methods.transfer(toAccount, amountInWei).send({ from: fromAccount });
             return receipt;
         } catch (error) {
             console.error('Erro ao transferir DRIPS:', error);
@@ -471,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function applyPenalty(fromAccount, amount) {
         try {
             const amountInWei = web3.utils.toWei(amount, 'ether');
-            const receipt = await dripsTokenContract.methods.applyPenalty(fromAccount, amountInWei).send({ from: fromAccount });
+            const receipt = await window.dripsTokenContract.methods.applyPenalty(fromAccount, amountInWei).send({ from: fromAccount });
             return receipt;
         } catch (error) {
             console.error('Erro ao aplicar penalidade:', error);
@@ -483,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function approve(spender, amount) {
         try {
             const amountInWei = web3.utils.toWei(amount, 'ether');
-            const receipt = await dripsTokenContract.methods.approve(spender, amountInWei).send();
+            const receipt = await window.dripsTokenContract.methods.approve(spender, amountInWei).send();
             return receipt;
         } catch (error) {
             console.error('Erro ao aprovar:', error);
@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function burn(amount) {
         try {
             const amountInWei = web3.utils.toWei(amount, 'ether');
-            const receipt = await dripsTokenContract.methods.burn(amountInWei).send();
+            const receipt = await window.dripsTokenContract.methods.burn(amountInWei).send();
             return receipt;
         } catch (error) {
             console.error('Erro ao queimar tokens:', error);
@@ -507,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function conditionalTransfer(to, amount) {
         try {
             const amountInWei = web3.utils.toWei(amount, 'ether');
-            const receipt = await dripsTokenContract.methods.conditionalTransfer(to, amountInWei).send();
+            const receipt = await window.dripsTokenContract.methods.conditionalTransfer(to, amountInWei).send();
             return receipt;
         } catch (error) {
             console.error('Erro ao realizar transferência condicional:', error);
@@ -519,7 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function decreaseAllowance(spender, subtractedValue) {
         try {
             const amountInWei = web3.utils.toWei(subtractedValue, 'ether');
-            const receipt = await dripsTokenContract.methods.decreaseAllowance(spender, amountInWei).send();
+            const receipt = await window.dripsTokenContract.methods.decreaseAllowance(spender, amountInWei).send();
             return receipt;
         } catch (error) {
             console.error('Erro ao diminuir permissão:', error);
@@ -531,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function increaseAllowance(spender, addedValue) {
         try {
             const amountInWei = web3.utils.toWei(addedValue, 'ether');
-            const receipt = await dripsTokenContract.methods.increaseAllowance(spender, amountInWei).send();
+            const receipt = await window.dripsTokenContract.methods.increaseAllowance(spender, amountInWei).send();
             return receipt;
         } catch (error) {
             console.error('Erro ao aumentar permissão:', error);
@@ -542,7 +542,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para verificar o allowance
     async function allowance(owner, spender) {
         try {
-            const allowanceAmount = await dripsTokenContract.methods.allowance(owner, spender).call();
+            const allowanceAmount = await window.dripsTokenContract.methods.allowance(owner, spender).call();
             return web3.utils.fromWei(allowanceAmount, 'ether');
         } catch (error) {
             console.error('Erro ao verificar allowance:', error);
@@ -553,7 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para verificar se a transferência é permitida
     async function allowedTransfer(account) {
         try {
-            const isAllowed = await dripsTokenContract.methods.allowedTransfer(account).call();
+            const isAllowed = await window.dripsTokenContract.methods.allowedTransfer(account).call();
             return isAllowed;
         } catch (error) {
             console.error('Erro ao verificar se a transferência é permitida:', error);
@@ -564,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para obter o balanceOf
     async function balanceOf(account) {
         try {
-            const balance = await dripsTokenContract.methods.balanceOf(account).call();
+            const balance = await window.dripsTokenContract.methods.balanceOf(account).call();
             return web3.utils.fromWei(balance, 'ether');
         } catch (error) {
             console.error('Erro ao obter saldo:', error);
@@ -575,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para obter decimals
     async function decimals() {
         try {
-            const decimals = await dripsTokenContract.methods.decimals().call();
+            const decimals = await window.dripsTokenContract.methods.decimals().call();
             return decimals;
         } catch (error) {
             console.error('Erro ao obter decimals:', error);
@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para obter name
     async function name() {
         try {
-            const name = await dripsTokenContract.methods.name().call();
+            const name = await window.dripsTokenContract.methods.name().call();
             return name;
         } catch (error) {
             console.error('Erro ao obter name:', error);
@@ -597,7 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para obter owner
     async function owner() {
         try {
-            const ownerAddress = await dripsTokenContract.methods.owner().call();
+            const ownerAddress = await window.dripsTokenContract.methods.owner().call();
             return ownerAddress;
         } catch (error) {
             console.error('Erro ao obter owner:', error);
@@ -608,7 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para verificar se o contrato está pausado
     async function paused() {
         try {
-            const isPaused = await dripsTokenContract.methods.paused().call();
+            const isPaused = await window.dripsTokenContract.methods.paused().call();
             return isPaused;
         } catch (error) {
             console.error('Erro ao verificar se o contrato está pausado:', error);
@@ -619,7 +619,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para obter o stakingContract
     async function stakingContract() {
         try {
-            const stakingContractAddress = await dripsTokenContract.methods.stakingContract().call();
+            const stakingContractAddress = await window.dripsTokenContract.methods.stakingContract().call();
             return stakingContractAddress;
         } catch (error) {
             console.error('Erro ao obter stakingContract:', error);
@@ -630,7 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para obter o symbol
     async function symbol() {
         try {
-            const symbol = await dripsTokenContract.methods.symbol().call();
+            const symbol = await window.dripsTokenContract.methods.symbol().call();
             return symbol;
         } catch (error) {
             console.error('Erro ao obter symbol:', error);
@@ -641,7 +641,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para obter totalSupply
     async function totalSupply() {
         try {
-            const totalSupply = await dripsTokenContract.methods.totalSupply().call();
+            const totalSupply = await window.dripsTokenContract.methods.totalSupply().call();
             return web3.utils.fromWei(totalSupply, 'ether');
         } catch (error) {
             console.error('Erro ao obter totalSupply:', error);
