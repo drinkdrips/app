@@ -1,4 +1,4 @@
-import { stakeTokens, unstakeTokens, claimRewards } from './staking.js';
+import { stakeTokens, unstakeTokens, claimRewards, stakingBalance } from './staking.js';
 document.addEventListener('DOMContentLoaded', () => {
     // Adiciona event listeners aos formulários
     document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
@@ -118,13 +118,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
+        // Obtém o saldo de DRINKS
         const drinkBalance = await window.getDrinkBalance(userAccount);
         console.log('Saldo de DRINKS:', drinkBalance);
         document.getElementById('drinkBalance').innerText = drinkBalance;
 
+        // Obtém o saldo de DRIPS
         const dripsBalance = await window.getDripsBalance(userAccount);
         console.log('Saldo de DRIPS:', dripsBalance);
         document.getElementById('dripsBalance').innerText = dripsBalance;
+
+        // Obtém o saldo de tokens em stake
+        const stakingBalance = await getStakingBalance(userAccount);
+        console.log('Saldo de tokens em stake:', stakingBalance);
+        document.getElementById('stakingBalance').innerText = stakingBalance;
 
         // Continue para outros saldos, se necessário...
 
@@ -132,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Erro ao obter saldos:', error);
     }
 }
+
 
 
     // Atualiza os saldos ao carregar a página
