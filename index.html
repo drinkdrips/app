@@ -47,20 +47,17 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h3 class="card-title">Compra de Tokens</h3>
+                                        <h3 class="card-title">Comprar Drinks</h3>
                                         <form id="buyDrinksForm">
                                             <div class="form-group">
-                                                <label for="paymentToken">Escolha a moeda:</label>
+                                                <label for="paymentToken">Pagar com:</label>
                                                 <select class="form-control" id="paymentToken">
-                                                    <option value="eth">ETH</option>
-                                                    <option value="matic">MATIC</option>
-                                                    <option value="btc">BTC</option>
-                                                    <option value="usd">USD</option>
+                                                    <option value="usd">USDC</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="tokenAmount">Quantidade:</label>
-                                                <input type="number" class="form-control" id="tokenAmount" placeholder="Insira a quantidade" step="any" min="0">
+                                                <label for="tokenAmount">Valor:</label>
+                                                <input type="number" class="form-control" id="tokenAmount" placeholder="Digite apenas número inteiro" step="1" min="0">
                                             </div>
                                             <button type="submit" class="btn btn-primary btn-block">Comprar DRINK</button>
                                         </form>
