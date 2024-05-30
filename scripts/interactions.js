@@ -1,6 +1,15 @@
 import { stakeTokens, unstakeTokens, claimRewards, getStakingBalance } from './staking.js';
 document.addEventListener('DOMContentLoaded', () => {
     // Adiciona event listeners aos formulários
+
+    document.getElementById('refreshBalancesBtn').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const userAccount = window.getUserAccount();
+        if (userAccount) {
+            await refreshBalances();
+        }
+    });
+    
     document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
         event.preventDefault();
         const amount = document.getElementById('tokenAmount').value;
