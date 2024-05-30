@@ -2,7 +2,7 @@ import { stakeTokens, unstakeTokens, claimRewards, getStakingBalance } from './s
 document.addEventListener('DOMContentLoaded', () => {
     // Adiciona event listeners aos formulários
 
-    document.getElementById('refreshBalancesBtn').addEventListener('submit', async (event) => {
+    document.getElementById('refreshBalancesBtn').addEventListener('click', async (event) => {
         event.preventDefault();
         const userAccount = window.getUserAccount();
         if (userAccount) {
