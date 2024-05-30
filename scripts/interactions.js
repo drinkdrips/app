@@ -109,16 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-  //  document.getElementById('claimDripsForm').addEventListener('submit', async (event) => {
-    //    event.preventDefault();
-      //  const userAccount = window.getUserAccount();
-      //  if (userAccount) {
-       //     try {
-         //   await claimRewards(userAccount);
-           // await refreshBalances();
-       //    }
-      //  }
- //   });
+    document.getElementById('claimDripsForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const userAccount = window.getUserAccount();
+        if (userAccount) {
+
+            await claimRewards(userAccount);
+            await refreshBalances();
+          
+        }
+    });
     
  async function refreshBalances() {
     const userAccount = window.getUserAccount();
