@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('unstakeDrinksForm').addEventListener('submit', async (event) => {
     event.preventDefault();
-    
     const amount = document.getElementById('unstakeAmount').value;
     const userAccount = window.getUserAccount();
     const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
@@ -113,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('claimDripsForm').addEventListener('submit', async (event) => {
         event.preventDefault();
         const userAccount = window.getUserAccount();
+        const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
         if (userAccount) {
             try {
             await claimRewards(userAccount);
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
            }
         }
     });
-
+    
  async function refreshBalances() {
     const userAccount = window.getUserAccount();
     if (!userAccount) {
