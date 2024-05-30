@@ -142,6 +142,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Saldo de tokens em stake:', stakingBalance);
         document.getElementById('stakingBalance').innerText = stakingBalance;
 
+        // Calcula recompensas em DRIPS de um staker específico
+        const claimableDrips = await calculateRewards(userAccount);
+        console.log('DRIPS a Reivindicar::', claimableDrips);
+        document.getElementById('claimableDrips').innerText = claimableDrips;
         // Continue para outros saldos, se necessário...
 
     } catch (error) {
