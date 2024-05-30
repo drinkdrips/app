@@ -1,14 +1,36 @@
+// Função para converter Wei para Tokens
+function convertWeiToTokens(valueInWei) {
+    return web3.utils.fromWei(valueInWei, 'ether');
+}
+
 // Função para atualizar os saldos
 async function refreshBalances() {
     const userAccount = window.getUserAccount();
     if (userAccount) {
         try {
-            const drinkBalance = await window.getDrinkBalance(userAccount);
+            const drinkBalanceWei = await window.getDrinkBalance(userAccount);
+            const drinkBalance = convertWeiToTokens(drinkBalanceWei);
             console.log('Saldo de DRINK:', drinkBalance);
             document.getElementById('drinkBalance').innerText = drinkBalance;
-            // Continue para outros saldos...
+
+            const dripsBalanceWei = await window.getDripsBalance(userAccount);
+            const dripsBalance = convertWeiToTokens(dripsBalanceWei);
+            console.log('Saldo de DRIPS:', dripsBalance);
+            document.getElementById('dripsBalance').innerText = dripsBalance;
+
+            const stakingBalanceWei = await window.getStakingBalance(userAccount);
+            const stakingBalance = convertWeiToTokens(stakingBalanceWei);
+            console.log('Saldo de tokens em stake:', stakingBalance);
+            document.getElementById('stakingBalance').innerText = stakingBalance;
+
+            const claimableDripsWei = await window.getClaimableDrips(userAccount);
+            const claimableDrips = convertWeiToTokens(claimableDripsWei);
+            console.log('DRIPS a Reivindicar:', claimableDrips);
+            document.getElementById('claimableDrips').innerText = claimableDrips;
+
+            // Continue para outros saldos, se necessário...
         } catch (error) {
-            console.error('Erro ao obter o saldo de DRINK:', error);
+            console.error('Erro ao obter os saldos:', error);
         }
     }
 }
@@ -24,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const disableButtons = () => {
-        // Código para desabilitar os botões...
         document.getElementById('refreshBalancesBtn').disabled = true;
         document.getElementById('buyDrinksForm').querySelector('button').disabled = true;
         document.getElementById('approveDrinksForm').querySelector('button').disabled = true;
@@ -39,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const enableButtons = () => {
-        // Código para habilitar os botões...
         document.getElementById('refreshBalancesBtn').disabled = false;
         document.getElementById('buyDrinksForm').querySelector('button').disabled = false;
         document.getElementById('approveDrinksForm').querySelector('button').disabled = false;
@@ -60,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function connectWallet() {
-        // Código para conectar a carteira...
         if (window.ethereum) {
             try {
                 const provider = window.ethereum;
@@ -76,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Habilitar os outros botões após a conexão
                 enableButtons();
 
-                alert('Conexão realizada com sucesso!'); // Adiciona uma mensagem de sucesso
+                alert('Conexão realizada com sucesso!');
 
                 // Atualiza os saldos após a conexão bem-sucedida
                 await refreshBalances();
@@ -99,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createContractInstance(abi, contractAddress) {
-        // Código para criar uma instância do contrato...
         if (!web3) {
             console.error('web3 não está inicializado.');
             return null;
@@ -107,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return new web3.eth.Contract(abi, contractAddress);
     }
 
-    // Tornar as funções disponíveis globalmente para uso em outros scripts
     window.connectWallet = connectWallet;
     window.createContractInstance = createContractInstance;
     window.getUserAccount = () => userAccount;
