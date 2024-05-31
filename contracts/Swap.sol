@@ -9,31 +9,30 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 contract Swap is Ownable, ReentrancyGuard {
     IERC20 public drinkToken;
     AggregatorV3Interface internal priceFeedETH;
-    AggregatorV3Interface internal priceFeedDrinkETH;
+    address public _PRICEFEEDDRINKETH;
 
     event SwapEthForDrink(address indexed swapper, uint256 ethAmount, uint256 tokenAmount);
     event SwapDrinkForEth(address indexed swapper, uint256 tokenAmount, uint256 ethAmount);
 
-    constructor(address _drinkToken, address _priceFeedETH, address _priceFeedDrinkETH) {
+    constructor(address _drinkToken, address _priceFeedETH, address _priceFeedDrinkEth) {
         require(_drinkToken != address(0), "Invalid token address");
         require(_priceFeedETH != address(0), "Invalid ETH price feed address");
-        require(_priceFeedDrinkETH != address(0), "Invalid Drink price feed address");
+        require(_priceFeedDrinkEth != address(0), "Invalid Drink token price feed address");
 
         drinkToken = IERC20(_drinkToken);
         priceFeedETH = AggregatorV3Interface(_priceFeedETH);
-        priceFeedDrinkETH = AggregatorV3Interface(_priceFeedDrinkETH);
+        _PRICEFEEDDRINKETH = _priceFeedDrinkEth;
     }
 
-    function getLatestPrice(AggregatorV3Interface priceFeed) internal view returns (uint256) {
+    function getLatestPrice(AggregatorV3Interface priceFeed) public view returns (uint256) {
         (, int256 price, , , ) = priceFeed.latestRoundData();
-        require(price > 0, "Invalid price feed");
-        return uint256(price);
+        return uint256(price * 1e10); // Adjusting the price to have 18 decimals
     }
 
     function swapEthForDrink() external payable nonReentrant {
+        require(_PRICEFEEDDRINKETH != address(0), "Drink token price feed address not set");
         uint256 ethPrice = getLatestPrice(priceFeedETH);
-        uint256 drinkPrice = getLatestPrice(priceFeedDrinkETH);
-        uint256 tokenAmount = (msg.value * drinkPrice) / ethPrice;
+        uint256 tokenAmount = (msg.value * ethPrice) / 10; // Assuming DRINK_PRICE_USD = 10
 
         require(drinkToken.balanceOf(address(this)) >= tokenAmount, "Insufficient token balance in contract");
 
@@ -43,11 +42,11 @@ contract Swap is Ownable, ReentrancyGuard {
     }
 
     function swapDrinkForEth(uint256 tokenAmount) external nonReentrant {
+        require(_PRICEFEEDDRINKETH != address(0), "Drink token price feed address not set");
         require(drinkToken.balanceOf(msg.sender) >= tokenAmount, "Insufficient token balance");
 
-        uint256 ethPrice = getLatestPrice(priceFeedETH);
-        uint256 drinkPrice = getLatestPrice(priceFeedDrinkETH);
-        uint256 ethAmount = (tokenAmount * ethPrice) / drinkPrice;
+        uint256 ethPrice = getLatestPrice(AggregatorV3Interface(_PRICEFEEDDRINKETH));
+        uint256 ethAmount = (tokenAmount * 10) / ethPrice; // Assuming DRINK_PRICE_USD = 10
 
         require(address(this).balance >= ethAmount, "Insufficient ETH balance in contract");
 
