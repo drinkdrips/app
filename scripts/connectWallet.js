@@ -43,41 +43,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function connectWallet() {
-        if (window.ethereum) {
-            try {
-                const provider = window.ethereum;
-                if (!web3) {
-                    web3 = new Web3(provider);
-                }
-                await provider.request({ method: 'eth_requestAccounts' });
-                const accounts = await web3.eth.getAccounts();
-                userAccount = accounts[0];
-                connectButton.innerText = `Conectado: ${userAccount.slice(0, 6)}...${userAccount.slice(-4)}`;
-                connectButton.disabled = true; // Desativa o botão após a conexão
-
-                // Habilitar os outros botões após a conexão
-                enableButtons();
-
-                alert('Conexão realizada com sucesso!');
-
-                // Atualiza os saldos após a conexão bem-sucedida
-                await refreshBalances();
-
-                // Adiciona o evento 'disconnect'
-                window.ethereum.on('disconnect', (error) => {
-                    console.log('MetaMask desconectado:', error);
-                    disableButtons();
-                    connectButton.innerText = 'Conectar MetaMask';
-                    connectButton.disabled = false;
-                });
-
-            } catch (error) {
-                console.error('Erro ao conectar com MetaMask:', error);
-                alert('Conexão recusada.');
-            }
-        } else {
-            alert('MetaMask não detectado.');
-        }
+        // Verifica se o MetaMask está instalado e conectado
+if (window.ethereum) {
+    // Inicializa o provedor Ethereum
+    const provider = window.ethereum;
+    try {
+        // Solicita acesso à conta
+        await provider.request({ method: 'eth_requestAccounts' });
+        console.log('Conexão MetaMask estabelecida com sucesso.');
+        // Cria uma instância do objeto web3 usando o provedor Ethereum
+        web3 = new Web3(provider);
+        // Atualiza a interface do usuário
+        const accounts = await web3.eth.getAccounts();
+        userAccount = accounts[0];
+        connectButton.innerText = `Conectado: ${userAccount.slice(0, 6)}...${userAccount.slice(-4)}`;
+        connectButton.disabled = true; // Desativa o botão após a conexão
+        // Habilita os outros botões após a conexão
+        enableButtons();
+        alert('Conexão realizada com sucesso!');
+        // Atualiza os saldos após a conexão bem-sucedida
+        await refreshBalances();
+        // Adiciona o evento 'disconnect'
+        window.ethereum.on('disconnect', (error) => {
+            console.log('MetaMask desconectado:', error);
+            disableButtons();
+            connectButton.innerText = 'Conectar MetaMask';
+            connectButton.disabled = false;
+        });
+    } catch (error) {
+        console.error('Erro ao conectar com MetaMask:', error);
+        alert('Conexão recusada.');
+    }
+} else {
+    alert('MetaMask não detectado.');
+}
     }
 
     function createContractInstance(abi, contractAddress) {
