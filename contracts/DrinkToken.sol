@@ -5,7 +5,6 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contr
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/access/Ownable.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/security/ReentrancyGuard.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/security/Pausable.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 contract DrinkToken is ERC20, Ownable, ReentrancyGuard, Pausable {
     uint256 public constant MAX_SUPPLY = 51_000_000 * (10 ** uint256(18));
@@ -13,21 +12,11 @@ contract DrinkToken is ERC20, Ownable, ReentrancyGuard, Pausable {
     uint256 public constant DRINK_PRICE_USD = 10; // $0.10 por Drink token
     bool public presaleActive = true;
 
-    AggregatorV3Interface internal priceFeedUSD;
-
     mapping(address => uint256) public tokensPurchased;
 
     event TokensPurchased(address indexed buyer, address indexed token, uint256 amountPaid, uint256 amountBought);
 
-    constructor(address _priceFeedUSD) ERC20("DrinkToken", "DRINK") {
-        require(_priceFeedUSD != address(0), "Invalid price feed address");
-        priceFeedUSD = AggregatorV3Interface(_priceFeedUSD);
-    }
-
-    function getLatestPrice(AggregatorV3Interface priceFeed) public view returns (uint256) {
-        (, int256 price, , , ) = priceFeed.latestRoundData();
-        return uint256(price * 1e10); // ajustando o preço para ter 18 decimais
-    }
+    constructor() ERC20("DrinkToken", "DRINK") {}
 
     function buyTokensWithUsd(uint256 usdAmount) external whenNotPaused nonReentrant {
         uint256 tokenAmount = (usdAmount * 1e18) / DRINK_PRICE_USD;
