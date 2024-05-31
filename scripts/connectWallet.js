@@ -1707,3 +1707,88 @@ document.addEventListener('DOMContentLoaded', () => {
         await refreshBalances();
     });
 });
+
+// Daqui pra baixo foram adicionadas novas funções
+// Obter o valor do campo de entrada (campo de entrada com o ID 'approveAmount" deve existir na página HTML)
+    const amountInTokens = document.getElementById('approveAmount').value;
+    
+// Definir o endereço do spender (StakingContract)
+    const spenderAddress = stakingContractAddress;
+
+// Função para Aprovação e Manipulação de Drinks (Aprovação para Stake)
+window.approve = async function(spenderAddress, amountInTokens) {
+    try {
+        // Obtenha a conta do usuário logado na MetaMask
+        const userAccount = window.ethereum.selectedAddress;
+
+        // Converta o valor de tokens para Wei
+        const amountInWei = web3.utils.toWei(amountInTokens.toString(), 'ether');
+
+        // Aprovar o spender
+        const result = await window.drinkTokenContract.methods.approve(spenderAddress, amountInWei).send({ from: userAccount });
+        console.log('Aprovação bem-sucedida');
+        return result;
+    } catch (error) {
+        console.error('Erro ao aprovar:', error.message);
+        throw error;
+    }
+}
+
+// Função para compra de Tokens
+window.buyTokens = async function(amount) {
+    try {
+        const result = await window.drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: window.ethereum.selectedAddress, value: amount });
+        console.log('Compra de DRINKS realizada com sucesso');
+        return result;
+    } catch (error) {
+        console.error('Erro ao comprar tokens durante a pré-venda:', error.message);
+        throw error;
+    }
+}
+
+// Função para Stake de Tokens
+window.stakeTokens = async function(amount) {
+    try {
+        const result = await window.stakingContract.methods.stakeTokens(amount).send({ from: window.ethereum.selectedAddress, value: amount });
+        console.log('Stake realizado com sucesso');
+        return result;
+    } catch (error) {
+        console.error('Erro ao tentar fazer Stake:', error.message);
+        throw error;
+    }
+}
+
+// Função para Unstake de Tokens
+window.unstakeTokens = async function(amount) {
+    try {
+        const result = await window.stakingContract.methods.unstakeTokens(amount).send({ from: window.ethereum.selectedAddress, value: amount });
+        console.log('Unstake realizado com sucesso');
+        return result;
+    } catch (error) {
+        console.error('Erro ao tentar fazer Unstake:', error.message);
+        throw error;
+    }
+}
+
+// Função para calcular recompensas
+window.calculateRewards = async function(stakerAddress) {
+    try {
+        const rewards = await window.stakingContract.methods.calculateRewards(stakerAddress).call();
+        return rewards;
+    } catch (error) {
+        console.error('Erro ao calcular recompensas:', error);
+        throw error;
+    }
+}
+
+// Função para reivindicar recompensas
+window.claimRewards = async function() {
+    try {
+        const result = await window.stakingContract.methods.claimRewards().send({ from: window.ethereum.selectedAddress });
+        console.log('Recompensas reivindicadas com sucesso');
+        return result;
+    } catch (error) {
+        console.error('Erro ao reivindicar recompensas:', error.message);
+        throw error;
+    }
+}
