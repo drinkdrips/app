@@ -701,16 +701,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Função para aprovar
-    async function approve(spender, amount) {
-        try {
-            const amountInWei = web3.utils.toWei(amount, 'ether');
-            const receipt = await window.dripsTokenContract.methods.approve(spender, amountInWei).send();
-            return receipt;
-        } catch (error) {
-            console.error('Erro ao aprovar:', error);
-            return null;
-        }
-    }
+   // async function approve(spender, amount) {
+     //   try {
+        //    const amountInWei = web3.utils.toWei(amount, 'ether');
+          //  const receipt = await window.dripsTokenContract.methods.approve(spender, amountInWei).send();
+           // return receipt;
+      //  } catch (error) {
+       //     console.error('Erro ao aprovar:', error);
+       //     return null;
+      //  }
+   // }
 
     // Função para queimar tokens
     async function burn(amount) {
