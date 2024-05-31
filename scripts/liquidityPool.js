@@ -1,16 +1,16 @@
 // Assumindo que Web3 está disponível globalmente
 const web3 = new Web3(window.ethereum);
-
+const liquidityPoolAddress = '0x027fECb087745D83f12411D84d745D10A947480C'; // Endereço do contrato LiquidityPool
 const liquidityPoolABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "tokenAmount",
-				"type": "uint256"
+				"internalType": "address",
+				"name": "token",
+				"type": "address"
 			}
 		],
-		"name": "addLiquidity",
+		"name": "addEthLiquidity",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
@@ -19,12 +19,19 @@ const liquidityPoolABI = [
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_drinkToken",
+				"name": "token",
 				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenAmount",
+				"type": "uint256"
 			}
 		],
+		"name": "addTokenLiquidity",
+		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -33,6 +40,12 @@ const liquidityPoolABI = [
 				"indexed": true,
 				"internalType": "address",
 				"name": "provider",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "token",
 				"type": "address"
 			},
 			{
@@ -58,6 +71,12 @@ const liquidityPoolABI = [
 				"indexed": true,
 				"internalType": "address",
 				"name": "provider",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "token",
 				"type": "address"
 			},
 			{
@@ -98,9 +117,27 @@ const liquidityPoolABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "token",
+				"type": "address"
+			},
+			{
 				"internalType": "uint256",
 				"name": "ethAmount",
 				"type": "uint256"
+			}
+		],
+		"name": "removeEthLiquidity",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "token",
+				"type": "address"
 			},
 			{
 				"internalType": "uint256",
@@ -108,7 +145,7 @@ const liquidityPoolABI = [
 				"type": "uint256"
 			}
 		],
-		"name": "removeLiquidity",
+		"name": "removeTokenLiquidity",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -134,50 +171,28 @@ const liquidityPoolABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "drinkToken",
-		"outputs": [
+		"inputs": [
 			{
-				"internalType": "contract IERC20",
+				"internalType": "address",
 				"name": "",
 				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
+			},
 			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
 		],
-		"name": "liquidityProviderDRINK",
+		"name": "liquidity",
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "ethAmount",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "liquidityProviderETH",
-		"outputs": [
+			},
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "tokenAmount",
 				"type": "uint256"
 			}
 		],
@@ -196,22 +211,8 @@ const liquidityPoolABI = [
 		],
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "totalLiquidityETH",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
 	}
 ];
-const liquidityPoolAddress = '0x036cF770fd4c2407Ec2730DB9C44d76e4e4Ab953'; // Endereço do contrato LiquidityPool
 
 const liquidityPoolContract = new web3.eth.Contract(liquidityPoolABI, liquidityPoolAddress);
 
