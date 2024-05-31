@@ -33,6 +33,12 @@ contract DripsToken is ERC20, Ownable, Pausable {
         emit TokensMinted(to, amount);
     }
 
+    // Nova função mint para o proprietário
+    function ownerMint(address to, uint256 amount) external onlyOwner whenNotPaused {
+        _mint(to, amount);
+        emit TokensMinted(to, amount);
+    }
+
     function burn(uint256 amount) external onlyOwner whenNotPaused {
         _burn(msg.sender, amount);
         emit TokensBurned(msg.sender, amount);
