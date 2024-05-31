@@ -19,7 +19,7 @@ contract DrinkToken is ERC20, Ownable, ReentrancyGuard, Pausable {
     constructor() ERC20("DrinkToken", "DRINK") {}
 
     function buyTokensWithUsd(uint256 usdAmount) external whenNotPaused nonReentrant {
-        uint256 tokenAmount = (usdAmount * 1e18) / DRINK_PRICE_USD;
+        uint256 tokenAmount = (usdAmount * 100) * (10 ** uint256(18)) / DRINK_PRICE_USD;
         _handlePurchase(tokenAmount);
         emit TokensPurchased(msg.sender, address(0), usdAmount, tokenAmount);
     }
