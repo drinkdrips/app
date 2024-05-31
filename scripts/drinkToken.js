@@ -558,16 +558,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Função para aprovar o contrato de staking a gastar tokens em nome do usuário
-    async function approve(fromAddress, spenderAddress, amount) {
-        try {
-            await window.drinkTokenContract.methods.approve(spenderAddress, amount).send({ from: fromAddress });
-            console.log('Aprovação bem-sucedida para gastar tokens em nome do usuário');
-        } catch (error) {
-            console.error('Erro ao aprovar gasto de tokens:', error);
-            throw error;
-        }
+// Função para aprovar o contrato de staking a gastar tokens em nome do usuário
+async function approve(fromAddress, spenderAddress, amountInTokens) {
+    try {
+        // Converta o valor de tokens para Wei
+        const amountInWei = web3.utils.toWei(amountInTokens.toString(), 'ether');
+        
+        // Aprove o contrato de staking para gastar tokens em nome do usuário
+        await window.drinkTokenContract.methods.approve(spenderAddress, amountInWei).send({ from: fromAddress });
+        
+        console.log('Aprovação bem-sucedida para gastar tokens em nome do usuário');
+    } catch (error) {
+        console.error('Erro ao aprovar gasto de tokens:', error);
+        throw error;
     }
+}
 
     // Função para verificar a quantidade permitida para gasto por um endereço específico
     async function allowance(ownerAddress, spenderAddress) {
