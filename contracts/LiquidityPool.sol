@@ -6,44 +6,61 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contr
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/security/ReentrancyGuard.sol";
 
 contract LiquidityPool is Ownable, ReentrancyGuard {
-    IERC20 public drinkToken;
-
-    uint256 public totalLiquidityETH;
-    mapping(address => uint256) public liquidityProviderETH;
-    mapping(address => uint256) public liquidityProviderDRINK;
-
-    event LiquidityAdded(address indexed provider, uint256 ethAmount, uint256 tokenAmount);
-    event LiquidityRemoved(address indexed provider, uint256 ethAmount, uint256 tokenAmount);
-
-    constructor(address _drinkToken) {
-        require(_drinkToken != address(0), "Invalid token address");
-        drinkToken = IERC20(_drinkToken);
+    struct Liquidity {
+        uint256 ethAmount;
+        uint256 tokenAmount;
     }
 
-    function addLiquidity(uint256 tokenAmount) external payable nonReentrant {
-        require(tokenAmount > 0, "Token amount must be greater than zero");
+    mapping(address => mapping(address => Liquidity)) public liquidity;
+
+    event LiquidityAdded(address indexed provider, address indexed token, uint256 ethAmount, uint256 tokenAmount);
+    event LiquidityRemoved(address indexed provider, address indexed token, uint256 ethAmount, uint256 tokenAmount);
+
+    function addEthLiquidity(address token) external payable nonReentrant {
+        require(token != address(0), "Invalid token address");
         require(msg.value > 0, "ETH amount must be greater than zero");
 
-        drinkToken.transferFrom(msg.sender, address(this), tokenAmount);
+        Liquidity storage pool = liquidity[msg.sender][token];
+        pool.ethAmount += msg.value;
 
-        liquidityProviderETH[msg.sender] += msg.value;
-        liquidityProviderDRINK[msg.sender] += tokenAmount;
-        totalLiquidityETH += msg.value;
-
-        emit LiquidityAdded(msg.sender, msg.value, tokenAmount);
+        emit LiquidityAdded(msg.sender, token, msg.value, 0);
     }
 
-    function removeLiquidity(uint256 ethAmount, uint256 tokenAmount) external nonReentrant {
-        require(liquidityProviderETH[msg.sender] >= ethAmount, "Insufficient ETH liquidity");
-        require(liquidityProviderDRINK[msg.sender] >= tokenAmount, "Insufficient DRINK liquidity");
+    function addTokenLiquidity(address token, uint256 tokenAmount) external nonReentrant {
+        require(token != address(0), "Invalid token address");
+        require(tokenAmount > 0, "Token amount must be greater than zero");
 
-        liquidityProviderETH[msg.sender] -= ethAmount;
-        liquidityProviderDRINK[msg.sender] -= tokenAmount;
-        totalLiquidityETH -= ethAmount;
+        IERC20(token).transferFrom(msg.sender, address(this), tokenAmount);
 
+        Liquidity storage pool = liquidity[msg.sender][token];
+        pool.tokenAmount += tokenAmount;
+
+        emit LiquidityAdded(msg.sender, token, 0, tokenAmount);
+    }
+
+    function removeEthLiquidity(address token, uint256 ethAmount) external nonReentrant {
+        require(token != address(0), "Invalid token address");
+        require(ethAmount > 0, "ETH amount must be greater than zero");
+
+        Liquidity storage pool = liquidity[msg.sender][token];
+        require(pool.ethAmount >= ethAmount, "Insufficient ETH liquidity");
+
+        pool.ethAmount -= ethAmount;
         payable(msg.sender).transfer(ethAmount);
-        drinkToken.transfer(msg.sender, tokenAmount);
 
-        emit LiquidityRemoved(msg.sender, ethAmount, tokenAmount);
+        emit LiquidityRemoved(msg.sender, token, ethAmount, 0);
+    }
+
+    function removeTokenLiquidity(address token, uint256 tokenAmount) external nonReentrant {
+        require(token != address(0), "Invalid token address");
+        require(tokenAmount > 0, "Token amount must be greater than zero");
+
+        Liquidity storage pool = liquidity[msg.sender][token];
+        require(pool.tokenAmount >= tokenAmount, "Insufficient token liquidity");
+
+        pool.tokenAmount -= tokenAmount;
+        IERC20(token).transfer(msg.sender, tokenAmount);
+
+        emit LiquidityRemoved(msg.sender, token, 0, tokenAmount);
     }
 }
