@@ -22,20 +22,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('approveDrinksForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const amount = document.getElementById('approveAmount').value;
-        const userAccount = window.getUserAccount();
-        const stakingContractAddress = '0x318D6a1b84d06fc0dA16eB628A8C1a579B2307c3'; // Endereço do contrato de staking
-        if (userAccount) {
-            try {
-                // Primeiro, aprova o contrato de staking a gastar tokens em nome do usuário
-                await window.approve(userAccount, stakingContractAddress, amount);
-            } catch (error) {
-                console.error('Erro ao aprovar stake de tokens:', error);
-            }
+document.getElementById('approveDrinksForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    // Obtenha o valor do campo de entrada
+    const amountInTokens = document.getElementById('approveAmount').value;
+    
+    // Obtenha a conta do usuário logado na MetaMask
+    const userAccount = window.getUserAccount();
+    
+    // Defina o endereço do contrato de staking
+    const spenderAddress = '0x318D6a1b84d06fc0dA16eB628A8C1a579B2307c3'; // ndereço do StakingContract
+    
+    if (userAccount) {
+        try {
+            // Aprove o contrato de staking para gastar tokens em nome do usuário
+            await approve(userAccount, spenderAddress, amountInTokens);
+            console.log('Aprovação bem-sucedida para stake de tokens');
+        } catch (error) {
+            console.error('Erro ao aprovar stake de tokens:', error);
         }
-    });
+    } else {
+        console.error('Usuário não está conectado');
+    }
+});
 
     document.getElementById('stakeDrinksForm').addEventListener('submit', async (event) => {
         event.preventDefault();
