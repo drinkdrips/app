@@ -1,6 +1,6 @@
 // Assumindo que Web3 está disponível globalmente
 const web3 = new Web3(window.ethereum);
-
+const stakingContractAddress = '0x318D6a1b84d06fc0dA16eB628A8C1a579B2307c3'; // Endereço do contrato StakingContract
 const stakingContractABI = [
 	{
 		"inputs": [],
@@ -349,7 +349,6 @@ const stakingContractABI = [
 		"type": "function"
 	}
 ];
-const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato StakingContract
 
 const stakingContract = new web3.eth.Contract(stakingContractABI, stakingContractAddress);
 
