@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const amount = document.getElementById('approveAmount').value;
         const userAccount = window.getUserAccount();
-        const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
+        const stakingContractAddress = '0x318D6a1b84d06fc0dA16eB628A8C1a579B2307c3'; // Endereço do contrato de staking
         if (userAccount) {
             try {
                 // Primeiro, aprova o contrato de staking a gastar tokens em nome do usuário
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const amount = document.getElementById('stakeAmount').value;
         const userAccount = window.getUserAccount();
-        const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
+        const stakingContractAddress = '0x318D6a1b84d06fc0dA16eB628A8C1a579B2307c3'; // Endereço do contrato de staking
         if (userAccount) {
             try {
                 await stakeTokens(userAccount, amount);
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const amount = document.getElementById('unstakeAmount').value;
         const userAccount = window.getUserAccount();
-        const stakingContractAddress = '0xF1Ebaa6f5C9A4D3EEd735CAD364605646E79cFFB'; // Endereço do contrato de staking
+        const stakingContractAddress = '0x318D6a1b84d06fc0dA16eB628A8C1a579B2307c3'; // Endereço do contrato de staking
 
         // Verifica se o usuário e o valor são válidos
         if (!userAccount) {
