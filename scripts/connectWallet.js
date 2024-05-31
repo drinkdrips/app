@@ -1566,9 +1566,9 @@ window.getStakingBalance = async function(userAddress) {
     }
 }
 
-window.getClaimableDrips = async function(userAddress) {
+window.getCalculateRewards = async function(userAddress) {
     try {
-        const claimable = await window.stakingContract.methods.claimableDrips(userAddress).call();
+        const claimable = await window.stakingContract.methods.calculateRewards(userAddress).call();
         return claimable;
     } catch (error) {
         console.error('Erro ao obter DRIPS a reivindicar:', error);
@@ -1596,7 +1596,7 @@ async function refreshBalances() {
             console.log('Saldo de tokens em stake:', stakingBalance);
             document.getElementById('stakingBalance').innerText = stakingBalance;
 
-            const claimableDripsWei = await window.getClaimableDrips(userAccount);
+            const claimableDripsWei = await window.getCalculateRewards(userAccount);
             const claimableDrips = convertWeiToTokens(claimableDripsWei);
             console.log('DRIPS a Reivindicar:', claimableDrips);
             document.getElementById('claimableDrips').innerText = claimableDrips;
