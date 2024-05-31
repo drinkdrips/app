@@ -531,7 +531,6 @@ window.drinkTokenContract = new web3.eth.Contract(drinkTokenContractABI, drinkTo
 console.log('Instância do contrato DrinkToken criada com sucesso');
     } else {
         console.error('web3 não está inicializado.');
-        return; // Pare a execução se web3 não estiver inicializado corretamente
     }
 
 const dripsTokenContractABI = [
@@ -1196,7 +1195,6 @@ window.dripsTokenContract = new web3.eth.Contract(dripsTokenContractABI, dripsTo
 console.log('Instância do contrato DripsToken criada com sucesso');
     } else {
         console.error('web3 não está inicializado.');
-        return; // Pare a execução se web3 não estiver inicializado corretamente
     }
 
 const stakingContractABI = [
@@ -1554,8 +1552,7 @@ window.stakingContract = new web3.eth.Contract(stakingContractABI, stakingContra
 console.log('Instância do stakingContract criada com sucesso');
     } else {
         console.error('web3 não está inicializado.');
-        return; // Pare a execução se web3 não estiver inicializado corretamente
-    }
+	}
 
 
 // Funções para obter saldos
