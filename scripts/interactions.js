@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
         event.preventDefault();
         try {
-            const amount = document.getElementById('tokenAmount').value;
+            const amount = document.getElementById('usdAmount').value;
             const accounts = await window.ethereum.request({ method: 'eth_accounts' });
             const userAccount = accounts[0]; // Assumindo que você deseja usar a primeira conta
             if (userAccount) {
