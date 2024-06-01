@@ -1793,12 +1793,19 @@ window.stakeTokens = async function(userAccount, amount) {
     try {
         // Converta o valor de tokens para Wei
         const amountInWei = web3.utils.toWei(amount.toString(), 'ether');
-
+        console.log(`Staking ${amountInWei} tokens from ${userAccount}`);
+	console.log(web3.utils.fromWei(amountInWei, 'ether')); //Log para tiar prova real (converte de volta de Wei para Ether)
+	    
+        // Chame o método stakeTokens no contrato de staking
         const result = await window.stakingContract.methods.stakeTokens(amountInWei).send({ from: userAccount });
         console.log('Stake realizado com sucesso');
         return result;
     } catch (error) {
-        console.error('Erro ao tentar fazer Stake:', error.message);
+        console.error('Erro ao tentar fazer Stake:', error);
+        // Verifique se há mais detalhes na propriedade `error.data`
+        if (error.data) {
+            console.error('Detalhes do erro:', error.data);
+        }
         throw error;
     }
 }
@@ -1820,6 +1827,7 @@ document.getElementById('stakeDrinksForm').addEventListener('submit', async (eve
         console.error('Erro ao fazer staking de tokens:', error.message);
     }
 });
+
 
 
 // Função para Unstake de Tokens
