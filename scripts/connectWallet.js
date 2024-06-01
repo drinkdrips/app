@@ -1708,9 +1708,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Daqui pra baixo foram adicionadas novas funções
-
-
 // Função para compra de Tokens
 window.buyTokensWithUsd = async function(userAccount, amount) {
     try {
@@ -1923,3 +1920,12 @@ document.getElementById('claimDripsForm').addEventListener('submit', async (even
         }
     }
 });
+
+// Listener para o botão de atualizar saldos
+document.getElementById('refreshBalancesBtn').addEventListener('click', async () => {
+    try {
+        // Chame a função para atualizar os saldos
+        await window.refreshBalances();
+    } catch (error) {
+        console.error('Erro ao clicar no botão de atualizar saldos:', error.message);
+    }
