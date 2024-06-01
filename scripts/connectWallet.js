@@ -1791,7 +1791,10 @@ window.approve = async function(spenderAddress, amountInTokens) {
 // Função para Stake de Tokens
 window.stakeTokens = async function(userAccount, amount) {
     try {
-        const result = await window.stakingContract.methods.stakeTokens(amount).send({ from: userAccount, value: amount });
+        // Converta o valor de tokens para Wei
+        const amountInWei = web3.utils.toWei(amount.toString(), 'ether');
+
+        const result = await window.stakingContract.methods.stakeTokens(amountInWei).send({ from: userAccount });
         console.log('Stake realizado com sucesso');
         return result;
     } catch (error) {
@@ -1801,22 +1804,23 @@ window.stakeTokens = async function(userAccount, amount) {
 }
 
 // Listener para o formulário de Stake
-    document.getElementById('stakeDrinksForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        try {
-            const amount = document.getElementById('stakeAmount').value;
-            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-            const userAccount = accounts[0];
-            if (userAccount) {
-                await window.stakeTokens(amount);
-                await refreshBalances();
-            } else {
-                console.error('Usuário não está conectado');
-            }
-        } catch (error) {
-            console.error('Erro ao fazer staking de tokens:', error.message);
+document.getElementById('stakeDrinksForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    try {
+        const amount = document.getElementById('stakeAmount').value;
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const userAccount = accounts[0];
+        if (userAccount) {
+            await window.stakeTokens(userAccount, amount);  // Passando userAccount e amount corretamente
+            await refreshBalances();
+        } else {
+            console.error('Usuário não está conectado');
         }
-    });
+    } catch (error) {
+        console.error('Erro ao fazer staking de tokens:', error.message);
+    }
+});
+
 
 // Função para Unstake de Tokens
 window.unstakeTokens = async function(userAccount, amount) {
