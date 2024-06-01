@@ -168,6 +168,20 @@ h1, h2, h3 {
     text-wrap: pretty;
     line-height: 1.5;
 }
+/* Utilizando flexbox para garantir que os cards tenham a mesma altura */
+.equal-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.equal-height [class*="col-"] {
+    display: flex;
+    flex-direction: column;
+}
+
+.equal-height .card {
+    flex: 1;
+}
 
 /* Estilização dos Cards */
 .card {
@@ -178,9 +192,6 @@ h1, h2, h3 {
     transition: box-shadow 0.3s ease;
     margin-bottom: 20px;
     padding: 20px;
-    display: flex !important; /* Adicione esta linha */
-    flex-direction: column !important; /* Adicione esta linha */
-    height: 100%; /* Adiciona esta linha */
 }
 
 .card:hover {
