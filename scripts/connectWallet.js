@@ -1719,7 +1719,9 @@ document.addEventListener('DOMContentLoaded', () => {
 window.approve = async function(spenderAddress, amountInTokens) {
     try {
         // Obtenha a conta do usuário logado na MetaMask
-        const userAccount = window.ethereum.selectedAddress;
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const userAccount = accounts[0]; // Assumindo que você deseja usar a primeira conta
+
 
         // Converta o valor de tokens para Wei
         const amountInWei = web3.utils.toWei(amountInTokens.toString(), 'ether');
@@ -1737,7 +1739,7 @@ window.approve = async function(spenderAddress, amountInTokens) {
 // Função para compra de Tokens
 window.buyTokens = async function(amount) {
     try {
-        const result = await window.drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: window.ethereum.selectedAddress, value: amount });
+        const result = await window.drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: userAccount, value: amount });
         console.log('Compra de DRINKS realizada com sucesso');
         return result;
     } catch (error) {
@@ -1749,7 +1751,7 @@ window.buyTokens = async function(amount) {
 // Função para Stake de Tokens
 window.stakeTokens = async function(amount) {
     try {
-        const result = await window.stakingContract.methods.stakeTokens(amount).send({ from: window.ethereum.selectedAddress, value: amount });
+        const result = await window.stakingContract.methods.stakeTokens(amount).send({ from: userAccount, value: amount });
         console.log('Stake realizado com sucesso');
         return result;
     } catch (error) {
@@ -1761,7 +1763,7 @@ window.stakeTokens = async function(amount) {
 // Função para Unstake de Tokens
 window.unstakeTokens = async function(amount) {
     try {
-        const result = await window.stakingContract.methods.unstakeTokens(amount).send({ from: window.ethereum.selectedAddress, value: amount });
+        const result = await window.stakingContract.methods.unstakeTokens(amount).send({ from: userAccount, value: amount });
         console.log('Unstake realizado com sucesso');
         return result;
     } catch (error) {
@@ -1784,7 +1786,7 @@ window.calculateRewards = async function(stakerAddress) {
 // Função para reivindicar recompensas
 window.claimRewards = async function() {
     try {
-        const result = await window.stakingContract.methods.claimRewards().send({ from: window.ethereum.selectedAddress });
+        const result = await window.stakingContract.methods.claimRewards().send({ from: userAccount });
         console.log('Recompensas reivindicadas com sucesso');
         return result;
     } catch (error) {
