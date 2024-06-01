@@ -1924,8 +1924,8 @@ document.getElementById('claimDripsForm').addEventListener('submit', async (even
 // Listener para o botão de atualizar saldos
 document.getElementById('refreshBalancesBtn').addEventListener('click', async () => {
     try {
-        // Chame a função para atualizar os saldos
-        await window.refreshBalances();
+        // Chame a sua função para atualizar os saldos
+        await refreshBalances();
     } catch (error) {
         console.error('Erro ao clicar no botão de atualizar saldos:', error.message);
     }
