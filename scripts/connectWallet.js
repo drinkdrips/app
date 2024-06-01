@@ -1737,9 +1737,20 @@ window.approve = async function(spenderAddress, amountInTokens) {
 }
 
 // Função para compra de Tokens
-window.buyTokens = async function(userAccount, amount) { // Adicionado userAccount como parâmetro
+window.buyTokens = async function(userAccount, usdAmount) {
     try {
-        const result = await window.drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: userAccount, value: amount });
+        // Definindo a taxa de conversão de USD para tokens
+        const USD_TO_TOKEN_RATE = 10; // 1 USD = 10 tokens
+
+        // Convertendo o valor em USD para tokens
+        const tokenAmount = usdAmount * USD_TO_TOKEN_RATE;
+
+        // Convertendo o valor dos tokens para Wei (se necessário)
+        const tokenAmountWei = web3.utils.toWei(tokenAmount.toString(), 'ether');
+
+        // Enviando a transação para comprar os tokens
+        const result = await window.drinkTokenContract.methods.buyTokensWithUsd(tokenAmountWei).send({ from: userAccount, value: tokenAmountWei });
+
         console.log('Compra de DRINKS realizada com sucesso');
         return result;
     } catch (error) {
@@ -1747,6 +1758,7 @@ window.buyTokens = async function(userAccount, amount) { // Adicionado userAccou
         throw error;
     }
 }
+
 
 // Função para Stake de Tokens
 window.stakeTokens = async function(userAccount, amount) {
