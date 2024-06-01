@@ -1619,7 +1619,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const disableButtons = () => {
-        document.getElementById('refreshBalancesBtn').disabled = true;
         document.getElementById('buyDrinksForm').querySelector('button').disabled = true;
         document.getElementById('approveDrinksForm').querySelector('button').disabled = true;
         document.getElementById('stakeDrinksForm').querySelector('button').disabled = true;
@@ -1633,7 +1632,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const enableButtons = () => {
-        document.getElementById('refreshBalancesBtn').disabled = false;
         document.getElementById('buyDrinksForm').querySelector('button').disabled = false;
         document.getElementById('approveDrinksForm').querySelector('button').disabled = false;
         document.getElementById('stakeDrinksForm').querySelector('button').disabled = false;
@@ -1918,15 +1916,5 @@ document.getElementById('claimDripsForm').addEventListener('submit', async (even
         if (error.data) {
             console.error('Detalhes do erro:', error.data);
         }
-    }
-});
-
-// Listener para o botão de atualizar saldos
-document.getElementById('refreshBalancesBtn').addEventListener('click', async () => {
-    try {
-        // Chame a sua função para atualizar os saldos
-        await refreshBalances();
-    } catch (error) {
-        console.error('Erro ao clicar no botão de atualizar saldos:', error.message);
     }
 });
