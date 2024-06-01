@@ -18,17 +18,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         event.preventDefault();
         try {
             const amount = document.getElementById('tokenAmount').value;
-            const paymentToken = document.getElementById('paymentToken').value;
             const accounts = await window.ethereum.request({ method: 'eth_accounts' });
             const userAccount = accounts[0]; // Assumindo que você deseja usar a primeira conta
             if (userAccount) {
-                await window.buyTokens(amount);
+                await window.buyTokens(userAccount, amount); // Passando userAccount como primeiro argumento
                 await refreshBalances();
             } else {
                 console.error('Usuário não está conectado');
             }
         } catch (error) {
-            console.error('Erro ao comprar tokens:', error.message);
+            console.error('Erro ao comprar tokens durante a pré-venda:', error.message);
         }
     });
 
