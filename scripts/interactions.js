@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const accounts = await window.ethereum.request({ method: 'eth_accounts' });
             const userAccount = accounts[0]; // Assumindo que você deseja usar a primeira conta
             if (userAccount) {
-                await window.buyTokensWithUsd(userAccount, amount); // Passando userAccount como primeiro argumento
+                await window.buyTokensWithUsd(userAccount, paymentToken, amount); // Passando userAccount como primeiro argumento
                 await refreshBalances();
             } else {
                 console.error('Usuário não está conectado');
