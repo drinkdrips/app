@@ -1737,7 +1737,7 @@ window.approve = async function(spenderAddress, amountInTokens) {
 }
 
 // Função para compra de Tokens
-window.buyTokens = async function(amount) {
+window.buyTokens = async function(userAccount, amount) { // Adicionado userAccount como parâmetro
     try {
         const result = await window.drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: userAccount, value: amount });
         console.log('Compra de DRINKS realizada com sucesso');
@@ -1749,7 +1749,7 @@ window.buyTokens = async function(amount) {
 }
 
 // Função para Stake de Tokens
-window.stakeTokens = async function(amount) {
+window.stakeTokens = async function(userAccount, amount) {
     try {
         const result = await window.stakingContract.methods.stakeTokens(amount).send({ from: userAccount, value: amount });
         console.log('Stake realizado com sucesso');
@@ -1761,7 +1761,7 @@ window.stakeTokens = async function(amount) {
 }
 
 // Função para Unstake de Tokens
-window.unstakeTokens = async function(amount) {
+window.unstakeTokens = async function(userAccount, amount) {
     try {
         const result = await window.stakingContract.methods.unstakeTokens(amount).send({ from: userAccount, value: amount });
         console.log('Unstake realizado com sucesso');
@@ -1784,7 +1784,7 @@ window.calculateRewards = async function(stakerAddress) {
 }
 
 // Função para reivindicar recompensas
-window.claimRewards = async function() {
+window.claimRewards = async function(userAccount) {
     try {
         const result = await window.stakingContract.methods.claimRewards().send({ from: userAccount });
         console.log('Recompensas reivindicadas com sucesso');
