@@ -1894,6 +1894,32 @@ window.claimRewards = async function(userAccount) {
         return result;
     } catch (error) {
         console.error('Erro ao reivindicar recompensas:', error.message);
+        if (error.data) {
+            console.error('Detalhes do erro:', error.data);
+        }
         throw error;
     }
 }
+
+// Listener para o formulário de reivindicação de recompensas
+document.getElementById('claimDripsForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    try {
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const userAccount = accounts[0];
+
+        if (!userAccount) {
+            console.error('Usuário não está conectado');
+            return;
+        }
+
+        // Tente reivindicar as recompensas
+        await window.claimRewards(userAccount);
+        await refreshBalances();
+    } catch (error) {
+        console.error('Erro ao reivindicar recompensas:', error.message);
+        if (error.data) {
+            console.error('Detalhes do erro:', error.data);
+        }
+    }
+});
