@@ -1791,6 +1791,10 @@ window.approve = async function(spenderAddress, amountInTokens) {
 // Função para Stake de Tokens
 window.stakeTokens = async function(userAccount, amount) {
     try {
+        // Obtenha a conta do usuário logado na MetaMask
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const userAccount = accounts[0];
+	    
     	// Converta o valor de tokens para Wei
         const amount = web3.utils.toWei(amount.toString(), 'ether');
 
