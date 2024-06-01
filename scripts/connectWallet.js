@@ -1738,9 +1738,12 @@ window.approve = async function(spenderAddress, amountInTokens) {
 }
 
 // Função para compra de Tokens
-window.buyTokensWithUsd = async function(userAccount, paymentToken, amount) {
+window.buyTokensWithUsd = async function(userAccount, amount) {
     try {
-        const result = await window.drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: userAccount, value: amount });
+        console.log('User Account:', userAccount);
+        console.log('Amount:', amount);
+
+        const result = await window.drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: userAccount });
         console.log('Compra de DRINKS realizada com sucesso');
         return result;
     } catch (error) {
@@ -1748,6 +1751,29 @@ window.buyTokensWithUsd = async function(userAccount, paymentToken, amount) {
         throw error;
     }
 }
+
+// Listener para o formulário de compra de tokens
+document.getElementById('buyDrinksForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    try {
+        const amount = document.getElementById('usdAmount').value;
+        console.log('Amount from input:', amount);
+
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const userAccount = accounts[0]; // Assumindo que você deseja usar a primeira conta
+        console.log('User Account:', userAccount);
+
+        if (userAccount) {
+            await window.buyTokensWithUsd(userAccount, amount); // Passando userAccount como primeiro argumento
+            await refreshBalances();
+        } else {
+            console.error('Usuário não está conectado');
+        }
+    } catch (error) {
+        console.error('Erro ao comprar tokens durante a pré-venda:', error.message);
+    }
+});
+
 
 // Função para Stake de Tokens
 window.stakeTokens = async function(userAccount, amount) {
