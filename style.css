@@ -180,6 +180,7 @@ h1, h2, h3 {
     padding: 20px;
     display: flex !important; /* Adicione esta linha */
     flex-direction: column !important; /* Adicione esta linha */
+    height: 100%; /* Adiciona esta linha */
 }
 
 .card:hover {
