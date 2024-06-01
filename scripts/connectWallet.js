@@ -1710,39 +1710,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Daqui pra baixo foram adicionadas novas funções
 
-// Obter o valor do campo de entrada (campo de entrada com o ID 'approveAmount" deve existir na página HTML)
-    const amountInTokens = document.getElementById('approveAmount').value;  
-
-// Definir o endereço do spender (StakingContract)
-    const spenderAddress = stakingContractAddress;
-
-// Função para Aprovação e Manipulação de Drinks (Aprovação para Stake)
-window.approve = async function(spenderAddress, amountInTokens) {
-    try {
-        // Obtenha a conta do usuário logado na MetaMask
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-        const userAccount = accounts[0]; // Assumindo que você deseja usar a primeira conta
-
-
-        // Converta o valor de tokens para Wei
-        const amountInWei = web3.utils.toWei(amountInTokens.toString(), 'ether');
-
-        // Aprovar o spender
-        const result = await window.drinkTokenContract.methods.approve(spenderAddress, amountInWei).send({ from: userAccount });
-        console.log('Aprovação bem-sucedida');
-        return result;
-    } catch (error) {
-        console.error('Erro ao aprovar:', error.message);
-        throw error;
-    }
-}
 
 // Função para compra de Tokens
 window.buyTokensWithUsd = async function(userAccount, amount) {
     try {
         console.log('User Account:', userAccount);
         console.log('Amount:', amount);
-
         const result = await window.drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: userAccount });
         console.log('Compra de DRINKS realizada com sucesso');
         return result;
@@ -1758,13 +1731,12 @@ document.getElementById('buyDrinksForm').addEventListener('submit', async (event
     try {
         const amount = document.getElementById('usdAmount').value;
         console.log('Amount from input:', amount);
-
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-        const userAccount = accounts[0]; // Assumindo que você deseja usar a primeira conta
+        const userAccount = accounts[0];
         console.log('User Account:', userAccount);
 
         if (userAccount) {
-            await window.buyTokensWithUsd(userAccount, amount); // Passando userAccount como primeiro argumento
+            await window.buyTokensWithUsd(userAccount, amount);
             await refreshBalances();
         } else {
             console.error('Usuário não está conectado');
@@ -1773,6 +1745,47 @@ document.getElementById('buyDrinksForm').addEventListener('submit', async (event
         console.error('Erro ao comprar tokens durante a pré-venda:', error.message);
     }
 });
+
+// Função para Aprovação e Manipulação de Drinks (Aprovação para Stake)
+window.approve = async function(spenderAddress, amountInTokens) {
+    try {
+        // Obtenha a conta do usuário logado na MetaMask
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const userAccount = accounts[0];
+
+        // Converta o valor de tokens para Wei
+        const amountInWei = web3.utils.toWei(amountInTokens.toString(), 'ether');
+
+        // Aprovar o spender
+        const result = await window.drinkTokenContract.methods.approve(spenderAddress, amountInWei).send({ from: userAccount });
+        console.log('Aprovação bem-sucedida');
+        return result;
+    } catch (error) {
+        console.error('Erro ao aprovar:', error.message);
+        throw error;
+    }
+}
+
+// Listener para o formulário de aprovação de tokens para Stake
+    document.getElementById('approveDrinksForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        try {
+            const amountInTokens = document.getElementById('approveAmount').value;
+            console.log('amountInTokens from input:', amountInTokens);
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            const userAccount = accounts[0];
+            console.log('User Account:', userAccount);
+            const spenderAddress = stakingContractAddress;
+            if (userAccount) {
+                await window.approve(spenderAddress, amountInTokens);
+                console.log('Aprovação bem-sucedida para stake de tokens');
+            } else {
+                console.error('Usuário não está conectado');
+            }
+        } catch (error) {
+            console.error('Erro ao aprovar stake de tokens:', error.message);
+        }
+    });
 
 
 // Função para Stake de Tokens
