@@ -1794,7 +1794,7 @@ window.stakeTokens = async function(userAccount, amount) {
         // Converta o valor de tokens para Wei
         const amountInWei = web3.utils.toWei(amount.toString(), 'ether');
         console.log(`Staking ${amountInWei} tokens from ${userAccount}`);
-	console.log(web3.utils.fromWei(amountInWei, 'ether')); //Log para tiar prova real (converte de volta de Wei para Ether)
+	console.log(web3.utils.fromWei(amountInWei, 'ether')); //Log para prova real (converte de volta de Wei para Ether)
 	    
         // Chame o método stakeTokens no contrato de staking
         const result = await window.stakingContract.methods.stakeTokens(amountInWei).send({ from: userAccount });
@@ -1828,19 +1828,52 @@ document.getElementById('stakeDrinksForm').addEventListener('submit', async (eve
     }
 });
 
-
-
 // Função para Unstake de Tokens
 window.unstakeTokens = async function(userAccount, amount) {
     try {
-        const result = await window.stakingContract.methods.unstakeTokens(amount).send({ from: userAccount, value: amount });
+        // Converta o valor de tokens para Wei
+        const amountInWei = web3.utils.toWei(amount.toString(), 'ether');
+        
+        console.log(`Unstaking ${amountInWei} tokens from ${userAccount}`);
+
+        // Chame o método unstakeTokens no contrato de staking
+        const result = await window.stakingContract.methods.unstakeTokens(amountInWei).send({ from: userAccount });
         console.log('Unstake realizado com sucesso');
         return result;
     } catch (error) {
-        console.error('Erro ao tentar fazer Unstake:', error.message);
+        console.error('Erro ao tentar fazer Unstake:', error);
+        // Verifique se há mais detalhes na propriedade `error.data`
+        if (error.data) {
+            console.error('Detalhes do erro:', error.data);
+        }
         throw error;
     }
 }
+
+// Listener para o formulário de Unstake
+document.getElementById('unstakeDrinksForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    try {
+        const amount = document.getElementById('unstakeAmount').value;
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const userAccount = accounts[0];
+
+        if (!userAccount) {
+            console.error('Usuário não está conectado');
+            return;
+        }
+
+        // Tente fazer o unstake dos tokens
+        await window.unstakeTokens(userAccount, amount);
+        await refreshBalances();
+    } catch (error) {
+        console.error('Erro ao fazer unstake de tokens:', error.message);
+        if (error.data) {
+            console.error('Detalhes do erro:', error.data);
+        }
+    }
+});
+
 
 // Função para calcular recompensas
 window.calculateRewards = async function(stakerAddress) {
