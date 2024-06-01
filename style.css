@@ -178,6 +178,8 @@ h1, h2, h3 {
     transition: box-shadow 0.3s ease;
     margin-bottom: 20px;
     padding: 20px;
+    display: flex; /* Adicione esta linha */
+    flex-direction: column; /* Adicione esta linha */
 }
 
 .card:hover {
@@ -189,6 +191,7 @@ h1, h2, h3 {
     display: flex;
     flex-direction: column;
     height: 100%;
+    flex: 1; /* Adicione esta linha */
 }
 
 .card-title {
