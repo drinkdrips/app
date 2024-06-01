@@ -1929,3 +1929,4 @@ document.getElementById('refreshBalancesBtn').addEventListener('click', async ()
     } catch (error) {
         console.error('Erro ao clicar no botão de atualizar saldos:', error.message);
     }
+});
