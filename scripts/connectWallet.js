@@ -1738,7 +1738,7 @@ window.approve = async function(spenderAddress, amountInTokens) {
 }
 
 // Função para compra de Tokens
-window.buyTokensWithUsd = async function(userAccount, amount) {
+window.buyTokensWithUsd = async function(userAccount, paymentToken, amount) {
     try {
         const result = await window.drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: userAccount, value: amount });
         console.log('Compra de DRINKS realizada com sucesso');
