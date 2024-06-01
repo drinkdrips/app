@@ -1710,7 +1710,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Daqui pra baixo foram adicionadas novas funções
 
-    
+// Obter o valor do campo de entrada (campo de entrada com o ID 'approveAmount" deve existir na página HTML)
+    const amountInTokens = document.getElementById('approveAmount').value;  
+
 // Definir o endereço do spender (StakingContract)
     const spenderAddress = stakingContractAddress;
 
@@ -1736,7 +1738,7 @@ window.approve = async function(spenderAddress, amountInTokens) {
 }
 
 // Função para compra de Tokens
-window.buyTokens = async function(userAccount, amount) {
+window.buyTokensWithUsd = async function(userAccount, amount) {
     try {
         const result = await window.drinkTokenContract.methods.buyTokensWithUsd(amount).send({ from: userAccount, value: amount });
         console.log('Compra de DRINKS realizada com sucesso');
