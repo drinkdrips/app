@@ -1,21 +1,3 @@
-.formliq-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 10px;
-  margin-top: -10px; /* Adiciona 10px de margem superior */ 
-}
-
-.formliq-group label {
-  display: block;
-  margin-top: 20px;
-  margin-bottom: 0px; /* Adiciona espaço entre o rótulo e o input */
-  }
-
-.formliq-group input {
-  width: 100%; /* Define a largura do input como 100% do container */
-}
-
 /* Diminuir o tamanho da fonte das tabs */
 .nav-tabs .nav-link {
   font-size: 16px; /* Ajuste o valor de acordo com sua preferência */
