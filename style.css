@@ -1,42 +1,4 @@
-html, body {
-    height: 100%;
-}
 
-body {
-    display: flex;
-    flex-direction: column;
-}
-
-.container {
-    flex: 1;
-}
-
-
-
-/* Garantir margem consistente nas form-groups */
-    .form-group label {
-      margin-top: 1rem !important;
-      margin-bottom: 0.5rem;
-    }
-
-    .form-group input {
-      margin-bottom: 1rem;
-    }
-
-    /* Garantir que o conteúdo das abas tenha padding uniforme */
-    .tab-pane {
-      padding: 1rem;
-    }
-
-    /* Diminuir o tamanho da fonte das tabs */
-    .nav-tabs .nav-link {
-      font-size: 16px; /* Ajuste o valor de acordo com sua preferência */
-    }
-
-    /* Diminuir o tamanho das tabs */
-    .nav-tabs {
-      height: 45px; /* Ajuste o valor de acordo com sua preferência */
-    }
 
 /* Responsividade */
 @media (max-width: 768px) {
