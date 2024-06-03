@@ -1,3 +1,18 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+
+
 /* Garantir margem consistente nas form-groups */
     .form-group label {
       margin-top: 1rem !important;
