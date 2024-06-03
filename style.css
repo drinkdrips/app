@@ -18,7 +18,6 @@
 
 /* Diminuir o tamanho da fonte das tabs */
 .nav-tabs .nav-link {
-  font-family: 'Honk', sans-serif;
   font-size: 16px; /* Ajuste o valor de acordo com sua preferência */
  }
 
