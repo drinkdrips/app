@@ -95,46 +95,51 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-4">
-                                              <div class="card">
-                                                <div class="card-body">
-                                                  <h3 class="card-title">Liquidity Pool</h3>
-                                                  <ul class="nav nav-tabs" id="liquidityTab" role="tablist">
-                                                    <li class="nav-item">
-                                                      <a class="nav-link active" id="addLiquidity-tab" data-toggle="tab" href="#addLiquidity" role="tab" aria-controls="addLiquidity" aria-selected="true">Adicionar</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                      <a class="nav-link" id="removeLiquidity-tab" data-toggle="tab" href="#removeLiquidity" role="tab" aria-controls="removeLiquidity" aria-selected="false">Remover</a>
-                                                    </li>
-                                                  </ul>
-                                                  <div class="tab-content" id="myTabContent">
-                                                    <div class="tab-pane fade show active" id="addLiquidity" role="tabpanel" aria-labelledby="addLiquidity-tab">
-                                                      <form id="addLiquidityForm">
-                                                        <div class="form-group">
-                                                          <label for="addLiquidityEth">Adicionar Ethereum</label>
-                                                          <input type="number" class="form-control" id="addLiquidityEthAmount" placeholder="Digite a quantidade" step="any" min="0">
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <label for="addLiquidityDrink">Adicionar Drink</label>
-                                                          <input type="number" class="form-control" id="addLiquidityDrinkAmount" placeholder="Digite a quantidade" step="any" min="0">
-                                                        </div>
-                                                        <button type="submit" class="btn btn-info btn-block">Adicionar Liquidez</button>
-                                                      </form>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="removeLiquidity" role="tabpanel" aria-labelledby="removeLiquidity-tab">
-                                                      <form id="removeLiquidityForm" class="mt-3">
-                                                        <div class="form-group">
-                                                          <label for="removeLiquidityEth">Remover Ethereum</label>
-                                                          <input type="number" class="form-control" id="removeLiquidityEthAmount" placeholder="Digite a quantidade" step="any" min="0">
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <label for="removeLiquidityDrink">Remover Drink</label>
-                                                          <input type="number" class="form-control" id="removeLiquidityDrinkAmount" placeholder="Digite a quantidade" step="any" min="0">
-                                                        </div>
-                                                        <button type="submit" class="btn btn-warning btn-block">Remover Liquidez</button>
-                                                      </form>
-                                                    </div>
+                                     <div class="col-md-6 mb-4">
+                                        <div class="card">
+                                          <div class="card-body">
+                                            <h3 class="card-title">Liquidity Pool</h3>
+                                            <ul class="nav nav-tabs" id="liquidityTab" role="tablist">
+                                              <li class="nav-item">
+                                                <a class="nav-link active" id="addLiquidity-tab" data-toggle="tab" href="#addLiquidity" role="tab" aria-controls="addLiquidity" aria-selected="true">Adicionar</a>
+                                              </li>
+                                              <li class="nav-item">
+                                                <a class="nav-link" id="removeLiquidity-tab" data-toggle="tab" href="#removeLiquidity" role="tab" aria-controls="removeLiquidity" aria-selected="false">Remover</a>
+                                              </li>
+                                            </ul>
+                                            <div class="tab-content" id="myTabContent">
+                                              <div class="tab-pane fade show active" id="addLiquidity" role="tabpanel" aria-labelledby="addLiquidity-tab">
+                                                <form id="addLiquidityForm">
+                                                  <div class="form-group">
+                                                    <label for="addLiquidityEthAmount">Adicionar Ethereum</label>
+                                                    <input type="number" class="form-control" id="addLiquidityEthAmount" placeholder="Digite a quantidade" step="any" min="0" aria-describedby="addEthHelp">
+                                                    <small id="addEthHelp" class="form-text text-muted">Insira a quantidade de Ethereum a ser adicionada.</small>
                                                   </div>
+                                                  <div class="form-group">
+                                                    <label for="addLiquidityDrinkAmount">Adicionar Drink</label>
+                                                    <input type="number" class="form-control" id="addLiquidityDrinkAmount" placeholder="Digite a quantidade" step="any" min="0" aria-describedby="addDrinkHelp">
+                                                    <small id="addDrinkHelp" class="form-text text-muted">Insira a quantidade de Drink a ser adicionada.</small>
+                                                  </div>
+                                                  <button type="submit" class="btn btn-info btn-block">Adicionar Liquidez</button>
+                                                </form>
+                                              </div>
+                                              <div class="tab-pane fade" id="removeLiquidity" role="tabpanel" aria-labelledby="removeLiquidity-tab">
+                                                <form id="removeLiquidityForm">
+                                                  <div class="form-group">
+                                                    <label for="removeLiquidityEthAmount">Remover Ethereum</label>
+                                                    <input type="number" class="form-control" id="removeLiquidityEthAmount" placeholder="Digite a quantidade" step="any" min="0" aria-describedby="removeEthHelp">
+                                                    <small id="removeEthHelp" class="form-text text-muted">Insira a quantidade de Ethereum a ser removida.</small>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label for="removeLiquidityDrinkAmount">Remover Drink</label>
+                                                    <input type="number" class="form-control" id="removeLiquidityDrinkAmount" placeholder="Digite a quantidade" step="any" min="0" aria-describedby="removeDrinkHelp">
+                                                    <small id="removeDrinkHelp" class="form-text text-muted">Insira a quantidade de Drink a ser removida.</small>
+                                                  </div>
+                                                  <button type="submit" class="btn btn-warning btn-block">Remover Liquidez</button>
+                                                </form>
+                                              </div>
+                                            </div>
+
                                                     <form id="swapForm" class="mt-3">
                                                         <div class="form-group">
                                                             <label for="swapAmount">Swap DRINK/ETH:</label>
@@ -142,9 +147,9 @@
                                                         </div>
                                                         <button type="submit" class="btn btn-primary btn-block">Trocar</button>
                                                     </form>
-                                                </div>
-                                              </div>
-                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
 
                                 </div>
                               </div>
