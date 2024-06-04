@@ -754,13 +754,15 @@ window.approveAndAddLiquidity = async function(userAccount, tokenAmount, ethAmou
         // Adicionar liquidez de ETH
         await liquidityPoolContract.methods.addEthLiquidity(tokenAddress).send({ from: userAccount, value: ethInWei });
         console.log('Liquidez de ETH adicionada com sucesso');
+        
+        // Atualizar informações da pool do usuário
+        await window.displayYourLiquidity(userAccount, tokenAddress); // Correção aqui
     } catch (error) {
         console.error('Erro ao adicionar liquidez:', error.message);
         throw error;
     }
-    // Atualizar informações da poll do usuário
-    await window.displayYourLiquidity(msg.sender, token);
 }
+
 
 // Listener para o formulário de adicionar liquidez
 document.getElementById('addLiquidityForm').addEventListener('submit', async (event) => {
@@ -792,6 +794,9 @@ window.removeEthLiquidity = async function(userAccount, tokenAddress, ethAmount)
         const result = await liquidityPoolContract.methods.removeEthLiquidity(tokenAddress, amountInWei).send({ from: userAccount });
         console.log('ETH liquidity removed successfully');
         return result;
+
+        // Atualizar informações da poll do usuário
+        await window.displayYourLiquidity(msg.sender, token);
     } catch (error) {
         console.error('Error removing ETH liquidity:', error);
         if (error.data) {
@@ -799,8 +804,7 @@ window.removeEthLiquidity = async function(userAccount, tokenAddress, ethAmount)
         }
         throw error;
     }
-    // Atualizar informações da poll do usuário
-    await window.displayYourLiquidity(msg.sender, token);
+
 };
 
 // Função para remover liquidez em Token
@@ -812,6 +816,9 @@ window.removeTokenLiquidity = async function(userAccount, tokenAddress, tokenAmo
         const result = await liquidityPoolContract.methods.removeTokenLiquidity(tokenAddress, amountInWei).send({ from: userAccount });
         console.log('Token liquidity removed successfully');
         return result;
+
+        // Atualizar informações da poll do usuário
+        await window.displayYourLiquidity(msg.sender, token);
     } catch (error) {
         console.error('Error removing token liquidity:', error);
         if (error.data) {
@@ -819,9 +826,6 @@ window.removeTokenLiquidity = async function(userAccount, tokenAddress, tokenAmo
         }
         throw error;
     }
-    // Atualizar informações da poll do usuário
-    await window.displayYourLiquidity(msg.sender, token);
-
 };
 
 // Listener do formulário para remover liquidez
