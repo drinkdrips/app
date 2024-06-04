@@ -740,8 +740,9 @@ const liquidityPoolContract = new web3.eth.Contract(liquidityPoolABI, liquidityP
 window.displayYourLiquidity = async function(userAccount, tokenAddress) {
     try {
         // Obter as informações da piscina de liquidez do usuário
-        const ethAmount = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).ethAmount().call();
-        const tokenAmount = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).tokenAmount().call();
+        const liquidity = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).call();
+        const ethAmount = liquidity[0]; // A quantidade de ETH está na primeira posição do array
+        const tokenAmount = liquidity[1]; // A quantidade de tokens está na segunda posição do array
 
         // Exibir as informações na tela
         document.getElementById('yourEthAmount').textContent = ethAmount;
@@ -750,6 +751,7 @@ window.displayYourLiquidity = async function(userAccount, tokenAddress) {
         console.error('Erro ao exibir informações da piscina de liquidez do usuário:', error.message);
     }
 }
+
 
 // Função para Aprovação e Adição de Liquidez
 window.approveAndAddLiquidity = async function(userAccount, tokenAmount, ethAmount) {
