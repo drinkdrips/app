@@ -92,6 +92,18 @@
                                             </div>
                                             <button type="submit" class="btn btn-danger btn-block">Unstake</button>
                                         </form>
+                                      
+                                       <!-- Seção para realizar Swap -->
+
+                                                <form id="swapForm" class="mt-3">
+                                                   <div class="form-group">
+                                                      <label for="swapAmount">Swap DRINK/ETH:</label>
+                                                      <input type="number" class="form-control" id="swapAmount" placeholder="0" step="any" min="0">
+                                                  </div>
+                                                <button type="submit" class="btn btn-primary btn-block">Trocar</button>
+                                                </form>
+
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -139,14 +151,24 @@
                                                 </form>
                                             </div>
                                         </div>
-
-                                        <form id="swapForm" class="mt-3">
-                                            <div class="form-group">
-                                                <label for="swapAmount">Swap DRINK/ETH:</label>
-                                                <input type="number" class="form-control" id="swapAmount" placeholder="0" step="any" min="0">
+                                      
+                                      <!-- Nova seção para exibir informações da piscina de liquidez -->
+                                                                           
+                                        <div class="col-md-6 mb-4 liquidity-pool-info">
+                                            <div class="card" style="height: 100%;">
+                                                <div class="card-body" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+                                                    <p class="card-title">Sua Pool de Liquidez</p>
+                                                    <div>
+                                                        <p style="margin-bottom: 0;">ETHER: <span id="yourEthAmount">0</span> ETH</p>
+                                                        <p style="margin-bottom: 0;">DRINKS: <span id="yourTokenAmount">0</span> Tokens</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary btn-block">Trocar</button>
-                                        </form>
+                                        </div>
+
+
+                                                
+                                                
                                     </div>
                                 </div>
                             </div>
