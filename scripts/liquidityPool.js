@@ -736,6 +736,21 @@ const web3 = new Web3(window.ethereum);
 const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
 const liquidityPoolContract = new web3.eth.Contract(liquidityPoolABI, liquidityPoolContractAddress);
 
+// Função para exibir informações da piscina de liquidez do usuário
+window.displayYourLiquidity = async function(userAccount, tokenAddress) {
+    try {
+        // Obter as informações da piscina de liquidez do usuário
+        const ethAmount = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).ethAmount().call();
+        const tokenAmount = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).tokenAmount().call();
+
+        // Exibir as informações na tela
+        document.getElementById('yourEthAmount').textContent = ethAmount;
+        document.getElementById('yourTokenAmount').textContent = tokenAmount;
+    } catch (error) {
+        console.error('Erro ao exibir informações da piscina de liquidez do usuário:', error.message);
+    }
+}
+
 // Função para Aprovação e Adição de Liquidez
 window.approveAndAddLiquidity = async function(userAccount, tokenAmount, ethAmount) {
     const tokenInWei = web3.utils.toWei(tokenAmount.toString(), 'ether');
@@ -756,7 +771,7 @@ window.approveAndAddLiquidity = async function(userAccount, tokenAmount, ethAmou
         console.log('Liquidez de ETH adicionada com sucesso');
         
         // Atualizar informações da pool do usuário
-        await window.displayYourLiquidity(userAccount, tokenAddress); // Correção aqui
+        await window.displayYourLiquidity(userAccount, tokenAddress);
     } catch (error) {
         console.error('Erro ao adicionar liquidez:', error.message);
         throw error;
@@ -843,19 +858,4 @@ document.getElementById('removeLiquidityForm').addEventListener('submit', async 
         await removeTokenLiquidity(userAccount, tokenAddress, tokenAmount);
     }
 });
-
-// Função para exibir informações da piscina de liquidez do usuário
-window.displayYourLiquidity = async function(userAccount, tokenAddress) {
-    try {
-        // Obter as informações da piscina de liquidez do usuário
-        const ethAmount = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).ethAmount().call();
-        const tokenAmount = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).tokenAmount().call();
-
-        // Exibir as informações na tela
-        document.getElementById('yourEthAmount').textContent = ethAmount;
-        document.getElementById('yourTokenAmount').textContent = tokenAmount;
-    } catch (error) {
-        console.error('Erro ao exibir informações da piscina de liquidez do usuário:', error.message);
-    }
-}
 
