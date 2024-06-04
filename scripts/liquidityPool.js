@@ -517,7 +517,7 @@ const tokenABI = [
         "type": "function"
     }
 ];
-const liquidityPoolContractAddress = '0x027fECb087745D83f12411D84d745D10A947480C'; 
+const liquidityPoolContractAddress = '0x027fECb087745D83f12411D84d745D10A947480C';
 const liquidityPoolABI = [
     {
         "inputs": [
@@ -733,16 +733,17 @@ const liquidityPoolABI = [
 
 // Inicializa o Web3 e os contratos
 const web3 = new Web3(window.ethereum);
-const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
-const liquidityPoolContract = new web3.eth.Contract(liquidityPoolABI, liquidityPoolContractAddress);
+
+window.tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
+window.liquidityPoolContract = new web3.eth.Contract(liquidityPoolABI, liquidityPoolContractAddress);
 
 // Função para exibir informações da piscina de liquidez do usuário
 window.displayYourLiquidity = async function(userAccount, tokenAddress) {
     try {
         // Obter as informações da piscina de liquidez do usuário
         const liquidity = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).call();
-        const ethAmount = liquidity[0]; // A quantidade de ETH está na primeira posição do array
-        const tokenAmount = liquidity[1]; // A quantidade de tokens está na segunda posição do array
+        const ethAmount = web3.utils.fromWei(liquidity.ethAmount, 'ether'); // Converte de Wei para ETH
+        const tokenAmount = web3.utils.fromWei(liquidity.tokenAmount, 'ether'); // Converte de Wei para tokens
 
         // Exibir as informações na tela
         document.getElementById('yourEthAmount').textContent = ethAmount;
@@ -750,8 +751,7 @@ window.displayYourLiquidity = async function(userAccount, tokenAddress) {
     } catch (error) {
         console.error('Erro ao exibir informações da piscina de liquidez do usuário:', error.message);
     }
-}
-
+};
 
 // Função para Aprovação e Adição de Liquidez
 window.approveAndAddLiquidity = async function(userAccount, tokenAmount, ethAmount) {
@@ -761,25 +761,24 @@ window.approveAndAddLiquidity = async function(userAccount, tokenAmount, ethAmou
 
     try {
         // Aprovar o contrato de liquidez para gastar os tokens
-        await tokenContract.methods.approve(spenderAddress, tokenInWei).send({ from: userAccount });
+        await window.tokenContract.methods.approve(spenderAddress, tokenInWei).send({ from: userAccount });
         console.log('Aprovação bem-sucedida');
 
         // Adicionar liquidez de tokens
-        await liquidityPoolContract.methods.addTokenLiquidity(tokenAddress, tokenInWei).send({ from: userAccount });
+        await window.liquidityPoolContract.methods.addTokenLiquidity(tokenAddress, tokenInWei).send({ from: userAccount });
         console.log('Liquidez de token adicionada com sucesso');
 
         // Adicionar liquidez de ETH
-        await liquidityPoolContract.methods.addEthLiquidity(tokenAddress).send({ from: userAccount, value: ethInWei });
+        await window.liquidityPoolContract.methods.addEthLiquidity(tokenAddress).send({ from: userAccount, value: ethInWei });
         console.log('Liquidez de ETH adicionada com sucesso');
-        
+
         // Atualizar informações da pool do usuário
         await window.displayYourLiquidity(userAccount, tokenAddress);
     } catch (error) {
         console.error('Erro ao adicionar liquidez:', error.message);
         throw error;
     }
-}
-
+};
 
 // Listener para o formulário de adicionar liquidez
 document.getElementById('addLiquidityForm').addEventListener('submit', async (event) => {
@@ -801,27 +800,21 @@ document.getElementById('addLiquidityForm').addEventListener('submit', async (ev
     }
 });
 
-
 // Função para remover liquidez em Ethereum
 window.removeEthLiquidity = async function(userAccount, tokenAddress, ethAmount) {
     try {
         const amountInWei = web3.utils.toWei(ethAmount.toString(), 'ether');
         console.log(`Removing ${amountInWei} Wei ETH liquidity from ${userAccount}`);
 
-        const result = await liquidityPoolContract.methods.removeEthLiquidity(tokenAddress, amountInWei).send({ from: userAccount });
+        const result = await window.liquidityPoolContract.methods.removeEthLiquidity(tokenAddress, amountInWei).send({ from: userAccount });
         console.log('ETH liquidity removed successfully');
-        return result;
-
-        // Atualizar informações da poll do usuário
-        await window.displayYourLiquidity(msg.sender, token);
+        
+        // Atualizar informações da pool do usuário
+        await window.displayYourLiquidity(userAccount, tokenAddress);
     } catch (error) {
         console.error('Error removing ETH liquidity:', error);
-        if (error.data) {
-            console.error('Error details:', error.data);
-        }
         throw error;
     }
-
 };
 
 // Função para remover liquidez em Token
@@ -830,17 +823,13 @@ window.removeTokenLiquidity = async function(userAccount, tokenAddress, tokenAmo
         const amountInWei = web3.utils.toWei(tokenAmount.toString(), 'ether');
         console.log(`Removing ${amountInWei} Wei token liquidity from ${userAccount}`);
 
-        const result = await liquidityPoolContract.methods.removeTokenLiquidity(tokenAddress, amountInWei).send({ from: userAccount });
+        const result = await window.liquidityPoolContract.methods.removeTokenLiquidity(tokenAddress, amountInWei).send({ from: userAccount });
         console.log('Token liquidity removed successfully');
-        return result;
-
-        // Atualizar informações da poll do usuário
-        await window.displayYourLiquidity(msg.sender, token);
+        
+        // Atualizar informações da pool do usuário
+        await window.displayYourLiquidity(userAccount, tokenAddress);
     } catch (error) {
         console.error('Error removing token liquidity:', error);
-        if (error.data) {
-            console.error('Error details:', error.data);
-        }
         throw error;
     }
 };
@@ -850,14 +839,14 @@ document.getElementById('removeLiquidityForm').addEventListener('submit', async 
     event.preventDefault();
     const ethAmount = document.getElementById('removeLiquidityEthAmount').value;
     const tokenAmount = document.getElementById('removeLiquidityDrinkAmount').value;
-    const userAccount = (await web3.eth.getAccounts())[0];
-    const tokenAddress = '0xe2c5Ec55661367162b6f6dccf017deA678b5EEF8';  // Substitua pelo endereço do token
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    const userAccount = accounts[0];
+    const tokenAddress = '0xe2c5Ec55661367162b6f6dccf017deA678b5EEF8';
 
     if (ethAmount > 0) {
-        await removeEthLiquidity(userAccount, tokenAddress, ethAmount);
+        await window.removeEthLiquidity(userAccount, tokenAddress, ethAmount);
     }
     if (tokenAmount > 0) {
-        await removeTokenLiquidity(userAccount, tokenAddress, tokenAmount);
+        await window.removeTokenLiquidity(userAccount, tokenAddress, tokenAmount);
     }
 });
-
