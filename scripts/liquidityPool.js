@@ -758,6 +758,8 @@ window.approveAndAddLiquidity = async function(userAccount, tokenAmount, ethAmou
         console.error('Erro ao adicionar liquidez:', error.message);
         throw error;
     }
+    // Atualizar informações da poll do usuário
+    await window.displayYourLiquidity(msg.sender, token);
 }
 
 // Listener para o formulário de adicionar liquidez
@@ -797,6 +799,8 @@ window.removeEthLiquidity = async function(userAccount, tokenAddress, ethAmount)
         }
         throw error;
     }
+    // Atualizar informações da poll do usuário
+    await window.displayYourLiquidity(msg.sender, token);
 };
 
 // Função para remover liquidez em Token
@@ -815,24 +819,12 @@ window.removeTokenLiquidity = async function(userAccount, tokenAddress, tokenAmo
         }
         throw error;
     }
+    // Atualizar informações da poll do usuário
+    await window.displayYourLiquidity(msg.sender, token);
+
 };
 
-// Manipulação de formulário para adicionar e remover liquidez
-document.getElementById('addLiquidityForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const ethAmount = document.getElementById('addLiquidityEthAmount').value;
-    const tokenAmount = document.getElementById('addLiquidityDrinkAmount').value;
-    const userAccount = (await web3.eth.getAccounts())[0];
-    const tokenAddress = '0xe2c5Ec55661367162b6f6dccf017deA678b5EEF8';  // Substitua pelo endereço do token
-
-    if (ethAmount > 0) {
-        await addEthLiquidity(userAccount, tokenAddress, ethAmount);
-    }
-    if (tokenAmount > 0) {
-        await addTokenLiquidity(userAccount, tokenAddress, tokenAmount);
-    }
-});
-
+// Listener do formulário para remover liquidez
 document.getElementById('removeLiquidityForm').addEventListener('submit', async (event) => {
     event.preventDefault();
     const ethAmount = document.getElementById('removeLiquidityEthAmount').value;
@@ -847,3 +839,19 @@ document.getElementById('removeLiquidityForm').addEventListener('submit', async 
         await removeTokenLiquidity(userAccount, tokenAddress, tokenAmount);
     }
 });
+
+// Função para exibir informações da piscina de liquidez do usuário
+window.displayYourLiquidity = async function(userAccount, tokenAddress) {
+    try {
+        // Obter as informações da piscina de liquidez do usuário
+        const ethAmount = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).ethAmount().call();
+        const tokenAmount = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).tokenAmount().call();
+
+        // Exibir as informações na tela
+        document.getElementById('yourEthAmount').textContent = ethAmount;
+        document.getElementById('yourTokenAmount').textContent = tokenAmount;
+    } catch (error) {
+        console.error('Erro ao exibir informações da piscina de liquidez do usuário:', error.message);
+    }
+}
+
