@@ -1,3 +1,11 @@
+/* Estilização do Div de Informações da Piscina de Liquidez */
+.liquidity-pool-info {
+    margin: 10px 0;
+    padding:2px;
+    min-width: 100% !important; /* Defina a largura mínima desejada em porcentagem */
+}
+
+
 /* Responsividade */
 @media (max-width: 768px) {
     .myHero {
@@ -27,7 +35,7 @@
 
 @media (max-width: 576px) {
     .card {
-        padding: 20px;
+        padding: 10px;
     }
 
     .token-chart-container {
@@ -41,7 +49,7 @@
 
     .info {
         padding-right: 0;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 }
 
@@ -49,13 +57,13 @@
 header {
     background-color: #007bff;
     color: white;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0 5px;
 }
 
 .header-content {
