@@ -195,16 +195,16 @@ h1, h2, h3 {
 /* Estilização dos Cards */
 .card {
     background: linear-gradient(to bottom, #1f2020, #bc69f2);
-    background-color: #1f2020;
+   /* background-color: #1f2020; */
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 15px;
 }
 
 .card:hover {
-    box-shadow: 0 0 15px rgba(181, 217, 32, 10);
+    /* box-shadow: 0 0 15px rgba(181, 217, 32, 10); */
     /* transform: translateY(-10px); */
 }
 
