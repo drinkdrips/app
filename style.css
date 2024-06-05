@@ -94,9 +94,10 @@ header {
 
 /* Estilização Global */
 body {
+    background-color: #1f2020;
     font-family: 'Honk', sans-serif;
     font-size: 18px;
-    background: linear-gradient(to bottom, #1f2020, #bc69f2);
+    /* background: linear-gradient(to bottom, #1f2020, #bc69f2); */
     height: auto;
     overflow: auto;
 }
