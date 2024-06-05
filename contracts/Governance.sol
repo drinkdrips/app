@@ -5,6 +5,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contr
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/access/Ownable.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/security/ReentrancyGuard.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.8.0/contracts/security/Pausable.sol";
+import "./DripsToken.sol";  // Certifique-se de que o caminho esteja correto
 
 contract Governance is Ownable, ReentrancyGuard, Pausable {
     struct Proposal {
@@ -16,7 +17,7 @@ contract Governance is Ownable, ReentrancyGuard, Pausable {
         bool executed;
     }
 
-    IERC20 public governanceDrink;
+    IERC20 public governanceToken;
     uint256 public proposalCount;
     uint256 public votingPeriod;
     mapping(uint256 => Proposal) public proposals;
@@ -26,9 +27,9 @@ contract Governance is Ownable, ReentrancyGuard, Pausable {
     event Voted(uint256 indexed id, address indexed voter, uint256 weight);
     event ProposalExecuted(uint256 indexed id);
 
-    constructor(address _governanceDrink, uint256 _votingPeriod) {
-        require(_governanceDrink != address(0), "Invalid token address");
-        governanceDrink = IERC20(_governanceDrink);
+    constructor(address _governanceToken, uint256 _votingPeriod) {
+        require(_governanceToken != address(0), "Invalid token address");
+        governanceToken = IERC20(_governanceToken);
         votingPeriod = _votingPeriod;
     }
 
@@ -61,7 +62,7 @@ contract Governance is Ownable, ReentrancyGuard, Pausable {
         require(block.number <= proposal.endBlock, "Voting period ended");
         require(!votes[proposalId][msg.sender], "Already voted");
 
-        uint256 weight = governanceDrink.balanceOf(msg.sender);
+        uint256 weight = governanceToken.balanceOf(msg.sender);
         require(weight > 0, "No governance tokens");
 
         proposal.voteCount += weight;
