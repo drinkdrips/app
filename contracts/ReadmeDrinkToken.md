@@ -1,5 +1,3 @@
-Claro! Aqui está um exemplo de `README.md` explicando todas as fases desde o deploy até a fase pós pré-venda para o contrato `DrinkToken`.
-
 ```markdown
 # DrinkToken
 
