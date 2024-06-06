@@ -1,3 +1,11 @@
+.nav-link{
+    border-radius: 3px 3px 0px 0px;
+    display: flex !important;
+    align-items: center; /* Alinha o texto verticalmente no centro */
+    justify-content: center; /* Alinha o texto horizontalmente no centro */
+    height: 30px; /* Define a altura da aba */
+}
+
 /* Estilização do Div de Informações da Piscina de Liquidez */
 .liquidity-pool-info {
     margin: 10px 0;
