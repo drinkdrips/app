@@ -222,6 +222,7 @@ h1, h2, h3 {
     font-size: 1.5rem;
     margin-bottom: 20px;
     flex-shrink: 0;
+    text-align: center;
 }
 
 /* Estilização de Botões */
