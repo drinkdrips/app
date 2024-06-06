@@ -18,6 +18,38 @@ const drinkTokenContractABI = [
 			{
 				"indexed": true,
 				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "isWhiteListed",
+				"type": "bool"
+			}
+		],
+		"name": "AddressWhiteListed",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "addToWhiteList",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
 				"name": "owner",
 				"type": "address"
 			},
@@ -180,6 +212,19 @@ const drinkTokenContractABI = [
 		],
 		"name": "Paused",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "removeFromWhiteList",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -521,9 +566,41 @@ const drinkTokenContractABI = [
 		],
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "whiteList",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "WHITELIST_DRINK_PRICE_USD",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	}
 ];
-const drinkTokenContractAddress = '0xe2c5Ec55661367162b6f6dccf017deA678b5EEF8';
+const drinkTokenContractAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61';
 window.drinkTokenContract = new web3.eth.Contract(drinkTokenContractABI, drinkTokenContractAddress);
 
 const dripsTokenContractABI = [
@@ -1181,7 +1258,7 @@ const dripsTokenContractABI = [
 		"type": "function"
 	}
 ];
-const dripsTokenContractAddress = '0x3b8c70623DD4d9C03bE64E4039880754bb95A34E';
+const dripsTokenContractAddress = '0x3720D62bcFb9b55890F5B22bb4C8e0143405437E';
 window.dripsTokenContract = new web3.eth.Contract(dripsTokenContractABI, dripsTokenContractAddress);
 
 const stakingContractABI = [
@@ -1532,7 +1609,7 @@ const stakingContractABI = [
 		"type": "function"
 	}
 ];
-const stakingContractAddress = '0x318D6a1b84d06fc0dA16eB628A8C1a579B2307c3';
+const stakingContractAddress = '0xAF7DC2DD0705c6d3022D2F3bA71122c30A10540f';
 window.stakingContract = new web3.eth.Contract(stakingContractABI, stakingContractAddress);
 
 // Funções para obter saldos
