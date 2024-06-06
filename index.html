@@ -17,7 +17,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <h1>App DrinkDrips</h1>
+                <h1>DrinkDrips</h1>
                 <button class="connect-button">
                     <i class="fas fa-wallet"></i> Conectar a MetaMask
                 </button>
@@ -25,25 +25,24 @@
         </div>
     </header>
 
+  <!-- DASHBOARD INICIAL -->
     <div class="container my-5">
         <div class="row equal-height">
             <div class="col-lg-12">
                 <div class="card bg-dark text-white mb-4">
                     <div class="card-body">
-                        <h2 class="card-title">Dashboard</h2>
+                        <h2 class="card-title">Visão Geral</h2>
                         <div class="row">
-                            <!-- Conteúdo das abas aqui -->
                             <div class="col-md-6 mb-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h3 class="card-title">Acompanhe seus Saldos</h3>
-                                        <p>Seus Drinks: <span id="drinkBalance">Loading...</span> DRINK</p>
-                                        <p>Suas Drips: <span id="dripsBalance">Loading...</span> DRIPS</p>
-                                        <p>Seus Drinks em Stake: <span id="stakingBalance">Loading...</span> DRINK</p>
-                                        <p>A reivindicar: <span id="claimableDrips">Loading...</span> DRIPS</p>
-                                        <form id="claimDripsForm">
-                                            <button type="submit" class="btn btn-success btn-block">Reivindicar DRIPS</button>
-                                        </form>
+                                        <h3 class="card-title">DashBoard</h3>
+                                        <p>Fornecimento Total: <span id="drinkBalance">Loading...</span></p>
+                                        <p>Fonecimento Circulante: <span id="dripsBalance">Loading...</span></p>
+                                        <p>Capitalização de Mercado: <span id="stakingBalance">Loading...</span></p>
+                                      <p>Drinks em Stake: <span id="stakingBalance">Loading...</span></p>
+                                      <p>Recompensas distríbuídas: <span id="stakingBalance">Loading...</span></p>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -67,51 +66,102 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h3 class="card-title">STAKE</h3>
-                                        <form id="approveDrinksForm">
-                                            <div class="form-group">
-                                                <label for="approveAmount">Aprove o Stake</label>
-                                                <input type="number" class="form-control" id="approveAmount" placeholder="0" step="1" min="0">
+                         </div>
+                      </div>
+                   </div>
+                </div>
+              </div>
+           </div>
+  <!-- FIM DO DASHBOARD INICIAL -->
+
+  <!-- ÁREA DE STAKE -->       
+  <div class="container my-5">
+   <div class="row equal-height">
+    <div class="col-lg-12">
+     <div class="card bg-dark text-white mb-4">
+      <div class="card-body">
+        <h2 class="card-title">STAKE</h2>
+        <div class="row">
+         <div class="col-md-6 mb-4">
+          <div class="card">
+           <div class="card-body">
+             <form id="approveDrinksForm">
+              <div class="form-group">
+               <label for="approveAmount">Aprove a quantidade de Drinks que você quer deixar em Stake</label>
+                <input type="number" class="form-control" id="approveAmount" placeholder="0" step="1" min="0">
                                             </div>
                                             <button type="submit" class="btn btn-secondary btn-block">Aprovar</button>
                                         </form>
                                         <form id="stakeDrinksForm" class="mt-3">
                                             <div class="form-group">
-                                                <label for="stakeAmount">Faça seu Stake de DRINKS:</label>
+                                                <label for="stakeAmount">Após a aprovação, basta inserir a quandidade de Drinks e clicar em Stake:</label>
                                                 <input type="number" class="form-control" id="stakeAmount" placeholder="0" step="1" min="1">
                                             </div>
                                             <button type="submit" class="btn btn-success btn-block">Stake</button>
                                         </form>
                                         <form id="unstakeDrinksForm" class="mt-3">
                                             <div class="form-group">
-                                                <label for="unstakeAmount">Retirar DRINKS de Stake:</label>
+                                                <label for="unstakeAmount">Remover Stake:</label>
                                                 <input type="number" class="form-control" id="unstakeAmount" placeholder="0" step="1" min="0">
                                             </div>
                                             <button type="submit" class="btn btn-danger btn-block">Unstake</button>
                                         </form>
-                                      
-                                       <!-- Seção para realizar Swap -->
-
-                                                <form id="swapForm" class="mt-3">
-                                                   <div class="form-group">
-                                                      <label for="swapAmount">Swap DRINK/ETH:</label>
-                                                      <input type="number" class="form-control" id="swapAmount" placeholder="0" step="any" min="0">
-                                                  </div>
-                                                <button type="submit" class="btn btn-primary btn-block">Trocar</button>
-                                                </form>
-
-                                      
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h3 class="card-title">Liquidity Pool</h3>
-                                        <ul class="nav nav-tabs" id="liquidityTab" role="tablist">
+                                        <h3 class="card-title">Painel</h3>
+                                        <p>Seus Drinks em Stake: <span id="stakingBalance">Loading...</span> Drinks</p>
+                                        <p>Tempo percorrido: <span id="<!-- digitar ID --> ">Loading...</span></p>
+                                        <p>Drips reivindicadas: <span id="dripsBalance">Loading...</span></p>
+                                         <p>Drips a reivindicar: <span id="claimableDrips">Loading...</span></p>
+                                        <form id="claimDripsForm">
+                                            <button type="submit" class="btn btn-success btn-block">Reivindicar DRIPS</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+              </div>
+           </div>          
+<!-- FIM DA ÁREA DE STAKE -->                   
+                      
+  <!-- DASHBOARD LIQUIDITY -->
+    <div class="container my-5">
+        <div class="row equal-height">
+            <div class="col-lg-12">
+                <div class="card bg-dark text-white mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">Pool</h2>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="col-md-6 mb-4 liquidity-pool-info">
+                                            <div class="card" style="height: 100%; background-image: url('https://lh3.googleusercontent.com/pw/AP1GczMK-Tjvzuw8WXt1VblxrPDhiRFd0ajqjjTn2LH-0JE9y7D8knnQnQdO6WtCuDTDlAArplYTy84eOz3r16aGoiNuRDqNQjrQvpPrlm_n2RsKUuAQwmNL2f5-hQaR2csiQkloeN2o9ahlHd9N5F4acEvD=w1150-h647-s-no-gm?authuser=0'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                                                <div class="card-body" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+                                                    <p class="card-title">Sua Pool de Liquidez</p>
+                                                    <div>
+                                                        <p style="margin-bottom: 0; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;"><span id="yourEthAmount">0</span> Ethers</p>
+                                                        <p style="margin-bottom: 0; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;"><span id="yourTokenAmount">0</span> Drinks</p>
+            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                      <h3 class="card-title">Liquidity Pool</h3>
+                                      <ul class="nav nav-tabs" id="liquidityTab" role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="addLiquidity-tab" data-toggle="tab" href="#addLiquidity" role="tab" aria-controls="addLiquidity" aria-selected="true">Adicionar</a>
                                             </li>
@@ -152,30 +202,47 @@
                                             </div>
                                         </div>
                                       
-                                      <!-- Nova seção para exibir informações da piscina de liquidez -->
-                                                                           
-                                        <div class="col-md-6 mb-4 liquidity-pool-info">
-                                            <div class="card" style="height: 100%; background-image: url('https://lh3.googleusercontent.com/pw/AP1GczMK-Tjvzuw8WXt1VblxrPDhiRFd0ajqjjTn2LH-0JE9y7D8knnQnQdO6WtCuDTDlAArplYTy84eOz3r16aGoiNuRDqNQjrQvpPrlm_n2RsKUuAQwmNL2f5-hQaR2csiQkloeN2o9ahlHd9N5F4acEvD=w1150-h647-s-no-gm?authuser=0'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                                                <div class="card-body" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
-                                                    <p class="card-title">Sua Pool de Liquidez</p>
-                                                    <div>
-                                                        <p style="margin-bottom: 0; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;"><span id="yourEthAmount">0</span> Ethers</p>
-                                                        <p style="margin-bottom: 0; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;"><span id="yourTokenAmount">0</span> Drinks</p>
-            
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-                                                
-                                                
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <main>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+              </div>
+           </div>
+  <!-- FIM DO DASHBOARD LIQUIDITY -->           
+                                        
+                           
+  <!-- ÁREA DE SWAP -->
+    <div class="container my-5">
+        <div class="row equal-height">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">SWAP</h2>
+                           <div class="col-md-12 mb-4">
+                                <div class="card">
+                                 <form id="swapForm" class="mt-3">
+                                    <div class="form-group">
+                                      <label for="swapAmount">Swap DRINK/ETH:</label>
+                                     <input type="number" class="form-control" id="swapAmount" placeholder="0" step="any" min="0">
+                                    </div>
+                                   <button type="submit" class="btn btn-success btn-block">Trocar</button>
+                                </form>
+                                  
+                                </div>
+                            </div>
+                       
+                      </div>
+                   </div>
+                </div>
+              </div>
+           </div>
+  <!-- FIM DA ÁREAD DE SWAP -->
+   
+ <!-- ÁREA SOLTA A VOZ COMUNIDADE -->                      
+ <main>
         <div class="container">
             <h1 class="text-center my-4">Solta a voz comunidade!</h1>
             <div class="row equal-height" id="governanceProposals">
@@ -211,7 +278,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Submeter Nova Proposta</h5>
+                            <h5 class="card-title">Nova Proposta</h5>
                             <form id="createProposalForm">
                                 <div class="form-group">
                                     <label for="proposalTitle">Título da Proposta</label>
@@ -221,7 +288,7 @@
                                     <label for="proposalDescription">Descrição da Proposta</label>
                                     <textarea class="form-control" id="proposalDescription" rows="3" placeholder="Digite a descrição da sua proposta"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-success">Enviar Proposta</button>
+                                <button type="submit" class="btn btn-success">Enviar</button>
                             </form>
                         </div>
                     </div>
@@ -229,30 +296,17 @@
             </div>
         </div>
     </main>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+ <!-- FIM DA ÁREAD SOLTA DA VOZ COMUNIDADE -->
+  
+      
 
     <footer class="mt-5">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 logoRodape">
+          <div class="logoRodape">
                     <img src="https://lh3.googleusercontent.com/pw/AP1GczOOk5wgRvI5RnKt6iz6btSie2asU4F1nBR60PUFUBbyr6KHTgk0SJ-9iUW5ETIjm9CNSznJvO9RvB7fYS9H1q3YgYfSDF6y2ytISTuo-Ilnanc1LkNxgkgP8zyNL7iFe26oBwimAPQKub5d5nzLhC0A=w647-h647-s-no-gm?authuser=0" alt="DrinkDrips">
-                </div>
-                <div class="col-md-4">
-                    <p>&copy; <span id="year"></span> DrinkDrips. Todos os direitos reservados.</p>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline text-right">
-                        <li class="list-inline-item"><a href="#">Termos de Serviço</a></li>
-                        <li class="list-inline-item"><a href="#">Política de Privacidade</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+                  <p>&copy; <span id="year"></span> DrinkDrips. Todos os direitos reservados.</p>
+                                </div>
+             </div>
     </footer>
 
     <script type="module" src="scripts/connectWallet.js"></script>
