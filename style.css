@@ -6,20 +6,17 @@
     height: 30px; /* Define a altura da aba */
 }
 
+
 /* Estilização do Div de Informações da Piscina de Liquidez */
 .liquidity-pool-info {
-    margin: 10px 0;
+    margin: 0px 0;
     padding:2px;
     min-width: 100% !important; /* Defina a largura mínima desejada em porcentagem */
+    min-height: 100%;
 }
-
 
 /* Responsividade */
 @media (max-width: 768px) {
-    .myHero {
-        background-size: 80%;
-    }
-
     .header-content {
         flex-direction: column;
         align-items: flex-start;
@@ -39,20 +36,14 @@
     nav li {
         margin: 10px 0;
     }
+    .card {
+        padding: 5px;
+    }
 }
 
 @media (max-width: 576px) {
     .card {
         padding: 10px;
-    }
-
-    .token-chart-container {
-        max-width: 100%;
-    }
-
-    .info-and-chart-container {
-        flex-direction: column;
-        align-items: center;
     }
 
     .info {
@@ -102,9 +93,7 @@ header {
 
 /* Estilização Global */
 body {
-    background-color: #1f2020;
-    font-family: 'Honk', sans-serif;
-    font-size: 18px;
+    background-color: #1f2020 !important;
     /* background: linear-gradient(to bottom, #1f2020, #bc69f2); */
     height: auto;
     overflow: auto;
@@ -162,14 +151,6 @@ nav a:hover {
     color: #5EB0E5;
 }
 
-/* Estilização da Hero Section */
-.myHero {
-    min-height: 60vh;
-    background-image: url("https://lh3.googleusercontent.com/pw/AP1GczMXFyzqX9WMKnnyGm5SnRqaKPEx9RjbqI3_nUrtVtIDMvkiafxpCvE23s_8ZUC7JOYom3VxhlysDs5oWip77ftWpTKVFfVdswwsknrUtUnMzs2F4dlEAZ2AREaaOl2tjTpU4du0PCuD_Fibs_YmkUOD=w1694-h953-s-no-gm?authuser=0");
-    background-size: 40%;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-}
 
 h1, h2, h3 {
     font-family: 'Honk', system-ui;
