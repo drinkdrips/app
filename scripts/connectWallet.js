@@ -1612,7 +1612,7 @@ const stakingContractABI = [
 const stakingContractAddress = '0xAF7DC2DD0705c6d3022D2F3bA71122c30A10540f';
 window.stakingContract = new web3.eth.Contract(stakingContractABI, stakingContractAddress);
 
-// Função para obter o supply máximo
+// Função para obter o fornecimento máximo de Drinks
 window.getMaxSupply = async function() {
     try {
         const maxSupply = await window.drinkTokenContract.methods.MAX_SUPPLY().call();
@@ -1664,6 +1664,17 @@ window.getCalculateRewards = async function(userAddress) {
     }
 }
 
+// Função para obter o fornecimento circulante de Drinks
+window.getTotalSupply = async function() {
+    try {
+        const totalSupply = await window.drinkTokenContract.methods.totalSupply().call();
+        return totalSupply;
+    } catch (error) {
+        console.error('Erro ao obter o fornecimento circulante de DRINKS:', error);
+        throw error;
+    }
+}
+
 // Função para atualizar os saldos
 async function refreshBalances() {
     const userAccount = window.getUserAccount();
@@ -1691,8 +1702,13 @@ async function refreshBalances() {
 
             const drinkmaxSupplyWei = await window.getMaxSupply();
             const maxSupply = convertWeiToTokens(drinkmaxSupplyWei);
-            console.log('Supply Máximo:', maxSupply);
+            console.log('Fornecimento Máximo:', maxSupply);
             document.getElementById('maxSupply').innerText = maxSupply;
+
+            const totalSupplyWei = await window.getTotalSupply();
+            const totalSupply = convertWeiToTokens(totalSupplyWei);
+            console.log('Fornecimento circulante:', totalSupply);
+            document.getElementById('totalSupply').innerText = totalSupply;
             // Continue para outros saldos, se necessário...
         } catch (error) {
             console.error('Erro ao obter os saldos:', error);
