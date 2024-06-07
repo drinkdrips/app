@@ -1713,7 +1713,7 @@ window.getTotalStakedTokens = async function() {
 }
 
 // Função para obter o número de carteiras mantendo stake
-window.getSkaterCount = async function() {
+window.getStakerCount = async function() {
     try {
         const stakeHolders = await window.stakingContract.methods.getSkaterCount().call();
         return stakeHolders;
