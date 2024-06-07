@@ -1701,6 +1701,17 @@ window.getTotalSupply = async function() {
     }
 }
 
+// Função para obter o total de Drinks em Stake
+window.getTotalStakedTokens = async function() {
+    try {
+        const totalstakedTokens = await window.stakingContract.methods.getTotalStakedTokens().call();
+        return totalstakedTokens;
+    } catch (error) {
+        console.error('Total de Drinks em stake:', error);
+        throw error;
+    }
+}
+
 // Função para atualizar os saldos
 async function refreshBalances() {
     const userAccount = window.getUserAccount();
@@ -1735,6 +1746,11 @@ async function refreshBalances() {
             const totalSupply = convertWeiToTokens(totalSupplyWei);
             console.log('Fornecimento circulante:', totalSupply);
             document.getElementById('totalSupply').innerText = totalSupply;
+
+	    const totalstakedTokensWei = await window.getTotalStakedTokens();
+            const totalstakedTokens = convertWeiToTokens(totalstakedTokensWei);
+            console.log('Total de Drinks em stake:', totalstakedTokens);
+            document.getElementById('totalstakedTokens').innerText = totalstakedTokens;
             // Continue para outros saldos, se necessário...
         } catch (error) {
             console.error('Erro ao obter os saldos:', error);
