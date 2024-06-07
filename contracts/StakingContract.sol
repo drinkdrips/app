@@ -112,4 +112,18 @@ contract StakingContract is Ownable, ReentrancyGuard, Pausable {
     function unpause() external onlyOwner {
         _unpause();
     }
+
+    // Nova função para obter o total de DRINK tokens em stake
+    function getTotalStakedTokens() external view returns (uint256) {
+        uint256 totalStaked;
+        for (uint256 i = 0; i < stakers.length; i++) {
+            totalStaked += stakingBalance[stakers[i]];
+        }
+        return totalStaked;
+    }
+
+    // Nova função para obter o número de carteiras fazendo stake
+    function getStakerCount() external view returns (uint256) {
+        return stakers.length;
+    }
 }
