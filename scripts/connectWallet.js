@@ -1712,6 +1712,20 @@ window.getTotalStakedTokens = async function() {
     }
 }
 
+// Função para obter o número de carteiras mantendo stake
+window.getSkaterCount = async function() {
+    try {
+        const stakeHolders = await window.stakingContract.methods.getSkaterCount().call();
+        console.log('Holders mantendo stake:', stakeHolders);
+        document.getElementById('stakeHolders').innerText = stakeHolders;
+        return stakeHolders;
+        
+    } catch (error) {
+        console.error('Erro ao obter holders mantendo stake:', error);
+        throw error;
+    }
+}
+
 // Função para atualizar os saldos
 async function refreshBalances() {
     const userAccount = window.getUserAccount();
