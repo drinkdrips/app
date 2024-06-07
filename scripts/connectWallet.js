@@ -1612,6 +1612,17 @@ const stakingContractABI = [
 const stakingContractAddress = '0xAF7DC2DD0705c6d3022D2F3bA71122c30A10540f';
 window.stakingContract = new web3.eth.Contract(stakingContractABI, stakingContractAddress);
 
+// Função para obter o supply máximo
+window.getMaxSupply = async function() {
+    try {
+        const maxSupply = await window.drinkTokenContract.methods.MAX_SUPPLY().call();
+        return maxSupply;
+    } catch (error) {
+        console.error('Erro ao obter o supply máximo de DRINKS:', error);
+        throw error;
+    }
+}
+
 // Funções para obter saldos
 window.getDrinkBalance = async function(userAddress) {
     try {
@@ -1678,6 +1689,10 @@ async function refreshBalances() {
             console.log('DRIPS a Reivindicar:', claimableDrips);
             document.getElementById('claimableDrips').innerText = claimableDrips;
 
+            const drinkmaxSupplyWei = await window.getMaxSupply();
+            const maxSupply = convertWeiToTokens(drinkmaxSupplyWei);
+            console.log('Supply Máximo:', maxSupply);
+            document.getElementById('maxSupply').innerText = maxSupply;
             // Continue para outros saldos, se necessário...
         } catch (error) {
             console.error('Erro ao obter os saldos:', error);
@@ -1702,7 +1717,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('unstakeDrinksForm').querySelector('button').disabled = true;
         document.getElementById('addLiquidityForm').querySelector('button').disabled = true;
         document.getElementById('removeLiquidityForm').querySelector('button').disabled = true;
-        document.getElementById('swapButton').querySelector('button').disabled = true;
+        document.getElementById('swapForm').querySelector('button').disabled = true;
         document.getElementById('claimDripsForm').querySelector('button').disabled = true;
         document.getElementById('createProposalForm').querySelector('button').disabled = true;
         document.getElementById('governanceProposals').querySelector('button').disabled = true;
@@ -1715,7 +1730,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('unstakeDrinksForm').querySelector('button').disabled = false;
         document.getElementById('addLiquidityForm').querySelector('button').disabled = false;
         document.getElementById('removeLiquidityForm').querySelector('button').disabled = false;
-        document.getElementById('swapButton').querySelector('button').disabled = false;
+        document.getElementById('swapForm').querySelector('button').disabled = false;
         document.getElementById('claimDripsForm').querySelector('button').disabled = false;
         document.getElementById('createProposalForm').querySelector('button').disabled = false;
         document.getElementById('governanceProposals').querySelector('button').disabled = false;
