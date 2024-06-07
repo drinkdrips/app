@@ -1715,7 +1715,7 @@ window.getTotalStakedTokens = async function() {
 // Função para obter o número de carteiras mantendo stake
 window.getStakerCount = async function() {
     try {
-        const stakeHolders = await window.stakingContract.methods.getSkaterCount().call();
+        const stakeHolders = await window.stakingContract.methods.getStakerCount().call();
         return stakeHolders;
     } catch (error) {
         console.error('Erro ao obter holders mantendo stake:', error);
@@ -1763,7 +1763,7 @@ async function refreshBalances() {
             console.log('Total de Drinks em stake:', totalstakedTokens);
             document.getElementById('totalstakedTokens').innerText = totalstakedTokens;
 
-	    const stakeHolders = await window.getSkaterCount();
+	    const stakeHolders = await window.getStakerCount();
             console.log('Holders mantendo stake:', stakeHolders);
             document.getElementById('stakeHolders').innerText = stakeHolders;
             // Continue para outros saldos, se necessário...
