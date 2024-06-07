@@ -94,7 +94,6 @@ header {
 /* Estilização Global */
 body {
     background-color: #1f2020 !important;
-    font-family: 'Honk', system-ui;
     /* background: linear-gradient(to bottom, #1f2020, #bc69f2); */
     height: auto;
     overflow: auto;
@@ -221,6 +220,16 @@ h1, h2, h3 {
     border-radius: 10px;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
 }
+
+.btn i {
+            margin: 0 0px; /* Ajuste o espaçamento dos ícones, se necessário */
+        }
+        .btn .fa-arrow-up {
+            color: #fff; /* Cor da seta para cima */
+        }
+        .btn .fa-arrow-down {
+            color: #fff; /* Cor da seta para baixo */
+        }
 
 .btn:hover {
     transform: scale(1.05);
