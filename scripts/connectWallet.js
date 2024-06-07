@@ -1716,10 +1716,7 @@ window.getTotalStakedTokens = async function() {
 window.getSkaterCount = async function() {
     try {
         const stakeHolders = await window.stakingContract.methods.getSkaterCount().call();
-        console.log('Holders mantendo stake:', stakeHolders);
-        document.getElementById('stakeHolders').innerText = stakeHolders;
         return stakeHolders;
-        
     } catch (error) {
         console.error('Erro ao obter holders mantendo stake:', error);
         throw error;
@@ -1765,6 +1762,10 @@ async function refreshBalances() {
             const totalstakedTokens = convertWeiToTokens(totalstakedTokensWei);
             console.log('Total de Drinks em stake:', totalstakedTokens);
             document.getElementById('totalstakedTokens').innerText = totalstakedTokens;
+
+	    const stakeHolders = await window.getSkaterCount();
+            console.log('Holders mantendo stake:', stakeHolders);
+            document.getElementById('stakeHolders').innerText = stakeHolders;
             // Continue para outros saldos, se necessário...
         } catch (error) {
             console.error('Erro ao obter os saldos:', error);
