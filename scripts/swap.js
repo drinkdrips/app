@@ -1,4 +1,8 @@
-const swapContractAddress = '0x31DE3c8436F625fb1596287C24f0C0E9eE1AD6E5';
+const drinkTokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // DrinkToken Address
+const usdcTokenAddress = '0xUSDCTokenAddress'; // Substitua pelo endereço real
+const wethTokenAddress = '0xwethTokenAddress'; // Substitua pelo endereço real
+const maticTokenAddress = '0xmaticTokenAddress'; // Substitua pelo endereço real
+const swapContractAddress = '0x31DE3c8436F625fb1596287C24f0C0E9eE1AD6E5'; // Swap Address
 const swapABI = [
 	{
 		"inputs": [
@@ -440,8 +444,7 @@ const swapABI = [
 	}
 ];
 
-// Endereço e ABI do contrato do token
-const drinkTokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // DrinkToken Address
+//ABI do DrinkToken
 const drinkTokenABI = [
 	{
 		"inputs": [],
@@ -1038,8 +1041,90 @@ const drinkTokenABI = [
 ];
 
 
+const usdcTokenABI = [
+    // ABI do DrinkToken aqui
+];
+
+
+const wethTokenABI = [
+    // ABI de outro token aqui
+];
+
+const maticTokenABI = [
+    // ABI de outro token aqui
+];
+
+let drinkToken;
+let usdcToken;
+let wethToken;
+let maticToken;
+let swapContract;
+let userAccount;
+
 // Inicializa o Web3 e os contratos
 const web3 = new Web3(window.ethereum);
 
-window.tokenContract = new web3.eth.Contract(drinkTokenABI, drinkTokenAddress);
+window.drinkContract = new web3.eth.Contract(drinkTokenABI, drinkTokenAddress);
+window.usdcContract = new web3.eth.Contract(usdcTokenABI, usdcTokenAddress);
+window.wethTokenAddress = new web3.eth.Contract(wethTokenABI, wethTokenAddress);
+window.maticTokenAddress = new web3.eth.Contract(maticTokenABI, maticTokenAddress);
 window.swapContract = new web3.eth.Contract(swapABI, swapContractAddress);
+
+
+// Função para inverter os tokens selecionados
+window.invertTokens = function() {
+    const fromTokenSelect = document.getElementById('fromToken');
+    const toTokenSelect = document.getElementById('toToken');
+    const fromTokenValue = fromTokenSelect.value;
+    fromTokenSelect.value = toTokenSelect.value;
+    toTokenSelect.value = fromTokenValue;
+};
+
+// Função para realizar o swap
+window.swapTokens = async function() {
+    const fromToken = document.getElementById('fromToken').value;
+    const toToken = document.getElementById('toToken').value;
+    const amount = document.getElementById('amount').value;
+
+    if (!amount) {
+        updateStatus('Please enter an amount.');
+        return;
+    }
+
+    let tokenContract;
+    if (fromToken === 'drinkToken') {
+        tokenContract = drinkToken;
+    } else if (fromToken === 'otherToken1') {
+        tokenContract = otherToken1;
+    } else {
+        updateStatus('Invalid from token.');
+        return;
+    }
+
+    try {
+        // 1. Aprovar o contrato de swap para gastar os tokens
+        await tokenContract.methods.approve(SWAP_CONTRACT_ADDRESS, amount).send({ from: userAccount });
+        updateStatus('Approval successful. Proceeding with the swap...');
+
+        // 2. Realizar o swap no contrato de swap
+        await swapContract.methods.swapToken(amount).send({ from: userAccount });
+        updateStatus('Swap successful!');
+    } catch (error) {
+        console.error(error);
+        updateStatus('Swap failed. Please try again.');
+    }
+};
+
+function updateStatus(message) {
+    document.getElementById('status').innerText = message;
+}
+
+// Listener para o botão de swap
+document.getElementById('swapButton').addEventListener('click', swapTokens);
+
+// Listener para o botão de inverter tokens
+document.getElementById('invertButton').addEventListener('click', invertTokens);
+
+// Inicializar contratos quando a página carregar
+window.addEventListener('load', initContracts);
+
