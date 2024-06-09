@@ -467,6 +467,18 @@ window.getProposalDetails = async function(proposalId) {
     }
 };
 
+// Função para lidar com o envio do formulário de criação de proposta
+window.handleCreateProposal = function(event) {
+    event.preventDefault(); // Previne o comportamento padrão de recarregar a página
+
+    // Obtém os valores dos campos do formulário
+    const description = document.getElementById('proposalDescription').value;
+
+    // Chama a função para criar uma proposta com a descrição fornecida
+    createProposal(description);
+};
+
+
 // Listeners para eventos emitidos pelo contrato
 governanceContract.events.ProposalCreated({}, (error, event) => {
     if (!error) {
@@ -494,3 +506,4 @@ governanceContract.events.ProposalExecuted({}, (error, event) => {
         console.error('Erro ao escutar evento ProposalExecuted:', error);
     }
 });
+
