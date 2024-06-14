@@ -486,13 +486,14 @@ window.addEventListener('load', loadProposals);
 // Função para adicionar uma proposta à interface do usuário
 function addProposalToUI(id, description, voteCount = 0) {
     const proposalsContainer = document.getElementById('governanceProposals');
+    const convertedVoteCount = convertVotes(voteCount);
     const proposalCard = `
         <div class="col-md-4" id="proposal-${id}">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Proposta ${id}</h5>
                     <p class="card-text">${description}</p>
-                    <p class="vote-count">Votos: ${voteCount}</p>
+                    <p class="vote-count">Votos: ${convertedVoteCount}</p>
                     <button class="btn btn-primary" onclick="voteOnProposal(${id})">Votar</button>
                 </div>
             </div>
@@ -502,9 +503,10 @@ function addProposalToUI(id, description, voteCount = 0) {
 }
 
 function updateVoteCountUI(proposalId, votes) {
+    const convertedVoteCount = convertVotes(votes);
     const proposalCard = document.getElementById(`proposal-${proposalId}`);
     const voteCountElement = proposalCard.querySelector('.vote-count');
-    voteCountElement.textContent = `Votos: ${votes}`;
+    voteCountElement.textContent = `Votos: ${convertedVoteCount}`;
 }
 
 function markProposalAsExecuted(proposalId) {
@@ -529,3 +531,9 @@ window.handleCreateProposal = function(event) {
 
 // Adiciona listener para o formulário na inicialização
 document.getElementById('createProposalForm').addEventListener('submit', handleCreateProposal);
+
+// Função para converter votos para uma unidade mais legível
+function convertVotes(votesWei) {
+    return web3.utils.fromWei(votesWei, 'ether'); // Ajuste a unidade conforme necessário
+}
+
