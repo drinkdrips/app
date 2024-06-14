@@ -1164,7 +1164,7 @@ document.getElementById('removeLiquidityForm').addEventListener('submit', async 
 });
 
 // Listener para conexão inicial com Metamask
-document.getElementById('connect-button').addEventListener('click', async () => {
+document.querySelector('.connect-button').addEventListener('click', async () => {
     try {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         if (accounts.length > 0) {
