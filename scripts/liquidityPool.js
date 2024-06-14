@@ -1141,7 +1141,7 @@ document.getElementById('removeLiquidityForm').addEventListener('submit', async 
     const tokenAmount = document.getElementById('removeLiquidityDrinkAmount').value;
     const accounts = await window.ethereum.request({ method: 'eth_accounts' });
     const userAccount = accounts[0];
-    const tokenAddress = '0xe2c5Ec55661367162b6f6dccf017deA678b5EEF8';
+    const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61';
 
     if (ethAmount > 0) {
         await window.removeEthLiquidity(userAccount, tokenAddress, ethAmount);
