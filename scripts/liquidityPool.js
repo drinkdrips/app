@@ -1138,7 +1138,7 @@ window.removeTokenLiquidity = async function(userAccount, tokenAddress, tokenAmo
 window.ethereum.on('accountsChanged', async (accounts) => {
     if (accounts.length > 0) {
         const userAccount = accounts[0];
-        const tokenAddress = '0x...'; // Substitua pelo endereço do token relevante
+        const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // Substitua pelo endereço do token relevante
         await window.displayYourLiquidity(userAccount, tokenAddress);
     } else {
         console.error('Usuário desconectado');
@@ -1151,7 +1151,7 @@ window.addEventListener('load', async () => {
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
         if (accounts.length > 0) {
             const userAccount = accounts[0];
-            const tokenAddress = '0x...'; // Substitua pelo endereço do token relevante
+            const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // Substitua pelo endereço do token relevante
             await window.displayYourLiquidity(userAccount, tokenAddress);
         } else {
             console.error('Usuário não está conectado');
@@ -1169,7 +1169,7 @@ document.getElementById('removeLiquidityForm').addEventListener('submit', async 
     const tokenAmount = document.getElementById('removeLiquidityDrinkAmount').value;
     const accounts = await window.ethereum.request({ method: 'eth_accounts' });
     const userAccount = accounts[0];
-    const tokenAddress = '0xe2c5Ec55661367162b6f6dccf017deA678b5EEF8';
+    const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61';
 
     if (ethAmount > 0) {
         await window.removeEthLiquidity(userAccount, tokenAddress, ethAmount);
