@@ -478,12 +478,16 @@ window.handleCreateProposal = function(event) {
     createProposal(description);
 };
 
+// Adiciona listener para o formulário na inicialização
+document.getElementById('createProposalForm').addEventListener('submit', handleCreateProposal);
 
 // Listeners para eventos emitidos pelo contrato
 governanceContract.events.ProposalCreated({}, (error, event) => {
     if (!error) {
         console.log('Proposta Criada:', event.returnValues);
         // Atualize a interface do usuário com a nova proposta
+        const proposal = event.returnValues;
+        addProposalToUI(proposal.id, proposal.title, proposal.description);
     } else {
         console.error('Erro ao escutar evento ProposalCreated:', error);
     }
@@ -493,6 +497,7 @@ governanceContract.events.Voted({}, (error, event) => {
     if (!error) {
         console.log('Voto Registrado:', event.returnValues);
         // Atualize a interface do usuário com a nova votação
+        updateVoteCountUI(event.returnValues.proposalId, event.returnValues.votes);
     } else {
         console.error('Erro ao escutar evento Voted:', error);
     }
@@ -502,8 +507,46 @@ governanceContract.events.ProposalExecuted({}, (error, event) => {
     if (!error) {
         console.log('Proposta Executada:', event.returnValues);
         // Atualize a interface do usuário com a execução da proposta
+        markProposalAsExecuted(event.returnValues.proposalId);
     } else {
         console.error('Erro ao escutar evento ProposalExecuted:', error);
     }
 });
 
+function addProposalToUI(id, title, description) {
+    const proposalsContainer = document.getElementById('governanceProposals');
+    const proposalCard = `
+        <div class="col-md-4" id="proposal-${id}">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">${title}</h5>
+                    <p class="card-text">${description}</p>
+                    <button class="btn btn-primary" onclick="voteOnProposal(${id})">Votar</button>
+                </div>
+            </div>
+        </div>
+    `;
+    proposalsContainer.innerHTML += proposalCard;
+}
+
+function updateVoteCountUI(proposalId, votes) {
+    const proposalCard = document.getElementById(`proposal-${proposalId}`);
+    const voteCountElement = proposalCard.querySelector('.vote-count');
+    if (voteCountElement) {
+        voteCountElement.textContent = `Votos: ${votes}`;
+    } else {
+        const newVoteCountElement = document.createElement('p');
+        newVoteCountElement.className = 'vote-count';
+        newVoteCountElement.textContent = `Votos: ${votes}`;
+        proposalCard.querySelector('.card-body').appendChild(newVoteCountElement);
+    }
+}
+
+function markProposalAsExecuted(proposalId) {
+    const proposalCard = document.getElementById(`proposal-${proposalId}`);
+    proposalCard.querySelector('.card-body').classList.add('executed');
+    const executedMessage = document.createElement('p');
+    executedMessage.className = 'executed-message';
+    executedMessage.textContent = 'Proposta Executada';
+    proposalCard.querySelector('.card-body').appendChild(executedMessage);
+}
