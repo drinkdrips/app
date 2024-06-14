@@ -413,6 +413,7 @@ window.createProposal = async function(description) {
             const receipt = await governanceContract.methods.createProposal(description).send({ from: userAccount });
             console.log('Proposta criada:', receipt.events.ProposalCreated.returnValues);
             alert('Proposta criada com sucesso!');
+            addProposalToUI(receipt.events.ProposalCreated.returnValues.id, description);
         } catch (error) {
             console.error('Erro ao criar proposta:', error);
             alert('Erro ao criar proposta');
@@ -430,6 +431,7 @@ window.voteOnProposal = async function(proposalId) {
             const receipt = await governanceContract.methods.vote(proposalId).send({ from: userAccount });
             console.log('Voto registrado:', receipt.events.Voted.returnValues);
             alert('Voto registrado com sucesso!');
+            updateVoteCountUI(proposalId, receipt.events.Voted.returnValues.weight);
         } catch (error) {
             console.error('Erro ao votar na proposta:', error);
             alert('Erro ao votar na proposta');
@@ -447,6 +449,7 @@ window.executeProposal = async function(proposalId) {
             const receipt = await governanceContract.methods.executeProposal(proposalId).send({ from: userAccount });
             console.log('Proposta executada:', receipt.events.ProposalExecuted.returnValues);
             alert('Proposta executada com sucesso!');
+            markProposalAsExecuted(proposalId);
         } catch (error) {
             console.error('Erro ao executar proposta:', error);
             alert('Erro ao executar proposta');
@@ -461,7 +464,7 @@ window.getProposalDetails = async function(proposalId) {
     try {
         const proposal = await governanceContract.methods.getProposal(proposalId).call();
         console.log('Detalhes da proposta:', proposal);
-        // Aqui você pode atualizar a interface do usuário com os detalhes da proposta
+        // Atualize a interface do usuário com os detalhes da proposta
     } catch (error) {
         console.error('Erro ao obter detalhes da proposta:', error);
     }
@@ -485,9 +488,7 @@ document.getElementById('createProposalForm').addEventListener('submit', handleC
 governanceContract.events.ProposalCreated({}, (error, event) => {
     if (!error) {
         console.log('Proposta Criada:', event.returnValues);
-        // Atualize a interface do usuário com a nova proposta
-        const proposal = event.returnValues;
-        addProposalToUI(proposal.id, proposal.title, proposal.description);
+        addProposalToUI(event.returnValues.id, event.returnValues.description);
     } else {
         console.error('Erro ao escutar evento ProposalCreated:', error);
     }
@@ -496,8 +497,7 @@ governanceContract.events.ProposalCreated({}, (error, event) => {
 governanceContract.events.Voted({}, (error, event) => {
     if (!error) {
         console.log('Voto Registrado:', event.returnValues);
-        // Atualize a interface do usuário com a nova votação
-        updateVoteCountUI(event.returnValues.proposalId, event.returnValues.votes);
+        updateVoteCountUI(event.returnValues.proposalId, event.returnValues.weight);
     } else {
         console.error('Erro ao escutar evento Voted:', error);
     }
@@ -506,21 +506,38 @@ governanceContract.events.Voted({}, (error, event) => {
 governanceContract.events.ProposalExecuted({}, (error, event) => {
     if (!error) {
         console.log('Proposta Executada:', event.returnValues);
-        // Atualize a interface do usuário com a execução da proposta
         markProposalAsExecuted(event.returnValues.proposalId);
     } else {
         console.error('Erro ao escutar evento ProposalExecuted:', error);
     }
 });
 
-function addProposalToUI(id, title, description) {
+// Função para carregar propostas existentes ao inicializar a página
+window.loadProposals = async function() {
+    try {
+        const proposalCount = await governanceContract.methods.proposalCount().call();
+        for (let i = 0; i < proposalCount; i++) {
+            const proposal = await governanceContract.methods.getProposal(i).call();
+            addProposalToUI(proposal.id, proposal.description, proposal.voteCount);
+        }
+    } catch (error) {
+        console.error('Erro ao carregar propostas:', error);
+    }
+};
+
+// Chama a função para carregar as propostas quando a página é carregada
+window.addEventListener('load', loadProposals);
+
+// Função para adicionar uma proposta à interface do usuário
+function addProposalToUI(id, description, voteCount = 0) {
     const proposalsContainer = document.getElementById('governanceProposals');
     const proposalCard = `
         <div class="col-md-4" id="proposal-${id}">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">${title}</h5>
+                    <h5 class="card-title">Proposta ${id}</h5>
                     <p class="card-text">${description}</p>
+                    <p class="vote-count">Votos: ${voteCount}</p>
                     <button class="btn btn-primary" onclick="voteOnProposal(${id})">Votar</button>
                 </div>
             </div>
@@ -532,14 +549,7 @@ function addProposalToUI(id, title, description) {
 function updateVoteCountUI(proposalId, votes) {
     const proposalCard = document.getElementById(`proposal-${proposalId}`);
     const voteCountElement = proposalCard.querySelector('.vote-count');
-    if (voteCountElement) {
-        voteCountElement.textContent = `Votos: ${votes}`;
-    } else {
-        const newVoteCountElement = document.createElement('p');
-        newVoteCountElement.className = 'vote-count';
-        newVoteCountElement.textContent = `Votos: ${votes}`;
-        proposalCard.querySelector('.card-body').appendChild(newVoteCountElement);
-    }
+    voteCountElement.textContent = `Votos: ${votes}`;
 }
 
 function markProposalAsExecuted(proposalId) {
