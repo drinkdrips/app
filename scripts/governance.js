@@ -463,14 +463,23 @@ window.executeProposal = async function(proposalId) {
 window.loadProposals = async function() {
     try {
         const proposalCount = await governanceContract.methods.proposalCount().call();
+        console.log(`Total de propostas: ${proposalCount}`);
+
         for (let i = 0; i < proposalCount; i++) {
-            const proposal = await governanceContract.methods.getProposal(i).call();
-            addProposalToUI(proposal.id, proposal.description, proposal.voteCount);
+            try {
+                const proposal = await governanceContract.methods.getProposal(i).call();
+                addProposalToUI(proposal.id, proposal.description, proposal.voteCount);
+            } catch (error) {
+                console.error(`Erro ao carregar proposta com ID ${i}:`, error);
+            }
         }
     } catch (error) {
         console.error('Erro ao carregar propostas:', error);
     }
 };
+
+// Chama a função para carregar as propostas quando a página é carregada
+window.addEventListener('load', loadProposals);
 
 // Função para adicionar uma proposta à interface do usuário
 function addProposalToUI(id, description, voteCount = 0) {
@@ -504,9 +513,6 @@ function markProposalAsExecuted(proposalId) {
     executedMessage.textContent = 'Proposta Executada';
     proposalCard.querySelector('.card-body').appendChild(executedMessage);
 }
-
-// Chama a função para carregar as propostas quando a página é carregada
-window.addEventListener('load', loadProposals);
 
 // Função para lidar com o envio do formulário de criação de proposta
 window.handleCreateProposal = function(event) {
