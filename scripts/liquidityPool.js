@@ -1037,23 +1037,24 @@ const web3 = new Web3(window.ethereum);
 window.tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
 window.liquidityPoolContract = new web3.eth.Contract(liquidityPoolABI, liquidityPoolContractAddress);
 
-// Função para exibir informações da piscina de liquidez do usuário
-window.displayYourLiquidity = async function(userAccount, tokenAddress) {
+// Função para carregar saldo da pool de liquidez ao conectar
+window.loadLiquidityPoolBalance = async function(userAccount, tokenAddress) {
     try {
-        // Obter as informações da piscina de liquidez do usuário
-        const liquidity = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).call();
-        const ethAmount = web3.utils.fromWei(liquidity.ethAmount, 'ether'); // Converte de Wei para ETH
-        const tokenAmount = web3.utils.fromWei(liquidity.tokenAmount, 'ether'); // Converte de Wei para tokens
-
-        // Exibir as informações na tela
-        document.getElementById('yourEthAmount').textContent = ethAmount;
-        document.getElementById('yourTokenAmount').textContent = tokenAmount;
+        const liquidityBalance = await window.liquidityPoolContract.methods.getLiquidityBalance(userAccount, tokenAddress).call();
+        console.log('Saldo da Pool de Liquidez:', liquidityBalance);
+        displayLiquidityBalance(liquidityBalance);
     } catch (error) {
-        console.error('Erro ao exibir informações da piscina de liquidez do usuário:', error.message);
+        console.error('Erro ao carregar saldo da pool de liquidez:', error.message);
     }
 };
 
-// Função para Aprovação e Adição de Liquidez
+// Função para exibir saldo da pool de liquidez na interface
+function displayLiquidityBalance(balance) {
+    const balanceElement = document.getElementById('liquidityBalance');
+    balanceElement.innerText = balance; // Ajuste conforme necessário para formatar o saldo
+}
+
+// Função para aprovar e adicionar liquidez
 window.approveAndAddLiquidity = async function(userAccount, tokenAmount, ethAmount) {
     const tokenInWei = web3.utils.toWei(tokenAmount.toString(), 'ether');
     const ethInWei = web3.utils.toWei(ethAmount.toString(), 'ether');
@@ -1072,13 +1073,24 @@ window.approveAndAddLiquidity = async function(userAccount, tokenAmount, ethAmou
         await window.liquidityPoolContract.methods.addEthLiquidity(tokenAddress).send({ from: userAccount, value: ethInWei });
         console.log('Liquidez de ETH adicionada com sucesso');
 
-        // Atualizar informações da pool do usuário
-        await window.displayYourLiquidity(userAccount, tokenAddress);
+        // Atualizar informações da pool do usuário após adicionar liquidez
+        await window.loadLiquidityPoolBalance(userAccount, tokenAddress);
     } catch (error) {
         console.error('Erro ao adicionar liquidez:', error.message);
         throw error;
     }
 };
+
+// Função para carregar saldo da pool de liquidez ao inicializar a página
+window.addEventListener('load', async () => {
+    try {
+        const userAccount = await getUserAccount();
+        await window.loadLiquidityPoolBalance(userAccount, tokenAddress);
+    } catch (error) {
+        console.error('Erro ao carregar saldo da pool de liquidez ao inicializar:', error.message);
+    }
+});
+
 
 // Listener para o formulário de adicionar liquidez
 document.getElementById('addLiquidityForm').addEventListener('submit', async (event) => {
