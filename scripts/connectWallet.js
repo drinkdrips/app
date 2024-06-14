@@ -1761,8 +1761,21 @@ async function refreshBalances() {
 
             const drinkmaxSupplyWei = await window.getMaxSupply();
             const maxSupply = convertWeiToTokens(drinkmaxSupplyWei);
-            console.log('Fornecimento Máximo:', maxSupply);
-            document.getElementById('maxSupply').innerText = maxSupply;
+            // Opções para formatar o número com ponto como separador de milhar
+            const options = {
+                useGrouping: true,
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+                style: 'decimal',
+            };
+            
+            // Formata o número com ponto como separador de milhar
+            const formattedMaxSupply = maxSupply.toLocaleString('pt-BR', options);
+            
+            console.log('Fornecimento Máximo:', formattedMaxSupply);
+            document.getElementById('maxSupply').innerText = formattedMaxSupply;
+            //console.log('Fornecimento Máximo:', maxSupply);
+            //document.getElementById('maxSupply').innerText = maxSupply;
 
             const totalSupplyWei = await window.getTotalSupply();
             const totalSupply = convertWeiToTokens(totalSupplyWei);
