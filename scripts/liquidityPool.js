@@ -1163,18 +1163,18 @@ document.getElementById('removeLiquidityForm').addEventListener('submit', async 
     }
 });
 
-// Carregar as informações da pool de liquidez quando a página é carregada
-window.addEventListener('load', async () => {
+// Listener para conexão inicial com Metamask
+document.getElementById('connectButton').addEventListener('click', async () => {
     try {
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         if (accounts.length > 0) {
             const userAccount = accounts[0];
-            const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // Substitua pelo endereço do token relevante
+            const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // Endereço do token relevante
             await window.displayYourLiquidity(userAccount, tokenAddress);
         } else {
             console.error('Usuário não está conectado');
         }
     } catch (error) {
-        console.error('Erro ao carregar saldo da pool de liquidez ao inicializar:', error.message);
+        console.error('Erro ao conectar com Metamask:', error.message);
     }
 });
