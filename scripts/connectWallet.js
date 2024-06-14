@@ -1808,7 +1808,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('removeLiquidityForm').querySelector('button').disabled = true;
         document.getElementById('claimDripsForm').querySelector('button').disabled = true;
         document.getElementById('createProposalForm').querySelector('button').disabled = true;
-        document.getElementById('governanceProposals').querySelector('button').disabled = true;
+        // document.getElementById('governanceProposals').querySelector('button').disabled = true;
         document.getElementById('swapButton').disabled = true;
         document.getElementById('invertButton').disabled = true;
     };
@@ -1822,7 +1822,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('removeLiquidityForm').querySelector('button').disabled = false;
         document.getElementById('claimDripsForm').querySelector('button').disabled = false;
         document.getElementById('createProposalForm').querySelector('button').disabled = false;
-        document.getElementById('governanceProposals').querySelector('button').disabled = false;
+       // document.getElementById('governanceProposals').querySelector('button').disabled = false;
         document.getElementById('swapButton').disabled = false;
         document.getElementById('invertButton').disabled = false;
     };
