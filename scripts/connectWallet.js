@@ -1761,19 +1761,18 @@ async function refreshBalances() {
 
             const drinkmaxSupplyWei = await window.getMaxSupply();
             const maxSupply = convertWeiToTokens(drinkmaxSupplyWei);
-            // Opções para formatar o número com ponto como separador de milhar
-            const options = {
-                useGrouping: true,
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-                style: 'decimal',
-            };
             
-            // Formata o número com ponto como separador de milhar
-            const formattedMaxSupply = maxSupply.toLocaleString('pt-BR', options);
+            // Função para formatar número com ponto como separador de milhar
+            function formatNumberWithDotSeparator(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            }
+            
+            // Formata o número
+            const formattedMaxSupply = formatNumberWithDotSeparator(maxSupply);
             
             console.log('Fornecimento Máximo:', formattedMaxSupply);
             document.getElementById('maxSupply').innerText = formattedMaxSupply;
+
             //console.log('Fornecimento Máximo:', maxSupply);
             //document.getElementById('maxSupply').innerText = maxSupply;
 
