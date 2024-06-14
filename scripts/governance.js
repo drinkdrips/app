@@ -465,10 +465,12 @@ window.loadProposals = async function() {
         const proposalCount = await governanceContract.methods.proposalCount().call();
         console.log(`Total de propostas: ${proposalCount}`);
 
-        for (let i = 0; i < proposalCount; i++) {
+        for (let i = 1; i <= proposalCount; i++) {
             try {
                 const proposal = await governanceContract.methods.getProposal(i).call();
-                addProposalToUI(proposal.id, proposal.description, proposal.voteCount);
+                if (proposal.id) {
+                    addProposalToUI(proposal.id, proposal.description, proposal.voteCount);
+                }
             } catch (error) {
                 console.error(`Erro ao carregar proposta com ID ${i}:`, error);
             }
