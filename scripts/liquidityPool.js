@@ -1031,6 +1031,7 @@ const liquidityPoolABI = [
     }
 ];
 
+
 // Inicializa o Web3 e os contratos
 const web3 = new Web3(window.ethereum);
 
@@ -1134,6 +1135,17 @@ window.removeTokenLiquidity = async function(userAccount, tokenAddress, tokenAmo
     }
 };
 
+// Listener para o evento de conexão do Metamask
+window.ethereum.on('accountsChanged', async (accounts) => {
+    if (accounts.length > 0) {
+        const userAccount = accounts[0];
+        const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // Substitua pelo endereço do token relevante
+        await window.displayYourLiquidity(userAccount, tokenAddress);
+    } else {
+        console.error('Usuário desconectado');
+    }
+});
+
 // Listener do formulário para remover liquidez
 document.getElementById('removeLiquidityForm').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -1150,5 +1162,3 @@ document.getElementById('removeLiquidityForm').addEventListener('submit', async 
         await window.removeTokenLiquidity(userAccount, tokenAddress, tokenAmount);
     }
 });
-
-
