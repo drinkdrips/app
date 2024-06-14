@@ -483,10 +483,16 @@ window.loadProposals = async function() {
 // Chama a função para carregar as propostas quando a página é carregada
 window.addEventListener('load', loadProposals);
 
+// Função para converter votos para uma unidade mais legível
+function convertVotes(votesWei) {
+    const votesString = web3.utils.toBN(votesWei).toString(); // Converte para BN e então para string
+    return web3.utils.fromWei(votesString, 'ether'); // Converte de Wei para Ether (ou outra unidade conforme necessário)
+}
+
 // Função para adicionar uma proposta à interface do usuário
 function addProposalToUI(id, description, voteCount = 0) {
+    const convertedVoteCount = convertVotes(voteCount); // Converte os votos para uma unidade legível
     const proposalsContainer = document.getElementById('governanceProposals');
-    const convertedVoteCount = convertVotes(voteCount);
     const proposalCard = `
         <div class="col-md-4" id="proposal-${id}">
             <div class="card">
@@ -532,8 +538,4 @@ window.handleCreateProposal = function(event) {
 // Adiciona listener para o formulário na inicialização
 document.getElementById('createProposalForm').addEventListener('submit', handleCreateProposal);
 
-// Função para converter votos para uma unidade mais legível
-function convertVotes(votesWei) {
-    return web3.utils.fromWei(votesWei, 'ether'); // Ajuste a unidade conforme necessário
-}
 
