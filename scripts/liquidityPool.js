@@ -1177,7 +1177,7 @@ window.getRewards = async function(userAccount) {
 // Função para reivindicar as recompensas do usuário
 window.claimRewards = async function(userAccount) {
     try {
-        await window.liquidityPoolContract.methods.claimRewards().send({ from: userAccount });
+        await window.liquidityPoolContract.methods.claimRewards(userAccount).send({ from: userAccount });
         console.log('Recompensas reivindicadas com sucesso');
         
         // Atualizar informações de recompensas do usuário
@@ -1242,3 +1242,4 @@ document.querySelector('.connect-button').addEventListener('click', async () => 
         console.error('Erro ao conectar com Metamask:', error.message);
     }
 });
+
