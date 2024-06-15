@@ -1045,10 +1045,12 @@ window.displayYourLiquidity = async function(userAccount, tokenAddress) {
         const liquidity = await window.liquidityPoolContract.methods.liquidity(userAccount, tokenAddress).call();
         const ethAmount = web3.utils.fromWei(liquidity.ethAmount, 'ether'); // Converte de Wei para ETH
         const tokenAmount = web3.utils.fromWei(liquidity.tokenAmount, 'ether'); // Converte de Wei para tokens
+        const rewardAmount = web3.utils.fromWei(liquidity.rewards, 'ether'); // Converte de Wei para ETH
 
         // Exibir as informações na tela
         document.getElementById('yourEthAmount').textContent = ethAmount;
         document.getElementById('yourTokenAmount').textContent = tokenAmount;
+        document.getElementById('yourRewardAmount').textContent = rewardAmount;
     } catch (error) {
         console.error('Erro ao exibir informações da piscina de liquidez do usuário:', error.message);
     }
@@ -1081,6 +1083,76 @@ window.approveAndAddLiquidity = async function(userAccount, tokenAmount, ethAmou
     }
 };
 
+// Função para remover liquidez em Ethereum
+window.removeEthLiquidity = async function(userAccount, tokenAddress, ethAmount) {
+    try {
+        const amountInWei = web3.utils.toWei(ethAmount.toString(), 'ether');
+        console.log(`Removendo ${amountInWei} Wei de liquidez em ETH de ${userAccount}`);
+
+        await window.liquidityPoolContract.methods.removeEthLiquidity(tokenAddress, amountInWei).send({ from: userAccount });
+        console.log('Liquidez de ETH removida com sucesso');
+        
+        // Atualizar informações da pool do usuário
+        await window.displayYourLiquidity(userAccount, tokenAddress);
+    } catch (error) {
+        console.error('Erro ao remover liquidez em ETH:', error);
+        throw error;
+    }
+};
+
+// Função para remover liquidez em Token
+window.removeTokenLiquidity = async function(userAccount, tokenAddress, tokenAmount) {
+    try {
+        const amountInWei = web3.utils.toWei(tokenAmount.toString(), 'ether');
+        console.log(`Removendo ${amountInWei} Wei de liquidez em token de ${userAccount}`);
+
+        await window.liquidityPoolContract.methods.removeTokenLiquidity(tokenAddress, amountInWei).send({ from: userAccount });
+        console.log('Liquidez de token removida com sucesso');
+        
+        // Atualizar informações da pool do usuário
+        await window.displayYourLiquidity(userAccount, tokenAddress);
+    } catch (error) {
+        console.error('Erro ao remover liquidez em token:', error);
+        throw error;
+    }
+};
+
+// Função para reivindicar recompensas
+window.claimRewards = async function(userAccount, tokenAddress) {
+    try {
+        await window.liquidityPoolContract.methods.claimRewards(tokenAddress).send({ from: userAccount });
+        console.log('Recompensas reivindicadas com sucesso');
+
+        // Atualizar informações da pool do usuário
+        await window.displayYourLiquidity(userAccount, tokenAddress);
+    } catch (error) {
+        console.error('Erro ao reivindicar recompensas:', error.message);
+    }
+};
+
+// Função para obter recompensas
+window.getRewards = async function(userAccount, tokenAddress) {
+    try {
+        const rewards = await window.liquidityPoolContract.methods.getRewards(tokenAddress).call({ from: userAccount });
+        const rewardAmount = web3.utils.fromWei(rewards, 'ether'); // Converte de Wei para ETH
+
+        // Exibir as informações na tela
+        document.getElementById('yourRewardAmount').textContent = rewardAmount;
+    } catch (error) {
+        console.error('Erro ao obter recompensas:', error.message);
+    }
+};
+
+// Função para obter a taxa de transação
+window.getTransactionFee = async function() {
+    try {
+        const fee = await window.liquidityPoolContract.methods.transactionFee().call();
+        document.getElementById('transactionFeeAmount').textContent = `${fee}%`;
+    } catch (error) {
+        console.error('Erro ao obter a taxa de transação:', error.message);
+    }
+};
+
 // Listener para o formulário de adicionar liquidez
 document.getElementById('addLiquidityForm').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -1101,51 +1173,6 @@ document.getElementById('addLiquidityForm').addEventListener('submit', async (ev
     }
 });
 
-// Função para remover liquidez em Ethereum
-window.removeEthLiquidity = async function(userAccount, tokenAddress, ethAmount) {
-    try {
-        const amountInWei = web3.utils.toWei(ethAmount.toString(), 'ether');
-        console.log(`Removing ${amountInWei} Wei ETH liquidity from ${userAccount}`);
-
-        const result = await window.liquidityPoolContract.methods.removeEthLiquidity(tokenAddress, amountInWei).send({ from: userAccount });
-        console.log('ETH liquidity removed successfully');
-        
-        // Atualizar informações da pool do usuário
-        await window.displayYourLiquidity(userAccount, tokenAddress);
-    } catch (error) {
-        console.error('Error removing ETH liquidity:', error);
-        throw error;
-    }
-};
-
-// Função para remover liquidez em Token
-window.removeTokenLiquidity = async function(userAccount, tokenAddress, tokenAmount) {
-    try {
-        const amountInWei = web3.utils.toWei(tokenAmount.toString(), 'ether');
-        console.log(`Removing ${amountInWei} Wei token liquidity from ${userAccount}`);
-
-        const result = await window.liquidityPoolContract.methods.removeTokenLiquidity(tokenAddress, amountInWei).send({ from: userAccount });
-        console.log('Token liquidity removed successfully');
-        
-        // Atualizar informações da pool do usuário
-        await window.displayYourLiquidity(userAccount, tokenAddress);
-    } catch (error) {
-        console.error('Error removing token liquidity:', error);
-        throw error;
-    }
-};
-
-// Listener para o evento de conexão do Metamask
-window.ethereum.on('accountsChanged', async (accounts) => {
-    if (accounts.length > 0) {
-        const userAccount = accounts[0];
-        const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // Substitua pelo endereço do token relevante
-        await window.displayYourLiquidity(userAccount, tokenAddress);
-    } else {
-        console.error('Usuário desconectado');
-    }
-});
-
 // Listener do formulário para remover liquidez
 document.getElementById('removeLiquidityForm').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -1163,65 +1190,16 @@ document.getElementById('removeLiquidityForm').addEventListener('submit', async 
     }
 });
 
-// Função para obter as recompensas do usuário
-window.getRewards = async function(userAccount) {
-    try {
-        const rewards = await window.liquidityPoolContract.methods.getRewards(userAccount).call();
-        const rewardsInEth = web3.utils.fromWei(rewards, 'ether'); // Converte de Wei para ETH
-        document.getElementById('rewardAmount').textContent = rewardsInEth;
-    } catch (error) {
-        console.error('Erro ao obter recompensas:', error.message);
-    }
-};
-
-// Função para reivindicar as recompensas do usuário
-window.claimRewards = async function(userAccount) {
-    try {
-        await window.liquidityPoolContract.methods.claimRewards(userAccount).send({ from: userAccount });
-        console.log('Recompensas reivindicadas com sucesso');
-        
-        // Atualizar informações de recompensas do usuário
-        await window.getRewards(userAccount);
-    } catch (error) {
-        console.error('Erro ao reivindicar recompensas:', error.message);
-    }
-};
-
-// Função para obter a taxa de transação
-window.getTransactionFee = async function() {
-    try {
-        const fee = await window.liquidityPoolContract.methods.transactionFee().call();
-        document.getElementById('transactionFee').textContent = `${fee}%`;
-    } catch (error) {
-        console.error('Erro ao obter a taxa de transação:', error.message);
-    }
-};
-
-// Listener para o botão de reivindicar recompensas
+// Listener para reivindicar recompensas
 document.getElementById('claimRewardsButton').addEventListener('click', async () => {
-    try {
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-        const userAccount = accounts[0];
-        if (userAccount) {
-            await window.claimRewards(userAccount);
-        } else {
-            console.error('Usuário não está conectado');
-        }
-    } catch (error) {
-        console.error('Erro ao reivindicar recompensas:', error.message);
-    }
-});
-
-// Listener para o evento de conexão do Metamask
-window.ethereum.on('accountsChanged', async (accounts) => {
-    if (accounts.length > 0) {
-        const userAccount = accounts[0];
-        const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // Substitua pelo endereço do token relevante
-        await window.displayYourLiquidity(userAccount, tokenAddress);
-        await window.getRewards(userAccount);
-        await window.getTransactionFee();
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    const userAccount = accounts[0];
+    const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61';
+    
+    if (userAccount) {
+        await window.claimRewards(userAccount, tokenAddress);
     } else {
-        console.error('Usuário desconectado');
+        console.error('Usuário não está conectado');
     }
 });
 
@@ -1233,13 +1211,24 @@ document.querySelector('.connect-button').addEventListener('click', async () => 
             const userAccount = accounts[0];
             const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // Endereço do token relevante
             await window.displayYourLiquidity(userAccount, tokenAddress);
-            await window.getRewards(userAccount);
             await window.getTransactionFee();
         } else {
             console.error('Usuário não está conectado');
         }
     } catch (error) {
         console.error('Erro ao conectar com Metamask:', error.message);
+    }
+});
+
+// Listener para o evento de conexão do Metamask
+window.ethereum.on('accountsChanged', async (accounts) => {
+    if (accounts.length > 0) {
+        const userAccount = accounts[0];
+        const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // Endereço do token relevante
+        await window.displayYourLiquidity(userAccount, tokenAddress);
+        await window.getTransactionFee();
+    } else {
+        console.error('Usuário não está conectado');
     }
 });
 
