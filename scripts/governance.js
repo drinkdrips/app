@@ -465,7 +465,9 @@ window.loadProposals = async function() {
         const proposalCount = await governanceContract.methods.proposalCount().call();
         console.log(`Total de propostas: ${proposalCount}`);
 
-        for (let i = 1; i <= proposalCount; i++) {
+        const start = Math.max(1, proposalCount - 2); // Calcula o início para pegar as últimas 3 propostas
+
+        for (let i = proposalCount; i >= start; i--) {
             try {
                 const proposal = await governanceContract.methods.getProposal(i).call();
                 if (proposal.id) {
@@ -537,5 +539,6 @@ window.handleCreateProposal = function(event) {
 
 // Adiciona listener para o formulário na inicialização
 document.getElementById('createProposalForm').addEventListener('submit', handleCreateProposal);
+
 
 
