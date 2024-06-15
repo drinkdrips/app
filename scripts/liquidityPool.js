@@ -1163,6 +1163,68 @@ document.getElementById('removeLiquidityForm').addEventListener('submit', async 
     }
 });
 
+// Função para obter as recompensas do usuário
+window.getRewards = async function(userAccount) {
+    try {
+        const rewards = await window.liquidityPoolContract.methods.getRewards(userAccount).call();
+        const rewardsInEth = web3.utils.fromWei(rewards, 'ether'); // Converte de Wei para ETH
+        document.getElementById('rewardAmount').textContent = rewardsInEth;
+    } catch (error) {
+        console.error('Erro ao obter recompensas:', error.message);
+    }
+};
+
+// Função para reivindicar as recompensas do usuário
+window.claimRewards = async function(userAccount) {
+    try {
+        await window.liquidityPoolContract.methods.claimRewards().send({ from: userAccount });
+        console.log('Recompensas reivindicadas com sucesso');
+        
+        // Atualizar informações de recompensas do usuário
+        await window.getRewards(userAccount);
+    } catch (error) {
+        console.error('Erro ao reivindicar recompensas:', error.message);
+    }
+};
+
+// Função para obter a taxa de transação
+window.getTransactionFee = async function() {
+    try {
+        const fee = await window.liquidityPoolContract.methods.transactionFee().call();
+        document.getElementById('transactionFee').textContent = `${fee}%`;
+    } catch (error) {
+        console.error('Erro ao obter a taxa de transação:', error.message);
+    }
+};
+
+// Listener para o botão de reivindicar recompensas
+document.getElementById('claimRewardsButton').addEventListener('click', async () => {
+    try {
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const userAccount = accounts[0];
+        if (userAccount) {
+            await window.claimRewards(userAccount);
+        } else {
+            console.error('Usuário não está conectado');
+        }
+    } catch (error) {
+        console.error('Erro ao reivindicar recompensas:', error.message);
+    }
+});
+
+// Listener para o evento de conexão do Metamask
+window.ethereum.on('accountsChanged', async (accounts) => {
+    if (accounts.length > 0) {
+        const userAccount = accounts[0];
+        const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // Substitua pelo endereço do token relevante
+        await window.displayYourLiquidity(userAccount, tokenAddress);
+        await window.getRewards(userAccount);
+        await window.getTransactionFee();
+    } else {
+        console.error('Usuário desconectado');
+    }
+});
+
 // Listener para conexão inicial com Metamask
 document.querySelector('.connect-button').addEventListener('click', async () => {
     try {
@@ -1171,6 +1233,8 @@ document.querySelector('.connect-button').addEventListener('click', async () => 
             const userAccount = accounts[0];
             const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61'; // Endereço do token relevante
             await window.displayYourLiquidity(userAccount, tokenAddress);
+            await window.getRewards(userAccount);
+            await window.getTransactionFee();
         } else {
             console.error('Usuário não está conectado');
         }
