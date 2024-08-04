@@ -43,6 +43,8 @@ contract LiquidityPool is Ownable, ReentrancyGuard, Pausable {
     event RewardsDistributed(address indexed provider, uint256 rewardAmount, uint256 tokenRewardAmount);
     event TransactionFeeUpdated(uint256 newFee);
     event RewardsCompounded(address indexed provider, uint256 ethAmount, uint256 tokenAmount);
+    event ETHDeposited(address indexed depositor, uint256 amount);
+    event TokensDeposited(address indexed depositor, uint256 amount);
 
     modifier validToken(address token) {
         require(token != address(0), "Invalid token address");
@@ -65,6 +67,17 @@ contract LiquidityPool is Ownable, ReentrancyGuard, Pausable {
         require(_transactionFee <= 100, "Transaction fee too high");
         transactionFee = _transactionFee;
         emit TransactionFeeUpdated(_transactionFee);
+    }
+
+    function depositETH() external payable onlyOwner {
+        require(msg.value > 0, "Amount must be greater than zero");
+        emit ETHDeposited(msg.sender, msg.value);
+    }
+
+    function depositTokens(uint256 amount) external onlyOwner {
+        require(amount > 0, "Amount must be greater than zero");
+        rewardToken.transferFrom(msg.sender, address(this), amount);
+        emit TokensDeposited(msg.sender, amount);
     }
 
     function addEthLiquidity(address token) external payable nonReentrant whenNotPaused validToken(token) positiveAmount(msg.value) updateCheckpoint(msg.sender, token) {
@@ -196,6 +209,14 @@ contract LiquidityPool is Ownable, ReentrancyGuard, Pausable {
         Liquidity storage pool = liquidity[msg.sender][token];
         ethRewards = pool.rewards;
         tokenRewards = pool.tokenRewards;
+    }
+
+    function getContractETHBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
+
+    function getContractTokenBalance() external view returns (uint256) {
+        return rewardToken.balanceOf(address(this));
     }
 
     function getLiquidityDuration(address token) external view returns (uint256) {
