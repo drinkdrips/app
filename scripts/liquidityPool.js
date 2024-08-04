@@ -1379,7 +1379,8 @@ window.claimRewardsLiquidityPool = async function(userAccount, tokenAddress) {
 
 	// Verificando recompensas antes de reivindicar
         const rewards = await window.liquidityPoolContract.methods.getRewards(tokenAddress).call({ from: userAccount });
-        if (rewards[0] <= 0 && rewards[1] <= 0) {
+        console.log('Recompensas:', rewards);
+	    if (rewards[0] <= 0 && rewards[1] <= 0) {
             console.log('Nenhuma recompensa a ser reivindicada');
             return;
         }
