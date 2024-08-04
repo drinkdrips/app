@@ -1376,6 +1376,13 @@ window.claimRewardsLiquidityPool = async function(userAccount, tokenAddress) {
 	console.log("Iniciando reivindicação de recompensas...");
         console.log("userAccount:", userAccount);
         console.log("tokenAddress:", tokenAddress);
+
+	// Verificando recompensas antes de reivindicar
+        const rewards = await window.liquidityPoolContract.methods.getRewards(tokenAddress).call({ from: userAccount });
+        if (rewards[0] <= 0 && rewards[1] <= 0) {
+            console.log('Nenhuma recompensa a ser reivindicada');
+            return;
+        }
 	    
         await window.liquidityPoolContract.methods.claimRewards(tokenAddress).send({ from: userAccount });
         console.log('Recompensas reivindicadas com sucesso');
@@ -1384,6 +1391,7 @@ window.claimRewardsLiquidityPool = async function(userAccount, tokenAddress) {
         await window.displayYourLiquidity(userAccount, tokenAddress);
     } catch (error) {
         console.error('Erro ao reivindicar recompensas:', error.message);
+	alert(`Erro ao reivindicar recompensas: ${error.message}`);
     }
 };
 
