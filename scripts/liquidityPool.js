@@ -1373,6 +1373,10 @@ window.removeTokenLiquidity = async function(userAccount, tokenAddress, tokenAmo
 // Função para reivindicar recompensas
 window.claimRewards = async function(userAccount, tokenAddress) {
     try {
+	console.log("Iniciando reivindicação de recompensas...");
+        console.log("userAccount:", userAccount);
+        console.log("tokenAddress:", tokenAddress);
+	    
         await window.liquidityPoolContract.methods.claimRewards(tokenAddress).send({ from: userAccount });
         console.log('Recompensas reivindicadas com sucesso');
 
