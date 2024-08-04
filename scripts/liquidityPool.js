@@ -1371,7 +1371,7 @@ window.removeTokenLiquidity = async function(userAccount, tokenAddress, tokenAmo
 };
 
 // Função para reivindicar recompensas
-window.claimRewards = async function(userAccount, tokenAddress) {
+window.claimRewardsLiquidityPool = async function(userAccount, tokenAddress) {
     try {
 	console.log("Iniciando reivindicação de recompensas...");
         console.log("userAccount:", userAccount);
@@ -1454,7 +1454,7 @@ document.getElementById('claimRewardsButton').addEventListener('click', async ()
     const tokenAddress = '0x3FC6d60A0360401666aF50162BCDbb3423879c61';
     
     if (userAccount) {
-        await window.claimRewards(userAccount, tokenAddress);
+        await window.claimRewardsLiquidityPool(userAccount, tokenAddress);
     } else {
         console.error('Usuário não está conectado');
     }
