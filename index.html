@@ -101,20 +101,22 @@
                                                 
                                             
                                                 <script>
-                                                    let scrollSpeed = 0.5; // Ajuste este valor para alterar a velocidade
-                                                    let lyrics = document.getElementById("lyrics");
-                                                    let position = window.innerHeight;
-                                            
-                                                    function scrollLyrics() {
-                                                        if (position > -lyrics.clientHeight) {
-                                                            position -= scrollSpeed;
-                                                            lyrics.style.top = position + "px";
-                                                            requestAnimationFrame(scrollLyrics);
-                                                        }
-                                                    }
-                                            
-                                                    scrollLyrics();
-                                                </script>
+    let scrollSpeed = 0.5; // Ajuste para alterar a velocidade
+    let lyrics = document.getElementById("lyrics");
+    let position = 0; // Começa no topo
+
+    function scrollLyrics() {
+        position -= scrollSpeed;
+        lyrics.style.transform = `translateY(${position}px)`;
+
+        if (Math.abs(position) < lyrics.clientHeight) {
+            requestAnimationFrame(scrollLyrics);
+        }
+    }
+
+    scrollLyrics();
+</script>
+
                                     </div>
                                 </div>
                             </div>
