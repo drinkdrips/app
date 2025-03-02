@@ -107,21 +107,50 @@
                                                 
                                             
                                                 <script>
-                                                    let scrollSpeed = 0.2; // Ajuste para alterar a velocidade
+                                                    let scrollSpeed = 0.2; // Velocidade da rolagem
                                                     let lyrics = document.getElementById("lyrics");
                                                     let position = 0; // Começa no topo
+                                                    let scrolling = true; // Controle da rolagem
                                                 
                                                     function scrollLyrics() {
+                                                        if (!scrolling) return; // Para se estiver pausado
+                                                        
                                                         position -= scrollSpeed;
                                                         lyrics.style.transform = `translateY(${position}px)`;
                                                 
-                                                        if (Math.abs(position) < lyrics.clientHeight) {
-                                                            requestAnimationFrame(scrollLyrics);
+                                                        // Reinicia quando chega ao final
+                                                        if (Math.abs(position) >= lyrics.clientHeight) {
+                                                            position = 0; // Volta ao topo
                                                         }
+                                                
+                                                        requestAnimationFrame(scrollLyrics);
                                                     }
                                                 
+                                                    // Funções para controle manual
+                                                    function pauseScroll() {
+                                                        scrolling = false;
+                                                    }
+                                                
+                                                    function resumeScroll() {
+                                                        scrolling = true;
+                                                        scrollLyrics();
+                                                    }
+                                                
+                                                    function restartScroll() {
+                                                        position = 0;
+                                                        lyrics.style.transform = "translateY(0px)";
+                                                        scrolling = true;
+                                                        scrollLyrics();
+                                                    }
+                                                
+                                                    // Eventos para parar e retomar ao passar o mouse
+                                                    lyrics.addEventListener("mouseenter", pauseScroll);
+                                                    lyrics.addEventListener("mouseleave", resumeScroll);
+                                                
+                                                    // Inicia a rolagem
                                                     scrollLyrics();
                                                 </script>
+
                                         </div>
                                     </div>
                                 </div>
