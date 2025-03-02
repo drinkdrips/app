@@ -16,13 +16,17 @@
        
         .lyrics {
             max-width: 600px;
+            height: 300px; /* Ajuste a altura conforme necessário */
             white-space: pre-line;
             font-size: 20px;
             line-height: 1.6;
             width: 80%;
             margin: auto;
-            position: absolute;
-            top: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .lyrics p {
+            margin-bottom: 10px;
         }
         .ipa {
             color: red;
@@ -56,7 +60,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card">
                                     <div class="card-body lyrics" id="lyrics">
-                                            
+                                            <div id="lyrics-content">
                                                     <b>Wish I could</b> <span class="ipa">wɪʃ aɪ kʊd</span>
                                                     <b>I could've said goodbye</b> <span class="ipa">aɪ kʊdəv sɛd ɡʊdˈbaɪ</span></p>
                                                     <b>I would've said what I wanted to</b> <span class="ipa">aɪ wʊdəsɛd waraiwante to</span>
@@ -104,18 +108,17 @@
                                                 <script>
                                                     let scrollSpeed = 0.5; // Ajuste este valor para alterar a velocidade
                                                     let lyrics = document.getElementById("lyrics");
-                                                    let position = window.innerHeight;
-                                            
+                                                
                                                     function scrollLyrics() {
-                                                        if (position > -lyrics.clientHeight) {
-                                                            position -= scrollSpeed;
-                                                            lyrics.style.top = position + "px";
+                                                        if (lyrics.scrollTop < lyrics.scrollHeight - lyrics.clientHeight) {
+                                                            lyrics.scrollTop += scrollSpeed;
                                                             requestAnimationFrame(scrollLyrics);
                                                         }
                                                     }
-                                            
+                                                
                                                     scrollLyrics();
                                                 </script>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
