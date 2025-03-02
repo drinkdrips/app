@@ -14,19 +14,17 @@
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.3.6/dist/web3.min.js"></script>
     <style>
        
-        .lyrics {
-            max-width: 600px;
-            height: 300px; /* Ajuste a altura conforme necessário */
-            white-space: pre-line;
-            font-size: 20px;
-            line-height: 1.6;
-            width: 80%;
-            margin: auto;
-            position: relative;
-            overflow: hidden;
-        }
-        .lyrics p {
-            margin-bottom: 10px;
+            .lyrics {
+                position: relative;
+                overflow: hidden;
+                height: 300px; /* Ajuste conforme necessário */
+            }
+        
+            .lyrics-content {
+                position: absolute;
+                top: 0;
+                width: 100%;
+            }
         }
         .ipa {
             color: red;
@@ -59,8 +57,8 @@
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <div class="card">
-                                    <div class="card-body lyrics" id="lyrics">
-                                            <div id="lyrics-content">
+                                    <div class="card-body lyrics">
+                                            <div id="lyrics-content" id="lyrics">
                                                     <b>Wish I could</b> <span class="ipa">wɪʃ aɪ kʊd</span>
                                                     <b>I could've said goodbye</b> <span class="ipa">aɪ kʊdəv sɛd ɡʊdˈbaɪ</span></p>
                                                     <b>I would've said what I wanted to</b> <span class="ipa">aɪ wʊdəsɛd waraiwante to</span>
@@ -106,14 +104,17 @@
                                                 
                                             
                                                 <script>
-                                                    let scrollSpeed = 0.5; // Ajuste este valor para alterar a velocidade
+                                                    let scrollSpeed = 0.5; // Ajuste a velocidade aqui
+                                                    let lyricsContainer = document.querySelector(".lyrics");
                                                     let lyrics = document.getElementById("lyrics");
                                                 
                                                     function scrollLyrics() {
-                                                        if (lyrics.scrollTop < lyrics.scrollHeight - lyrics.clientHeight) {
-                                                            lyrics.scrollTop += scrollSpeed;
-                                                            requestAnimationFrame(scrollLyrics);
+                                                        if (lyricsContainer.scrollTop < lyrics.scrollHeight - lyricsContainer.clientHeight) {
+                                                            lyricsContainer.scrollTop += scrollSpeed;
+                                                        } else {
+                                                            lyricsContainer.scrollTop = 0; // Reinicia a rolagem
                                                         }
+                                                        requestAnimationFrame(scrollLyrics);
                                                     }
                                                 
                                                     scrollLyrics();
