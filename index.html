@@ -1,518 +1,379 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Inicial - App DrinkDrips</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Honk&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>DrinkDrips Public Home</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.3.6/dist/web3.min.js"></script>
-    <style>
-        .lyrics-container {
-            max-height: 500px; /* Defina uma altura máxima adequada */
-            overflow-y: auto; /* Permite rolagem dentro do div */
-  
-            
-        }
-
-        .lyrics {
-            position: relative;
-            white-space: pre-line;
-            font-size: 20px;
-            line-height: 1.6;
-            width: 100%; /* Garante que ocupe toda a largura do container */
-        }
-
-        .ipa {
-            color: red;
-            font-size: 24px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px black;
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="shortcut icon" href="https://i.postimg.cc/9M8zkG6w/logo.png">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <h1>DrinkDrips Music Ipa</h1>
-                <!-- 
-                <button class="connect-button">
-                    <i class="fas fa-wallet"></i> Conectar a MetaMask
-                </button>
-                -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav-logo"><img src="https://i.postimg.cc/9M8zkG6w/logo.png" alt="logo image" class="nav-logo-img">Bingles.</a>
+
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-list"><a href="#home" class="nav-link active-link">Home</a></li>
+                    <li class="nav-list"><a href="#features" class="nav-link">Features</a></li>
+                    <li class="nav-list"><a href="#pricing" class="nav-link">Pricing</a></li>
+                    <li class="nav-list"><a href="#team" class="nav-link">Team</a></li>
+                    <li class="nav-list"><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li class="nav-list"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>         
+                <div class="nav-close" id="nav-close">
+                    <i class="fas fa-times"></i>
+                </div>  
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-th-large"></i>
+            </div>
+        </nav>
+    </header>
+
+    <section class="home" id="home">
+        <div class="home-container container grid">
+            <div class="home-data">
+                <h1 class="home-title"><span>Start</span> your IT skills <span>career</span></h1>
+                <p class="home-description">Choose your career. We'll teach you the skills to get job-ready</p>
+                <a href="#" class="button button-flex">Explore<i class="ri-arrow-right-down-line button-icon"></i></a>
+            </div>
+
+            <div class="home-img image">
+                <div class="banner-app-mock">
+                    <img src="https://i.postimg.cc/fWFWGWrF/mobile-mock.png" class="mockup" alt="mobile image">
+                    <img src="https://i.postimg.cc/52LWbPyt/work3.jpg" class="main-img" alt="home image">
+                </div>
+                <div class="mobile-graphic">
+                    <img src="https://i.postimg.cc/50DBQdst/mobile-graphic.png" alt="mobile graphic">
+                </div>
             </div>
         </div>
-    </header>
-<!-- INSTRUÇÕES INICIAIS -->
-    <div class="container my-5">
-        <div class="row equal-height">
-            <div class="col-lg-12">
-                <div class="card bg-dark text-white mb-4">
-                    <div class="card-body">
-                        <h3 class="card-title">I'll Never Love Again - Lady Gaga</h3>
+    </section>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body lyrics-container">
-                                        <div class="lyrics" id="lyrics"> 
-                                            
-                                                    <b>Wish I could</b> <span class="ipa">UÍ CHÁI KUD</span>
-                                                    <b>I could've said goodbye</b> <span class="ipa">AI KUDÉV SÉD GUD BÁAI</span></p>
-                                                    <b>I would've said what I wanted to</b> <span class="ipa">AI ÚODEV SÉD UARÁIUANTÉ TIU</span>
-                                                    <p><b>Maybe even cried for you</b> <span class="ipa">MEIBÍ IVIN KRÁID FÓORIÚ</span></p>
-                                            
-                                                    <b>If I knew it would be the last time</b> <span class="ipa">IFÁAI NIUː IT WUDI BÍ DÃ LÉSSTAIM</span>
-                                                    <b>I would've broke my heart in two</b> <span class="ipa">AI ÚODEV BROUK MAI HÃRIN TU</span>
-                                                    <b>Trying to save a part of you</b> <span class="ipa">TRAIMTÚ SEIVA PARÓVIU</span>
-                                            
-                                                    <h2>Refrão:</h2>
-                                                    <b>Don't wanna feel another touch</b> <span class="ipa">DON UANA FIL ANÓRER TOUT</span>
-                                                    <b>Don't wanna start another fire</b> <span class="ipa">DON UANA STAR ANÓRER FÁAIER</span>
-                                                    <b>Don't wanna know another kiss</b> <span class="ipa">DON UANA NOU ANÓRER QUIS</span>
-                                                    <b>No other name falling off my lips</b> <span class="ipa">NOU ÓRER NEM FÚLIN ÓV MÁI LIPS</span>
-                                                    <b>Don't wanna give my heart away</b> <span class="ipa">DON UANA GIV MAI HÃRT AUEI</span>
-                                                    <b>To another stranger</b> <span class="ipa">TO ANÓRER STREINGER</span></p>
-                                                    <b>Or let another day begin</b> <span class="ipa">OR LÉT ANÓRER DEI BI GUIN</span>
-                                                    <b>Won't even let the sunlight in</b> <span class="ipa">UÓ NÍVIM LÉ TESAN LAIRÍM</span>
-                                                    <b>No I'll never love again</b> <span class="ipa">NOU AIL NÉVER LÃV AGUÉM</span>
-                                                    <b>I'll never love again</b> <span class="ipa">AIL NÉVER LÃV AGUÉM</span>
-                                                    <b>Oouu oou oou</b> <span class="ipa">OOU OOU OOU</span>
-                                            
-                                                    <b>When we first met</b> <span class="ipa">UEN UÍ FÃRST MIT</span>
-                                                    <b>I never thought that I would fall</b> <span class="ipa">AI NÉVER TÓT DÉRÁI UUD FÓL</span>
-                                                    <b>I never thought that I'd find myself</b> <span class="ipa">AI NÉVER TÓT DÉRÁIFÁIND MAISÉLF</span>
-                                                    <b>Lying in your arms</b> <span class="ipa">LÁIIN INNIÓR ÁRMS</span>
-                                                    <b>And I wanna pretend that it's not true</b> <span class="ipa">ENDA UANA PRITÉN DÉRITS NÓT TRÚ</span>
-                                                    <b>Oh, baby that you're gone</b> <span class="ipa">ÔU, BEIBI DÉR IÓR GÓN</span>
-                                                    <b>Cause my world keeps turning and turning and turning</b> <span class="ipa">CÓZ MAI UÃRLD KIPS TÃRNIN EN TÃRNIN EN TÃRNIN</span></p>
-                                                    <b>But I'm not moving on</b> <span class="ipa">BÃTÁI NÓT MÚVIN ÓN</span>
-                                            
-                                                    <h2>Refrão:</h2>
-                                                    <b>Don't wanna feel another touch</b> <span class="ipa">DON UANA FIL ANÓRER TOUT</span>
-                                                    <b>Don't wanna start another fire</b> <span class="ipa">DON UANA STAR ANÓRER FÁAIER</span>
-                                                    <b>Don't wanna know another kiss</b> <span class="ipa">DON UANA NOU ANÓRER QUIS</span>
-                                                    <b>No other name falling off my lips</b> <span class="ipa">NOU ÓRER NEM FÓLIN ÓV MÁI LIPS</span>
-                                                    <b>Don't wanna give my heart away</b> <span class="ipa">DON UANA GIV MAI HÃRT AUEI</span>
-                                                    <b>To another stranger</b> <span class="ipa">TU ANÓRER STREINGER</span>
-                                                    <b>Or let another day begin</b> <span class="ipa">OR LÉT ANÓRER DEI BI GUIN</span>
-                                                    <b>Won't even let the sunlight in</b> <span class="ipa">UÓ NÍVIM LÉ TESAN LAIRÍM</span>
-                                                    <b>No I'll never love again</b> <span class="ipa">NOU AIL NÉVER LÃV AGUÉM</span>
-                                                    
-                                                    <h2>Ponte:</h2>
-                                                    <b>I don't wanna know this feeling unless it's you and me</b><span class="ipa">AI DON UANA NOU DIS FILIN ANLÉS ITS IU EN MI</span>
-                                                    <b>I don't wanna waste a moment</b> <span class="ipa">AI DON UANA UEIST A MÔUMENT</span>
-                                                    <b>And I don't wanna give somebody else the better part of me</b> <span class="ipa">ENDAI DON UANA GIV SAMBÓDI ÉLSE DÃ BÉRER PÁRÓV MI</span>
-                                                    <b>I would rather wait for you</b> <span class="ipa">AI ÚUD RÉRER UEIT FÓRIÚ</span>
-
-                                                    <h2>Último Refrão:</h2>
-                                                    <b>Don't wanna feel another touch</b> <span class="ipa">DON UANA FIL ANÓRER TOUT</span>
-                                                    <b>Don't wanna start another fire</b> <span class="ipa">DON UANA STAR ANÓRER FÁAIER</span>
-                                                    <b>Don't wanna know another kiss</b> <span class="ipa">DON UANA NOU ANÓRER QUIS</span>
-                                                    <b>Baby unless they are your lips </b> <span class="ipa">BEIBI ANLÉS DEI ÁR IÓR LIPS</span>
-                                                    <b>Don't wanna give my heart away</b> <span class="ipa">DON UANA GIV MAI HÃRT AUEI</span>
-                                                    <b>To another stranger</b> <span class="ipa">TU ANÓRER STREINGER</span>
-                                                    <b>Or let another day begin</b> <span class="ipa">OR LÉT ANÓRER DEI BI GUIN</span>
-                                                    <b>Won't even let the sunlight in</b> <span class="ipa">UÓ NÍVIM LÉ TESAN LAIRÍM</span>
-                                                    <b>Oh I'll never love again</b> <span class="ipa">ÔU AIL NÉVER LÃV AGUÉM</span>
-
-                                                    <h2>Final:</h2>
-                                                    <b>Love again</b> <span class="ipa">LÃV AGUÉM</span>
-                                                    <b>I'll never love again </b> <span class="ipa">AIL NÉVER LÃV AGUÉM</span>
-                                                    <b>I'll never love </b> <span class="ipa">AIL NÉVER LÃV</span>
-                                                    <b>Again</b> <span class="ipa">AGUÉM</span>
-                                                    <b>I won't I won't I swear I can't</b> <span class="ipa">AI UÔNT AI UÔNT AI SUÉR AI KÉNT</span>
-                                                    <b>I wish I could but I just won't</b> <span class="ipa">AI UÍ CHÁI KUD BÃT AI DJÃST UÔNT</span>
-                                                    <b>I'll never love again</b> <span class="ipa">AIL NÉVER LÃV AGUÉM</span>
-                                                    <b>I'll never love </b> <span class="ipa">AIL NÉVER LÃV</span>
-                                                    <b>Again</b> <span class="ipa">AGUÉM</span>
-
-                                                        
-                                            
-                                                <script>
-                                                    let scrollSpeed = 0.3; // Velocidade da rolagem
-                                                    let lyrics = document.getElementById("lyrics");
-                                                    let position = 0; // Começa no topo
-                                                    let scrolling = true; // Controle da rolagem
-                                                
-                                                    function scrollLyrics() {
-                                                        if (!scrolling) return; // Para se estiver pausado
-                                                        
-                                                        position -= scrollSpeed;
-                                                        lyrics.style.transform = `translateY(${position}px)`;
-                                                
-                                                        // Reinicia quando chega ao final
-                                                        if (Math.abs(position) >= lyrics.clientHeight) {
-                                                            position = 0; // Volta ao topo
-                                                        }
-                                                
-                                                        requestAnimationFrame(scrollLyrics);
-                                                    }
-                                                
-                                                    // Funções para controle manual
-                                                    function pauseScroll() {
-                                                        scrolling = false;
-                                                    }
-                                                
-                                                    function resumeScroll() {
-                                                        scrolling = true;
-                                                        scrollLyrics();
-                                                    }
-                                                
-                                                    function restartScroll() {
-                                                        position = 0;
-                                                        lyrics.style.transform = "translateY(0px)";
-                                                        scrolling = true;
-                                                        scrollLyrics();
-                                                    }
-                                                
-                                                    // Eventos para parar e retomar ao passar o mouse
-                                                    lyrics.addEventListener("mouseenter", pauseScroll);
-                                                    lyrics.addEventListener("mouseleave", resumeScroll);
-                                                
-                                                    // Inicia a rolagem
-                                                    scrollLyrics();
-                                                </script>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <small id="Help">
-                                        <p>6. Certifique-se de ter aceito o convite e confirmado o acesso ao servidor para que o faucet funcione</p>
-                                        <p>7. Se você seguiu as etapas anteriores com sucesso o formulário do faucet estará liberado</p>
-                                        <p>8. Selecione Polygon Pos (Amoy), cole o endereço da sua carteira metamask em "Wallet Address" e envie</p>
-                                        <p>9. Você receberá 0.2 MATICS na sua carteira metamask</p>
-                                        <p>10. E já está apto a testar as funcionalidades da DrinkDrips :)</p>
-                                        <ul>
-                                            <li>Como você terá apenas 0.2 MATICS, ao fazer os testes, procure utilizar valores baixos como 0.001 e assim por diante</li>
-                                            <li>Assim você consegue economizar suas MATICS e fazer muito mais testes</li>
-                                            <li>Se suas MATICS acabarem, siga os passos novamente para obter mais 0.2 e continuar testando a DrinkDrips</li>
-                                        </ul>
-                                        <h3>Muito obrigado pela paciência e colaboração :)</h3>
-                                       </small>
-                                    </div>
-                                </div>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
+    <section class="features section" id="features">
+        <h2 class="section-title">Career Skills Features</h2>
+        <div class="feature-container container grid">
+            <div class="feature-img image">
+                <div class="banner-app-mock">
+                    <img src="https://i.postimg.cc/fWFWGWrF/mobile-mock.png" class="mockup" alt="mobile image">
+                    <img src="https://i.postimg.cc/52LWbPyt/work3.jpg" class="main-img" alt="home image">
                 </div>
-              </div>
-           </div>
-  <!-- FIM DO BLOCO DE INSTRUÇÕES -->
- 
-  
-  <!-- DASHBOARD INICIAL -->
-    <div class="container my-5">
-        <div class="row equal-height">
-            <div class="col-lg-12">
-                <div class="card bg-dark text-white mb-4">
-                    <div class="card-body">
-                        <h3 class="card-title">Visão Geral</h3>
-                        
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Dashboard DrinkDrips</h3>
-                                        
-                                        <p>Fornecimento máximo: <span id="maxSupply">Loading...</span> Drinks</p>
-                                        <p>Fornecimento circulante: <span id="totalSupply">Loading...</span> Drinks</p>
-                                        <p>Stakeholders: <span id="stakeHolders">Loading...</span></p>
-                                        <p>Total de Drinks em stake: <span id="totalstakedTokens">Loading...</span> Drinks</p>
-                                        <p>Recompensas(DRIPS) distríbuídas: <span id="dripstotalSupply">Loading...</span> Drips</p>
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Comprar Drinks</h3>
-                                        <form id="buyDrinksForm">
-                                            <div class="form-group">
-                                                <label for="paymentToken">Pagar com:</label>
-                                                <select class="form-control" id="paymentToken">
-                                                    <option value="usd">USDC</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="usdAmount">Valor:</label>
-                                                <input type="number" class="form-control" id="usdAmount" placeholder="Digite apenas números inteiros" step="1" min="0">
-                                            </div>
-                                            <button type="submit" class="btn btn-primary btn-block">Comprar DRINK</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
+                <div class="mobile-graphic">
+                    <img src="https://i.postimg.cc/50DBQdst/mobile-graphic.png" alt="mobile graphic">
                 </div>
-              </div>
-           </div>
-  <!-- FIM DO DASHBOARD INICIAL -->
-
-  <!-- ÁREA DE STAKE -->       
-  <div class="container my-5">
-   <div class="row equal-height">
-    <div class="col-lg-12">
-     <div class="card bg-dark text-white mb-4">
-      <div class="card-body">
-        <h2 class="card-title">STAKE</h2>
-        <div class="row">
-         <div class="col-md-6 mb-4">
-          <div class="card">
-           <div class="card-body">
-             <form id="approveDrinksForm">
-              <div class="form-group">
-               <label for="approveAmount">Aprove a quantidade de Drinks que você quer deixar em Stake</label>
-                <input type="number" class="form-control" id="approveAmount" placeholder="0" step="1" min="0">
-                                            </div>
-                                            <button type="submit" class="btn btn-secondary btn-block">Aprovar</button>
-                                        </form>
-                                        <form id="stakeDrinksForm" class="mt-3">
-                                            <div class="form-group">
-                                                <label for="stakeAmount">Após a aprovação, basta inserir a quandidade de Drinks e clicar em Stake:</label>
-                                                <input type="number" class="form-control" id="stakeAmount" placeholder="0" step="1" min="1">
-                                            </div>
-                                            <button type="submit" class="btn btn-success btn-block">Stake</button>
-                                        </form>
-                                        <form id="unstakeDrinksForm" class="mt-3">
-                                            <div class="form-group">
-                                                <label for="unstakeAmount">Remover Stake:</label>
-                                                <input type="number" class="form-control" id="unstakeAmount" placeholder="0" step="1" min="0">
-                                            </div>
-                                            <button type="submit" class="btn btn-danger btn-block">Unstake</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Seu Painel</h3>
-                                        <p>Seu saldo de Drinks: <span id="drinkBalance">Loading...</span> Drinks</p>
-                                        <p>Seus Drinks em Stake: <span id="stakingBalance">Loading...</span> Drinks</p>
-                                        <h3 class="card-title">Suas recompensas</h3>
-                                        <p>Seu saldo de Drips: <span id="dripsBalance">Loading...</span></p>
-                                         <p>Drips a reivindicar: <span id="claimableDrips">Loading...</span></p>
-                                        <form id="claimDripsForm">
-                                            <button type="submit" class="btn btn-success btn-block">Reivindicar DRIPS</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-              </div>
-           </div>          
-<!-- FIM DA ÁREA DE STAKE -->                   
-                      
-<!-- DASHBOARD LIQUIDITY -->
-<div class="container my-5">
-    <div class="row equal-height">
-        <div class="col-lg-12">
-            <div class="card bg-dark text-white mb-4">
-                <div class="card-body">
-                    <h2 class="card-title">Pool</h2>
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="col-md-6 mb-4 liquidity-pool-info">
-                                        <div class="card" style="height: 100%;">
-                                            <div class="card-body" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
-                                                <p class="card-title">Sua Pool</p>
-                                                <div>
-                                                    <p style="margin-bottom: 0; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;"><span id="yourEthAmount">0</span> Ethers</p>
-                                                    <p style="margin-bottom: 0; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;"><span id="yourTokenAmount">0</span> Drinks</p>
-                                                    <p style="margin-bottom: 0; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">Farming: <span id="yourRewardAmount">0</span> Ethers</p>
-                                                    <p style="margin-bottom: 0; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">Taxa de Transação: <span id="transactionFeeAmount">0%</span></p>
-                                                    <button id="claimRewardsButton" class="btn btn-success btn-block">Claim</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h3 class="card-title">Liquidity Pool</h3>
-                                    <ul class="nav nav-tabs" id="liquidityTab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="addLiquidity-tab" data-toggle="tab" href="#addLiquidity" role="tab" aria-controls="addLiquidity" aria-selected="true">Adicionar</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="removeLiquidity-tab" data-toggle="tab" href="#removeLiquidity" role="tab" aria-controls="removeLiquidity" aria-selected="false">Remover</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="addLiquidity" role="tabpanel" aria-labelledby="addLiquidity-tab">
-                                            <form id="addLiquidityForm">
-                                                <div class="form-group">
-                                                    <label for="addLiquidityEthAmount">Adicionar Ethereum</label>
-                                                    <input type="number" class="form-control" id="addLiquidityEthAmount" placeholder="0" step="any" min="0" aria-describedby="addEthHelp">
-                                                    <small id="addEthHelp" class="form-text text-muted">Insira a quantidade de Ethereum a ser adicionada.</small>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="addLiquidityDrinkAmount">Adicionar Drink</label>
-                                                    <input type="number" class="form-control" id="addLiquidityDrinkAmount" placeholder="0" step="any" min="0" aria-describedby="addDrinkHelp">
-                                                    <small id="addDrinkHelp" class="form-text text-muted">Insira a quantidade de Drink a ser adicionada.</small>
-                                                </div>
-                                                <button type="submit" class="btn btn-info btn-block">Adicionar Liquidez</button>
-                                            </form>
-                                        </div>
-                                        <div class="tab-pane fade" id="removeLiquidity" role="tabpanel" aria-labelledby="removeLiquidity-tab">
-                                            <form id="removeLiquidityForm">
-                                                <div class="form-group">
-                                                    <label for="removeLiquidityEthAmount">Remover Ethereum</label>
-                                                    <input type="number" class="form-control" id="removeLiquidityEthAmount" placeholder="0" step="any" min="0" aria-describedby="removeEthHelp">
-                                                    <small id="removeEthHelp" class="form-text text-muted">Insira a quantidade de Ethereum a ser removida.</small>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="removeLiquidityDrinkAmount">Remover Drink</label>
-                                                    <input type="number" class="form-control" id="removeLiquidityDrinkAmount" placeholder="0" step="any" min="0" aria-describedby="removeDrinkHelp">
-                                                    <small id="removeDrinkHelp" class="form-text text-muted">Insira a quantidade de Drink a ser removida.</small>
-                                                </div>
-                                                <button type="submit" class="btn btn-warning btn-block">Remover Liquidez</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
             </div>
-          </div>
-       </div>
-</div>
-<!-- FIM DO DASHBOARD LIQUIDITY -->           
-                                        
-                           
-  <!-- ÁREA DE SWAP -->
-    <div class="container my-5">
-        <div class="row equal-height">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 class="card-title">SWAP</h2>
-                           <div class="col-md-12 mb-4">
-                                <div class="card">
-                                
-                                 <div class="form-group">
-                                        <label for="fromToken">De:</label>
-                                        <select class="form-control" id="fromToken">
-                                            <option value="drinkToken">DRINK</option>
-                                            <option value="otherToken1">WETH</option>
-                                            <option value="otherToken1">USDC</option>
-                                            <option value="otherToken1">MATIC</option>
-                                            <!-- Adicione mais tokens aqui conforme necessário -->
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                      <button id="invertButton" type="submit" class="btn btn-block">
-                                            <i class="fas fa-arrow-up"></i>
-                                            <i class="fas fa-arrow-down"></i>
-                                       </button>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="toToken">Para:</label>
-                                        <select class="form-control" id="toToken">
-                                            <option value="drinkToken">DRINK</option>
-                                            <option value="otherToken1">WETH</option>
-                                            <option value="otherToken1">USDC</option>
-                                            <option value="otherToken1">MATIC</option>
-                                            <!-- Adicione mais tokens aqui conforme necessário -->
-                                        </select>
-                                    </div>
-                                                                  
-                                    <button id="swapButton" type="submit" class="btn btn-warning btn-block">Swap</button>
-                                    
-                                    <div id="status"></div>
-                                
-                                </div>
-                            </div>
-                       
-                      </div>
-                   </div>
+
+            <div class="feature-inside">
+                <ul>
+                    <li>
+                        <img src="https://i.postimg.cc/bJfYZmQh/feature1.png" alt="feature image">
+                        <h3>Practice on our mobile app</h3>
+                        <p>Our mobile app puts the power of practice at your fingertips. Whether you're on the bus, waiting in line, or simply taking a break, you can level up your skills with engaging exercises and interactive lessons</p>
+                    </li>
+
+                    <li>
+                        <img src="https://i.postimg.cc/9X1SSHGs/feature2.png" alt="feature image">
+                        <h3>Best Skill Paths</h3>
+                        <p>In today's rapidly evolving digital landscape, choosing the right IT skill path can set you on a trajectory for success. Whether you're a seasoned professional or just starting your journey, exploring the best IT skill paths is essential</p>
+                    </li>
+
+                    <li>
+                        <img src="https://i.postimg.cc/02TCXVHL/feature3.png" alt="feature image">
+                        <h3>Choose your Career Path</h3>
+                        <p>A career path prepares you for a job in tech. Choose from a variety of careers — including Data Scientist, Front-End Engineer, Back-End Engineer, Full-Stack Engineer, or iOS Developer. We'll guide you through everything you need to know to land a job</p>
+                    </li>
+                </ul>
+
+                <div class="btn-group">
+                    <a href="#" class="button"><i class="fab fa-apple fa-2x"></i>Available in <br>Apple</a>
+                    <a href="#" class="button"><i class="fab fa-google-play fa-2x"></i>Available in <br>Android</a>
                 </div>
-              </div>
-           </div>
-  <!-- FIM DA ÁREAD DE SWAP -->
-   
- <!-- ÁREA SOLTA A VOZ COMUNIDADE -->                      
- <main>
-        <div class="container">
-            <h1 class="text-center my-4">Solta a voz comunidade!</h1>
-            <div class="row equal-height" id="governanceProposals">
-            <!-- As propostas serão adicionadas aqui dinamicamente pelo JavaScript -->
             </div>
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Nova Proposta</h5>
-                            <form id="createProposalForm">
-                                <div class="form-group">
-                                    <label for="proposalTitle">Título da Proposta</label>
-                                    <input type="text" class="form-control" id="proposalTitle" placeholder="Digite o título da sua proposta">
-                                </div>
-                                <div class="form-group">
-                                    <label for="proposalDescription">Descrição da Proposta</label>
-                                    <textarea class="form-control" id="proposalDescription" rows="3" placeholder="Digite a descrição da sua proposta"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-success">Enviar</button>
-                            </form>
-                        </div>
+        </div>
+    </section>
+
+    <section class="pricing section" id="pricing">
+        <h2 class="section-title">Our Pricing Plans</h2>
+        <div class="pricing-container container grid">
+            <div class="pricing-plan">
+                <div class="pricing-header">
+                    <h3>Basic</h3>
+                </div>
+            
+                <div class="pricing-price">
+                    <span class="currency"></span>
+                    <span class="price">Free</span>
+                    <span class="period"></span>
+                </div>
+
+                <div class="pricing-body">
+                    <ul>
+                        <li><i class="fa fa-check"></i>Access to Free Courses</li>
+                        <li><i class="fa fa-check"></i>Limited Number of Quizzes</li>
+                        <li><i class="fa fa-check"></i>Community Support</li>
+                        <li><i class="fa fa-check"></i>Limited Number of Real World Projects</li>
+                        <li><i class="fa fa-check"></i>Limited Practice on Mobile App</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-footer">
+                    <a href="#" class="button button-flex">Explore <i class="ri-arrow-right-down-line button-icon"></i></a>
+                </div>
+            </div>
+
+            <div class="pricing-plan">
+                <div class="pricing-header">
+                    <h3>Premium</h3>
+                    <h3 class="best-value">best value</h3>
+                </div>
+            
+                <div class="pricing-price">
+                    <span class="currency">$</span>
+                    <span class="price">10</span>
+                    <span class="period">/monthly</span>
+                </div>
+
+                <div class="pricing-body">
+                    <ul>
+                        <li><i class="fa fa-check"></i>Access to Free Courses</li>
+                        <li><i class="fa fa-check"></i>Unlimited Number of Quizzes</li>
+                        <li><i class="fa fa-check"></i>Community Support</li>
+                        <li><i class="fa fa-check"></i>Unlmited Number of Real World Projects</li>
+                        <li><i class="fa fa-check"></i>Unlimited Practice on Mobile App</li>
+                        <li><i class="fa fa-check"></i>Access to Skill Paths</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-footer">
+                    <a href="#" class="button button-flex">Explore <i class="ri-arrow-right-down-line button-icon"></i></a>
+                </div>
+            </div>
+
+            <div class="pricing-plan">
+                <div class="pricing-header">
+                    <h3>Professional</h3>
+                </div>
+            
+                <div class="pricing-price">
+                    <span class="currency">$</span>
+                    <span class="price">15</span>
+                    <span class="period">/monthly</span>
+                </div>
+
+                <div class="pricing-body">
+                    <ul>
+                        <li><i class="fa fa-check"></i>Access to Free Courses</li>
+                        <li><i class="fa fa-check"></i>Unlimited Number of Quizzes</li>
+                        <li><i class="fa fa-check"></i>Community Support</li>
+                        <li><i class="fa fa-check"></i>Unlmited Number of Real World Projects</li>
+                        <li><i class="fa fa-check"></i>Unlimited Practice on Mobile App</li>
+                        <li><i class="fa fa-check"></i>Access to Skill Paths</li>
+                        <li><i class="fa fa-check"></i>Access to Career Paths</li>
+                        <li><i class="fa fa-check"></i>Access to Professional Certifications</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-footer">
+                    <a href="#" class="button button-flex">Explore <i class="ri-arrow-right-down-line button-icon"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials section" id="team">
+        <h2 class="section-title">Meet the Team</h2>
+        <div class="testimonials-container container">
+            <div class="swiper testimonials-swiper">
+                <div class="swiper-wrapper">
+                    <div class="testimonial-item swiper-slide">
+                        <div class="img-box"><img src="https://i.postimg.cc/Pf6GJVXG/team1.jpg" alt="team member"></div>
+                        <h3>John Doe</h3>
+                        <span>UI Designer</span>
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="testimonial-item swiper-slide">
+                        <div class="img-box"><img src="https://i.postimg.cc/TwCsyhXj/team2.jpg" alt="team member"></div>
+                        <h3>Laura Moore</h3>
+                        <span>Ux Designer</span>
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="testimonial-item swiper-slide">
+                        <div class="img-box"><img src="https://i.postimg.cc/YCNBrrjR/team3.jpg" alt="team member"></div>
+                        <h3>Oliver Stone</h3>
+                        <span>UI Designer</span>
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
- <!-- FIM DA ÁREAD SOLTA DA VOZ COMUNIDADE -->
-  
-      
+    </section>
 
-    <footer class="mt-5">
-        <div class="container">
-          <div class="logoRodape">
-                    <img src="https://lh3.googleusercontent.com/pw/AP1GczOOk5wgRvI5RnKt6iz6btSie2asU4F1nBR60PUFUBbyr6KHTgk0SJ-9iUW5ETIjm9CNSznJvO9RvB7fYS9H1q3YgYfSDF6y2ytISTuo-Ilnanc1LkNxgkgP8zyNL7iFe26oBwimAPQKub5d5nzLhC0A=w647-h647-s-no-gm?authuser=0" alt="DrinkDrips">
-                  <p>&copy; <span id="year"></span> DrinkDrips. Todos os direitos reservados.</p>
-                                </div>
-             </div>
+    <section class="accordion section" id="faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="accordion-container container grid">
+            <div class="accordion-img image">
+                <div class="banner-app-mock">
+                    <img src="https://i.postimg.cc/fWFWGWrF/mobile-mock.png" class="mockup" alt="mobile image">
+                    <img src="https://i.postimg.cc/52LWbPyt/work3.jpg" class="main-img" alt="home image">
+                </div>
+                <div class="mobile-graphic">
+                    <img src="https://i.postimg.cc/50DBQdst/mobile-graphic.png" alt="mobile graphic">
+                </div>
+            </div>
+
+            <div class="accordion-content">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>100% Responsive - Fits any device peefectly</h3>
+                    </div>
+                    <div class="accordion-body">
+                        <p>Forget squinting at tiny text or struggling to navigate a website on your phone</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item collapsed">
+                    <div class="accordion-header">
+                        <h3>Join Skill Paths of your preference</h3>
+                    </div>
+                    <div class="accordion-body">
+                        <p>Skill paths are structured curriculum roadmaps that show you exactly where to start and what to learn next</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Suitable for Children</h3>
+                    </div>
+                    <div class="accordion-body">
+                        <p>Coding is just like learning a new language or studying math. Children who learn to code when they're young can set themselves up for a lifetime of opportunities for success</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Earn Professional Certifications</h3>
+                    </div>
+                    <div class="accordion-body">
+                        <p>To earn a professional certification, you need to pass a series of exams. These exams assess proficiency in the concepts you're learning</p>
+                    </div>
+                </div>
+            </div
+        </div>
+    </section>
+
+    <section class="contact section container" id="contact">
+        <div class="contact-container grid">
+            <div class="contact-box">
+                <h2 class="section-title">Reach out us today <br> via any of the given <br> information</h2>
+                <div class="contact-data">
+                    <div class="contact-information">
+                        <h3 class="contact-subtitle">Call us for instant support</h3>
+                        <span class="contact-description">
+                            <i class="ri-phone-line contact-icon"></i>+1 (702) 487 3678
+                        </span>
+                    </div>
+
+                    <div class="contact-information">
+                        <h3 class="contact-subtitle">Write us an email</h3>
+                        <span class="contact-description">
+                            <i class="ri-mail-line contact-icon"></i>user@gmail.com
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <form action="" class="contact-form">
+                <div class="contact-inputs">
+                    <div class="contact-content">
+                        <input type="email" placeholder="" class="contact-input">
+                        <label for="" class="contact-label">Email</label>
+                        <span></span>
+                    </div>
+
+                    <div class="contact-content">
+                        <input type="text" placeholder="" class="contact-input">
+                        <label for="" class="contact-label">Subject</label>
+                        <span></span>
+                    </div>
+
+                    <div class="contact-content contact-area">
+                        <textarea name="message" id="" cols="30" rows="10" class="contact-input"></textarea>
+                        <label for="" class="contact-label">Message</label>
+                        <span></span>
+                    </div>
+                </div>
+                <button class="button button-flex">
+                    Send Message
+                    <i class="ri-arrow-right-up-line button-icon"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer section">
+        <div class="footer-container container grid">
+            <div class="footer-content">
+                <a href="#" class="footer-logo"><img src="" alt=""><img src="https://i.postimg.cc/9M8zkG6w/logo.png" alt="logo image" class="footer-logo-img">Bingles.</a>
+                <h3 class="footer-title">Subscribe to our newsletter <br> to stay update</h3>
+
+                <div class="footer-subscribe">
+                    <input type="email" placeholder="Enter your email" class="footer-input">
+                    <button class="button button-flex footer-button">
+                        Subscribe
+                        <i class="ri-arrow-right-up-line button-icon"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="footer-content">
+                <h3 class="footer-title">Our Address</h3>
+                <ul class="footer-data">
+                    <li class="footer-information">United States of America</li>
+                    <li class="footer-information">815 Porto Mio Way</li>
+                    <li class="footer-information">Las Vegas, NV</li>
+                </ul>
+            </div>
+            <div class="footer-content">
+                <h3 class="footer-title">Contact Us</h3>
+                <ul class="footer-data">
+                    <li class="footer-information">+1 (702) 487 3678</li>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link"><i class="ri-facebook-fill"></i></a>
+                        <a href="#" class="footer-social-link"><i class="ri-instagram-line"></i></a>
+                        <a href="#" class="footer-social-link"><i class="ri-twitter-x-line"></i></a>
+                    </div>
+                </ul>
+            </div>
+            <div class="footer-content">
+                <h3 class="footer-title">Our Services</h3>
+                <ul class="footer-data">
+                    <li class="footer-information-link"><a href="#">Pricing</a></li>
+                    <li class="footer-information-link"><a href="#">Features</a></li>
+                    <li class="footer-information-link"><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="footer-copy">&#169; <span>ULTRA CODE</span>. All rights reserved</p>
     </footer>
 
-    <script type="module" src="scripts/connectWallet.js"></script>
-    <script type="module" src="scripts/liquidityPool.js"></script>
-<script type="module" src="scripts/governance.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#myTab').tab();
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
